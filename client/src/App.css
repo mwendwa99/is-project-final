@@ -50,3 +50,30 @@ html {
   background: var(--lightgreencolor) !important;
   border: none !important;
 }
+.body__section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.map__section {
+  margin: 1rem;
+  padding: 1rem;
+}
+.map__section--frame {
+  padding-top: 1rem;
+}
+.map__section--mapouter {
+  position: relative;
+  text-align: right;
+  height: 340px;
+  width: 870px;
+}
+.map__section--gmap_canvas {
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  overflow: hidden;
+  background: none !important;
+  border-radius: 30px !important;
+  height: 340px;
+  width: 870px;
+}
