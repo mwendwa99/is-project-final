@@ -1,4 +1,4 @@
-# Project Idea Title: Save My Spot
+# Project Idea Title: Save A Spot
 
 ## Summary of the Project Idea
 
