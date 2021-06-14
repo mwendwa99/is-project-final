@@ -40,7 +40,7 @@ export default function SimpleContainer() {
                     <Grid item="xs" style={{ paddingBottom: "1rem" }}>
                         <SearchBar />
                     </Grid>
-                    <Grid item="xs" style={{ paddingTop: "1rem" }}>
+                    <Grid item="xs" style={{ paddingTop: "2rem" }}>
                         <Typography variant='body1' >Parking in the CBD has just been made easier! <br />
                             Save-A-Spot is an application designed for motorists who need a parking space within the CBD.
                         </Typography>

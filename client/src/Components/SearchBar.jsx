@@ -8,7 +8,7 @@ const UseStyle = makeStyles((theme) => ({
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
         borderRadius: " 15px",
         width: "80%",
-        margin: theme.spacing(2)
+        marginTop: theme.spacing(3)
     },
 }));
 const TextFields = () => {
