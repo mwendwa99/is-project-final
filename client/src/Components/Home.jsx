@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Grid, Paper, Typography } from '@material-ui/core';
+import { makeStyles, Grid, Typography } from '@material-ui/core';
 
 import { assets } from '../Assets/Index';
 import SearchBar from './SearchBar';
@@ -40,14 +40,16 @@ export default function SimpleContainer() {
                     <Grid item="xs" style={{ paddingBottom: "1rem" }}>
                         <SearchBar />
                     </Grid>
-                    <Grid item="xs" style={{ paddingTop: "5rem" }}>
+                    <Grid item="xs" style={{ paddingTop: "1rem" }}>
                         <Typography variant='body1' >Parking in the CBD has just been made easier! <br />
                             Save-A-Spot is an application designed for motorists who need a parking space within the CBD.
                         </Typography>
                     </Grid>
                 </Grid>
+                <Grid item="sm" sm={8}>
+                    <Map />
+                </Grid>
             </Grid>
-            <Map />
         </div>
     );
 }

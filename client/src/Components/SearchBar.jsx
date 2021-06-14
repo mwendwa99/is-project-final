@@ -1,32 +1,34 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
-import { roundTextFieldStylesHook } from '@mui-treasury/styles/textField/round';
 
 import { assets } from '../Assets/Index';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Button, InputBase } from '@material-ui/core';
 
 const UseStyle = makeStyles((theme) => ({
     root: {
-        position: "absolute",
-        right: 0
+        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+        borderRadius: " 15px",
+        width: "80%",
+        margin: theme.spacing(2)
     },
 }));
 const TextFields = () => {
 
     const classes = UseStyle();
 
-    const inputBaseStyles = roundTextFieldStylesHook.useInputBase();
     return (
-        <div >
-            <TextField
-                placeholder={'Search...'}
-                margin={'normal'}
-                InputProps={{ classes: inputBaseStyles, disableUnderline: true }}
-            />
-            {/* <div className={classes.root}>
+        <form className={classes.root} >
+            <InputBase autoFocus='true' type="text" placeholder="Search..." />
+            <Button
+                disableFocusRipple="true"
+                variant='text'
+                disableElevation="true"
+                size="small"
+                disableRipple="true"
+                className='search__button'>
                 <img src={assets.search} alt="" />
-            </div> */}
-        </div>
+            </Button>
+
+        </form>
     );
 };
 

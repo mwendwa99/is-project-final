@@ -50,11 +50,21 @@ html {
   background: var(--lightgreencolor) !important;
   border: none !important;
 }
+.MuiInputBase-root {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  width: 85%;
+}
 .body__section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.search__button {
+  width: 16px;
+  height: 16px;
+  background: transparent !important;
 }
 .map__section {
   margin: 1rem;
