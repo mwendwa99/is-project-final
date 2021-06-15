@@ -8,17 +8,21 @@ import Spots from './Spots';
 
 const UseStyle = makeStyles((theme) => ({
     root: {
-        padding: theme.spacing(2),
         display: "flex",
         flexDirection: "row",
-        gap: 10
+        justifyContent: "space-around",
+        padding: theme.spacing(2),
+        alignItems: "center",
+        maxWidth: "98vw",
+
     },
     searchBar: {
         paddingTop: theme.spacing(3),
         paddingBottom: theme.spacing(3),
     },
     text: {
-        padding: theme.spacing(2)
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2)
     }
 }));
 

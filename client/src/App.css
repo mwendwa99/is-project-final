@@ -11,6 +11,8 @@
   box-sizing: border-box;
   font-family: "Work Sans", sans-serif !important;
   color: var(--blueColor) !important;
+  margin: 0;
+  padding: 0;
 }
 html {
   background: var(--greenColor);
