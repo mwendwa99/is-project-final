@@ -1,6 +1,6 @@
 export const assets = {
-    logo: require('./logo.png').default,
-    spots: require('./spots.png').default,
-    map: require('./map.png').default,
-    search: require('./search.png').default,
+    logo: require('./logo.svg').default,
+    spots: require('./spots.svg').default,
+    map: require('./map.svg').default,
+    search: require('./search.svg').default,
 };

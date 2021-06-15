@@ -1,20 +1,25 @@
 import React from 'react';
-import { makeStyles, Grid, Typography } from '@material-ui/core';
+import { makeStyles, Grid, Paper, Typography } from '@material-ui/core';
 
 import { assets } from '../Assets/Index';
 import SearchBar from './SearchBar';
 import Map from './Map';
+import Spots from './Spots';
 
 const UseStyle = makeStyles((theme) => ({
     root: {
         padding: theme.spacing(2),
-    },
-    containers: {
         display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        height: "100%",
+        flexDirection: "row",
+        gap: 10
     },
+    searchBar: {
+        paddingTop: theme.spacing(3),
+        paddingBottom: theme.spacing(3),
+    },
+    text: {
+        padding: theme.spacing(2)
+    }
 }));
 
 export default function SimpleContainer() {
@@ -28,28 +33,36 @@ export default function SimpleContainer() {
                 direction="row"
                 justify="center"
                 alignItems="center"
+                spacing={5}
                 className={classes.root}
             >
-                <Grid sm={5} item="sm" >
-                    <img src={assets.map} alt="map-illustration" />
+                <Grid sm={5} md={5} lg={5} item>
+                    <img height="auto" width="100%" src={assets.map} alt="map-illustration" />
                 </Grid>
-                <Grid sm={5} className={classes.containers} >
-                    <Grid item="xs" >
-                        <Typography variant='h1' >find a space in Nairobi, CBD</Typography>
-                    </Grid>
-                    <Grid item="xs" style={{ paddingBottom: "1rem" }}>
+                <Grid className={classes.text} sm={5} md={5} lg={5}  >
+                    <Typography variant='h1' >find a space in Nairobi, CBD</Typography>
+                    <div className={classes.searchBar} >
                         <SearchBar />
-                    </Grid>
-                    <Grid item="xs" style={{ paddingTop: "2rem" }}>
-                        <Typography variant='body1' >Parking in the CBD has just been made easier! <br />
-                            Save-A-Spot is an application designed for motorists who need a parking space within the CBD.
-                        </Typography>
-                    </Grid>
-                </Grid>
-                <Grid item="sm" sm={8}>
-                    <Map />
+                    </div>
+                    <Typography variant='body1' >Parking in the CBD has just been made easier! <br />
+                        Save-A-Spot is an application designed for motorists who need a parking space within the CBD.
+                    </Typography>
                 </Grid>
             </Grid>
-        </div>
+            <Grid
+                container
+                justify="center"
+                alignItems="center"
+            >
+                <Map />
+            </Grid>
+            <Grid
+                container
+                justify="center"
+                alignItems="center"
+            >
+                <Spots />
+            </Grid>
+        </div >
     );
 }

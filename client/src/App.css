@@ -44,16 +44,24 @@ html {
 }
 .MuiInput-root {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
   border-radius: 15px;
-  width: 456px !important;
+  width: 100% !important;
   height: 30px;
   background: var(--lightgreencolor) !important;
-  border: none !important;
+  /* border: none !important; */
+}
+.MuiInput-root::placeholder {
+  font-weight: 700 !important;
 }
 .MuiInputBase-root {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  width: 85%;
+  width: 100%;
+}
+.MuiInputBase-root::placeholder {
+  font-weight: 700 !important;
+  font-size: xx-large !important;
 }
 .body__section {
   display: flex;
@@ -62,8 +70,8 @@ html {
   align-items: center;
 }
 .search__button {
-  width: 16px;
-  height: 16px;
+  width: 16px !important;
+  height: 16px !important;
   background: transparent !important;
 }
 .map__section {
