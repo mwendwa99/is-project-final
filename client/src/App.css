@@ -8,7 +8,7 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  box-sizing: border-box !important;
   font-family: "Work Sans", sans-serif !important;
   color: var(--blueColor) !important;
   margin: 0;
@@ -42,6 +42,11 @@ html {
 .MuiTypography-body1 {
   color: var(--blueColor);
   font-size: 1.25rem !important;
+  font-weight: bold !important;
+}
+.MuiTypography-body2 {
+  color: var(--blueColor);
+  font-size: 1rem !important;
   font-weight: bold !important;
 }
 .MuiInput-root {
