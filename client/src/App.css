@@ -49,6 +49,18 @@ html {
   font-size: 1rem !important;
   font-weight: bold !important;
 }
+.MuiButton-contained {
+  background-color: var(--greenColor) !important;
+  border-radius: 30px !important;
+  width: 50%;
+  color: var(--blueColor);
+  font-size: 1rem !important;
+  font-weight: bold !important;
+}
+.MuiTypography-caption {
+  color: var(--blueColor);
+  font-size: 1rem !important;
+}
 .MuiInput-root {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(0, 0, 0, 0.2) !important;
@@ -56,7 +68,6 @@ html {
   width: 100% !important;
   height: 30px;
   background: var(--lightgreencolor) !important;
-  /* border: none !important; */
 }
 .MuiInput-root::placeholder {
   font-weight: 700 !important;

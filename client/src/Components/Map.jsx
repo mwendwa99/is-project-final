@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 const Map = () => {
     return (
         <div className='map__section' >
-            <Typography variant="h1" >Spots available...</Typography>
+            <Typography variant="h1" >Spots available</Typography>
             <div className="map__section--frame">
                 <div className="map__section--mapouter">
                     <div className="map__section--gmap_canvas">

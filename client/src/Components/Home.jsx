@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Grid, Paper, Typography } from '@material-ui/core';
+import { makeStyles, Grid, Container, Typography } from '@material-ui/core';
 
 import { assets } from '../Assets/Index';
 import SearchBar from './SearchBar';
@@ -53,20 +53,18 @@ export default function SimpleContainer() {
                     </Typography>
                 </Grid>
             </Grid>
-            <Grid
-                container
-                justify="center"
-                alignItems="center"
-            >
+            <Grid container justify="center" alignItems="center">
                 <Map />
             </Grid>
-            <Grid
-                container
-                justify="center"
-                alignItems="center"
-            >
-                <Spots />
-            </Grid>
+            <Container maxWidth='md'>
+                <Typography variant="h1"> Top spots </Typography>
+                {/* map(()=>) on grid container level to iterate with smaller grid and render spots */}
+                <Grid container>
+                    <Grid item sm={4} > <Spots /></Grid>
+                    <Grid item sm={4} > <Spots /></Grid>
+                    <Grid item sm={4} > <Spots /></Grid>
+                </Grid>
+            </Container>
         </div >
     );
 }

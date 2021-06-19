@@ -4,4 +4,5 @@ export const assets = {
     map: require('./map.svg').default,
     search: require('./search.svg').default,
     parking: require('./parking.jpg').default,
+    money: require('./money.svg').default,
 };
