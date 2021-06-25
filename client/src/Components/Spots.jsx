@@ -17,18 +17,19 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.secondary,
         height: "18rem",
         width: "100%",
-        borderRadius: "30px",
+        borderRadius: "20px",
     },
     itemPaperImage: {
         width: "100%",
         height: "9rem",
-        borderRadius: "30px 30px 0 0",
+        borderRadius: "20px 20px 0 0",
         overflow: "hidden",
     },
     itemPaperDescription: {
         padding: theme.spacing(1),
+        backgroundColor: "#F8F0C6",
         width: "100%",
-        borderRadius: "0 0 30px 30px",
+        borderRadius: "0 0 20px 20px",
     },
 }));
 

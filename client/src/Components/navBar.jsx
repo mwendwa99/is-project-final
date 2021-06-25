@@ -23,7 +23,7 @@ export default function ButtonAppBar() {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar position="fixed">
                 <Toolbar variant='regular'>
                     <Button className='button-image__logo' variant="text">
                         <img src={assets.logo} alt="logo" />

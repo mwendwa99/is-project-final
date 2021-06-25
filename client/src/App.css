@@ -51,7 +51,7 @@ html {
 }
 .MuiButton-contained {
   background-color: var(--greenColor) !important;
-  border-radius: 30px !important;
+  border-radius: 20px !important;
   width: 50%;
   color: var(--blueColor);
   font-size: 1rem !important;
@@ -82,6 +82,7 @@ html {
   font-size: xx-large !important;
 }
 .body__section {
+  padding-top: 4rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -93,23 +94,30 @@ html {
   background: transparent !important;
 }
 .map__section {
-  margin: 1rem;
+  height: 100%;
+  width: 100%;
   padding: 1rem;
 }
-.map__section--frame {
-  padding-top: 1rem;
-}
-.map__section--mapouter {
-  position: relative;
-  text-align: right;
-  height: 340px;
-  width: 870px;
-}
+
 .map__section--gmap_canvas {
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  height: 45px !important;
+  position: relative;
+  padding-bottom: 45%; /* This is the aspect ratio */
+  height: 0;
   overflow: hidden;
-  background: none !important;
-  border-radius: 30px !important;
-  height: 340px;
-  width: 870px;
 }
+.map__section--gmap_canvas iframe {
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 20px !important;
+  padding: 0.5rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+/* .footer__section {
+  background-color: #edf5e0;
+  height: 10rem;
+  width: 100%;
+} */
