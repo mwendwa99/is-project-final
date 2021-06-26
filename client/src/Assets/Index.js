@@ -5,4 +5,8 @@ export const assets = {
     search: require('./search.svg').default,
     parking: require('./parking.jpg').default,
     money: require('./money.svg').default,
+    city: require('./city1.svg').default,
+    cars: require('./cars.svg').default,
+    cat: require('./cat.svg').default,
+    driver: require('./driver.svg').default,
 };

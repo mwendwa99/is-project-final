@@ -8,6 +8,7 @@ import { assets } from '../Assets/Index'
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        marginBottom: "3rem",
         padding: "1rem",
         width: "100%",
         height: "20rem",
@@ -61,8 +62,8 @@ export default function FullWidthGrid() {
                             <Grid item sm={7} >
                                 <Typography variant="caption" >spots-free: 10</Typography>
                             </Grid>
-                            <Grid item sm={12} style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "0.5rem" }}>
-                                <Button variant='contained' size="small"> Save Me! </Button>
+                            <Grid item sm={12} xs={12} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                <div><Button variant='contained' size="small"> Save Me! </Button></div>
                             </Grid>
                         </Grid>
                     </Paper>

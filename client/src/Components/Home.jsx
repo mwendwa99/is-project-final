@@ -5,7 +5,6 @@ import { assets } from '../Assets/Index';
 import SearchBar from './SearchBar';
 import Map from './Map';
 import Spots from './Spots';
-import Footer from './Footer';
 
 const UseStyle = makeStyles((theme) => ({
     root: {
@@ -66,7 +65,6 @@ export default function SimpleContainer() {
                     <Grid item sm={4} > <Spots /></Grid>
                 </Grid>
             </Container>
-            <Footer />
         </div >
     );
 }
