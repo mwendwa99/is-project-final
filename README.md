@@ -16,4 +16,4 @@ _The Parking Lot System solves this problem by_:
 
 3. Reducing the labour cost and manual work that is in the existing system by automating the ticketing process.
 
-![plot](./design.jpg)
+![plot](.client/src/Assets/design.png)
