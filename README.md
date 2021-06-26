@@ -6,4 +6,4 @@ Parking in the CBD is a major economic drawback to the economy of Kenya in terms
 
 Save A Spot presents an opportunity for motorists to conveniently secure a parking space within the Central Business District. With just a few clicks, a user can retrieve information about free spaces available, price of the allocated space and their booking information all through the internet.
 
-![plot](.client/src/Assets/design.png)
+![alt text](.client/src/Assets/design.png)
