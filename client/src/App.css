@@ -14,7 +14,7 @@
   margin: 0;
   padding: 0;
 }
-html {
+body {
   background: var(--greenColor);
 }
 .App {
@@ -89,6 +89,10 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.body__section > img {
+  /* position: absolute; */
+  /* z-index: 1; */
 }
 .search__button {
   width: 16px !important;

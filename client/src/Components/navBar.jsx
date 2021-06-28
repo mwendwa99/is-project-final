@@ -4,7 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 
-import { assets } from '../Assets/Index'
+import Assets from '../Assets/Index.js';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,12 +27,18 @@ export default function ButtonAppBar() {
             <AppBar position="fixed">
                 <Toolbar variant='regular'>
                     <Button className='button-image__logo' variant="text">
-                        <img src={assets.logo} alt="logo" />
+                        <Link style={{ textDecoration: "none" }} to='/'>
+                            <img src={Assets.logo} alt="logo" />
+                        </Link>
                     </Button>
                     <Button className='button-image__spot' >
-                        <img src={assets.spots} alt="car-spot" />
+                        <img src={Assets.spots} alt="car-spot" />
                     </Button>
-                    <Button variant="text" color="primary" size='large'>Login</Button>
+                    <Button variant="text" color="primary" size='large'>
+                        <Link style={{ textDecoration: "none" }} to='/login'>
+                            Login
+                        </Link>
+                    </Button>
                 </Toolbar>
             </AppBar>
         </div>

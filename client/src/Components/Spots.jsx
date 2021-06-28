@@ -3,7 +3,7 @@ import { makeStyles, Container, Typography, Button } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
-import { assets } from '../Assets/Index'
+import Assets from '../Assets/Index'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,7 +45,7 @@ export default function FullWidthGrid() {
             }} >
                 <Grid item sm={12}>
                     <Paper className={classes.itemPaperImage}>
-                        <img height="100%" width="100%" src={assets.parking} alt="parking" />
+                        <img height="100%" width="100%" src={Assets.parking} alt="parking" />
                     </Paper>
                 </Grid>
                 <Grid style={{ height: "100%" }} item sm={12}>
@@ -55,7 +55,7 @@ export default function FullWidthGrid() {
                         <Grid container >
                             <Grid item sm={5}>
                                 <div style={{ display: 'flex', alignItems: "center" }} >
-                                    <img width="20%" height="20%" src={assets.money} alt="money icon" />
+                                    <img width="20%" height="20%" src={Assets.money} alt="money icon" />
                                     <Typography variant="caption" >Kes: 150</Typography>
                                 </div>
                             </Grid>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { assets } from '../Assets/Index';
+import Assets from '../Assets/Index';
 import { makeStyles, InputBase } from '@material-ui/core';
 
 const UseStyle = makeStyles((theme) => ({
@@ -10,6 +10,7 @@ const UseStyle = makeStyles((theme) => ({
         display: "flex",
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
+        background: '#EDF5E0',
     },
     searchIcon: {
         height: "30px",
@@ -24,9 +25,8 @@ const TextFields = () => {
         <form className={classes.root} >
             <InputBase autoFocus='true' type="text" placeholder="Search here..." />
             <div className={classes.searchIcon} >
-                <img height="100%" width="100%" src={assets.search} alt="" />
+                <img height="100%" width="100%" src={Assets.search} alt="" />
             </div>
-
         </form >
     );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Typography, makeStyles } from '@material-ui/core';
 
-import { assets } from '../Assets/Index'
+import Assets from '../Assets/Index'
 
 const UseStyle = makeStyles((theme) => ({
     footerRoot: {
@@ -37,13 +37,13 @@ const Footer = () => {
             </Grid>
             <Grid container style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <Grid item sm={2} xs={4}>
-                    <img width="100%" src={assets.driver} alt="" />
+                    <img width="100%" src={Assets.driver} alt="driver" />
                 </Grid>
                 <Grid item sm={2} xs={4}>
-                    <img width="100%" src={assets.cars} alt="" />
+                    <img width="100%" src={Assets.cars} alt="cars" />
                 </Grid>
                 <Grid item sm={2} xs={4}>
-                    <img width="100%" src={assets.city} alt="" />
+                    <img width="100%" src={Assets.city} alt="city" />
                 </Grid>
                 <Grid item sm={12}>
                     <Typography variant="subtitle">&copy;2021. All Rights reserved by Brian Mwendwa</Typography>
