@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, Container, Typography, Button } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom';
 
 import Assets from '../Assets/Index'
 
@@ -63,12 +64,17 @@ export default function FullWidthGrid() {
                                 <Typography variant="caption" >spots-free: 10</Typography>
                             </Grid>
                             <Grid item sm={12} xs={12} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                <div><Button variant='contained' size="small"> Save Me! </Button></div>
+                                <div><Button variant='contained' size="small">
+                                    <Link to='/details' style={{ textDecoration: "none" }}>
+                                        Save Me!
+                                    </Link>
+                                </Button>
+                                </div>
                             </Grid>
                         </Grid>
                     </Paper>
                 </Grid>
             </Grid>
-        </Container>
+        </Container >
     );
 }
