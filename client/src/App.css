@@ -63,12 +63,12 @@ body {
   font-size: 1rem !important;
 }
 .MuiInput-root {
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(0, 0, 0, 0.2) !important;
-  border-radius: 15px;
-  width: 100% !important;
-  height: 30px;
-  background: var(--lightgreencolor) !important;
+  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+  /* border: 1px solid rgba(0, 0, 0, 0.2) !important; */
+  /* border-radius: 15px; */
+  /* width: 100% !important; */
+  /* height: 30px; */
+  /* background: var(--lightgreencolor) !important; */
 }
 .MuiInput-root::placeholder {
   font-weight: 700 !important;

@@ -1,10 +1,11 @@
 import React from 'react';
-import {
-    Typography, List, ListItem, Grid, Button, Container, Divider, ListItemText, makeStyles
-} from '@material-ui/core';
+import { Typography, Grid, Button, Container, Divider, makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
-import Assets from '../Assets/Index'
+
+import Assets from '../Assets/Index';
+import Date from './Inputs/Date';
+import TextInput from './Inputs/TextInput';
 
 const UseStyle = makeStyles((theme) => ({
     root: {
@@ -27,6 +28,11 @@ const UseStyle = makeStyles((theme) => ({
         borderRadius: '20px',
         padding: theme.spacing(2),
     },
+    inputForm: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-around"
+    },
 }))
 
 const SpotDetails = () => {
@@ -45,15 +51,37 @@ const SpotDetails = () => {
                 </Grid>
                 <Grid container className={classes.gridContainer}>
                     <Grid item sm={6} xs={6} >
-                        <Typography>Name, Location</Typography>
-                        <Typography>Features</Typography>
+                        <Grid container>
+                            <Grid item xs={12}><Typography>Name, Location</Typography></Grid>
+                            <Grid item xs={4} style={{ paddingTop: "0.5rem" }}>
+                                <Typography>Features</Typography>
+                            </Grid>
+                            <Grid item xs={8} style={{ padding: "1rem" }}>
+                                <ul>
+                                    <li><Typography variant="subtitle">examples</Typography></li>
+                                    <li><Typography variant="subtitle">examples</Typography></li>
+                                    <li><Typography variant="subtitle">examples</Typography></li>
+                                    <li><Typography variant="subtitle">examples</Typography></li>
+                                    <li><Typography variant="subtitle">examples</Typography></li>
+                                </ul>
+                            </Grid>
+                        </Grid>
                     </Grid>
                     <Grid item sm={6} xs={6} className={classes.priceCard}>
-                        <Typography>price</Typography>
+                        <div className={classes.inputForm}>
+                            <Typography>price:</Typography>
+                        </div>
                         <Divider />
-                        <Typography>number of spaces</Typography>
+                        <div className={classes.inputForm}>
+                            <Typography>spaces:</Typography>
+                            <TextInput />
+                        </div>
                         <Divider />
-                        <Typography>days</Typography>
+                        <div className={classes.inputForm}>
+                            <Typography>Day:</Typography>
+                            <Date />
+                        </div>
+
                     </Grid>
                     <Grid item xs={12} sm={12}>
                         <div><Button variant='contained' size="small"> proceed to pay </Button></div>
