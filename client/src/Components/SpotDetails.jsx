@@ -26,12 +26,12 @@ const UseStyle = makeStyles((theme) => ({
         border: '1px solid rgba(0, 0, 0, 0.1)',
         boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
         borderRadius: '20px',
-        padding: theme.spacing(2),
+        padding: theme.spacing(3),
     },
     inputForm: {
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-around"
+        justifyContent: "space-between"
     },
 }))
 
@@ -70,6 +70,7 @@ const SpotDetails = () => {
                     <Grid item sm={6} xs={6} className={classes.priceCard}>
                         <div className={classes.inputForm}>
                             <Typography>price:</Typography>
+                            <Typography>300</Typography>
                         </div>
                         <Divider />
                         <div className={classes.inputForm}>
