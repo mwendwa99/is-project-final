@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, Grid, Button, Container, Divider, makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
@@ -38,6 +38,13 @@ const UseStyle = makeStyles((theme) => ({
 const SpotDetails = () => {
 
     const classes = UseStyle();
+    const [price, setPrice] = useState(null);
+
+    useEffect(() => {
+        fetch('/api')
+            .then((res) => res.json())
+            .then((price) => setPrice(price.message))
+    });
 
     return (
         <div className='body__section'>
@@ -70,7 +77,9 @@ const SpotDetails = () => {
                     <Grid item sm={6} xs={6} className={classes.priceCard}>
                         <div className={classes.inputForm}>
                             <Typography>price:</Typography>
-                            <Typography>300</Typography>
+                            <Typography>
+                                {!price ? "loading mf!" : price}
+                            </Typography>
                         </div>
                         <Divider />
                         <div className={classes.inputForm}>

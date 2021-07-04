@@ -1,10 +1,17 @@
 {
   "dependencies": {
     "express": "^4.17.1",
-    "nodemon": "^2.0.7"
+    "mongodb": "^3.6.9",
+    "nodemon": "^2.0.9"
   },
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "description": "backend",
+  "repository": "https://github.com/mwendwa99/is-project-final",
+  "author": "Brian Mwendwa",
+  "scripts": {
+    "start": "node index.js"
+  }
 }
