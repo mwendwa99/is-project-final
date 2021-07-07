@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Typography, Button, Container, makeStyles, InputBase } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
@@ -37,6 +37,13 @@ const UseStyle = makeStyles((theme) => ({
 const Login = () => {
 
     const classes = UseStyle();
+    const [age, setAge] = useState(null);
+
+    useEffect(() => {
+        fetch('/user/single-user')
+            .then((res) => res.json())
+            .then((age) => setAge(age.age))
+    }, [])
 
     return (
         <div className='body__section'>
@@ -57,7 +64,7 @@ const Login = () => {
                         </Button>
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
-                        <Typography variant="h1">LOGIN</Typography>
+                        <Typography variant="h1"> {!age ? 'waiting...' : age} </Typography>
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
                         <form className={classes.inputSection} >

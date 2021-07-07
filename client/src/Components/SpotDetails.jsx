@@ -41,10 +41,10 @@ const SpotDetails = () => {
     const [price, setPrice] = useState(null);
 
     useEffect(() => {
-        fetch('/api')
+        fetch('/user/createuser')
             .then((res) => res.json())
-            .then((price) => setPrice(price.message))
-    });
+            .then((price) => setPrice(price.bro))
+    }, []);
 
     return (
         <div className='body__section'>

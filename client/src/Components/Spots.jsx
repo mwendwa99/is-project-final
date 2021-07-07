@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles, Container, Typography, Button } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -38,6 +38,14 @@ const useStyles = makeStyles((theme) => ({
 export default function FullWidthGrid() {
     const classes = useStyles();
 
+    const [namez, setName] = useState(null);
+
+    useEffect(() => {
+        fetch('/user/single-user')
+            .then((res) => res.json())
+            .then((namez) => setName(namez.name))
+    }, []);
+
     return (
         <Container className={classes.root} >
             <Grid container style={{
@@ -52,7 +60,7 @@ export default function FullWidthGrid() {
                 <Grid style={{ height: "100%" }} item sm={12}>
                     <Paper className={classes.itemPaperDescription}>
                         <Typography variant="body2" > spot available at posta, Nairobi. </Typography>
-                        <Typography variant="caption" > posta, Nairobi. </Typography>
+                        <Typography variant="caption" > posta, {!namez ? 'loading again' : namez} </Typography>
                         <Grid container >
                             <Grid item sm={5}>
                                 <div style={{ display: 'flex', alignItems: "center" }} >

@@ -1,10 +1,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// define schema for our database
+// define user schema for our database
 const userSchema = new Schema({
     name: {
         type: String
+        // required: true
     },
     age: {
         type: Number
@@ -12,8 +13,9 @@ const userSchema = new Schema({
     gender: {
         type: String
     }
-});
+}, { timestamps: true });
 
-// 'users' collection to be stored in compass
-const usermodel = mongoose.model('users', userSchema);
-module.exports = usermodel;
+// pluralize the User and find 'users' collection in the database
+// user model
+const User = mongoose.model('User', userSchema);
+module.exports = User;
