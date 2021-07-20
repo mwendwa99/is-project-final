@@ -1,14 +1,24 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/user');
+const cors = require('cors');
 
 const app = express();
 const PORT = 5000;
 uri = 'mongodb+srv://mwendwa99:lamboghinif2@cluster0.huhb3.mongodb.net/isprojectfinal?retryWrites=true&w=majority';
 
+// connect frontend to backend
+app.use(cors());
 
 // for every userRoutes the path has to start with '/user'
 app.use('/user', userRoutes);
+
+// login token
+app.use('/login', (req, res) => {
+    res.send({
+        token: 123,
+    });
+});
 
 // connect to local db with mongoose
 mongoose.connect(uri, {
