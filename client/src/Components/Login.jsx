@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Typography, Button, Container, makeStyles, InputBase } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 import Assets from '../Assets/Index'
 
@@ -19,13 +18,13 @@ const UseStyle = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: theme.spacing(0.5),
+        padding: theme.spacing(1),
     },
     inputSection: {
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
         borderRadius: " 15px",
         display: "flex",
-        margin: theme.spacing(0.5),
+        margin: theme.spacing(1),
         padding: theme.spacing(0.5),
         background: '#C4C4C4',
     },
@@ -33,34 +32,18 @@ const UseStyle = makeStyles((theme) => ({
         height: "30px",
         width: "30px",
     },
-}));
+}))
 
-// fetch user token from server
-const loginUser = async (credentials) => {
-    fetch('/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    }).then(data => data.json())
-};
-
-const Login = ({ setToken }) => {
+const Login = () => {
 
     const classes = UseStyle();
-    const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
+    const [age, setAge] = useState(null);
 
-    // apply token to session
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const token = await loginUser({
-            username,
-            password
-        });
-        setToken(token);
-    }
+    useEffect(() => {
+        fetch('/user/single-user')
+            .then((res) => res.json())
+            .then((age) => setAge(age.age))
+    }, [])
 
     return (
         <div className='body__section'>
@@ -75,46 +58,38 @@ const Login = ({ setToken }) => {
                 <Grid container className={classes.gridContainer}>
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
                         <Button className='button-image__logo' variant="text">
-                            {/* <Link style={{ textDecoration: "none" }} to='/'> */}
-                            <img height="100%" width="100%" src={Assets.user} alt="user" />
-                            {/* </Link> */}
+                            <Link style={{ textDecoration: "none" }} to='/'>
+                                <img height="100%" width="100%" src={Assets.favicon} alt="favicon" />
+                            </Link>
                         </Button>
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
-                        <Typography variant="h1">LOGIN</Typography>
+                        <Typography variant="h1"> {!age ? 'waiting...' : age} </Typography>
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
-                        <form onSubmit={handleSubmit} className={classes.inputSection} >
-                            <InputBase autoFocus='true' type="text" onChange={e => setUsername(e.target.value)} placeholder="number plate" />
+                        <form className={classes.inputSection} >
+                            <InputBase autoFocus='true' type="text" placeholder="number plate" />
                             <div className={classes.plateIcon} >
                                 <img height="100%" width="100%" src={Assets.plate} alt="number" />
                             </div>
                         </form >
                     </Grid>
-                    {/* <Grid item sm={12} xs={12} className={classes.gridItem} >
-                        <form className={classes.inputSection} >
-                            <InputBase autoFocus='true' type="text" placeholder="ID number" />
-                            <div className={classes.plateIcon} >
-                                <img height="100%" width="100%" src={Assets.id} alt="id number" />
-                            </div>
-                        </form >
-                    </Grid> */}
                     <Grid item sm={12} xs={12} className={classes.gridItem} >
-                        <form onSubmit={handleSubmit} className={classes.inputSection} >
-                            <InputBase autoFocus='true' type="password" onChange={e => setPassword(e.target.value)} placeholder="password" />
+                        <form className={classes.inputSection} >
+                            <InputBase autoFocus='true' type="text" placeholder="password" />
                             <div className={classes.plateIcon} >
                                 <img height="100%" width="100%" src={Assets.lock} alt="password" />
                             </div>
                         </form >
                     </Grid>
                     <Grid item xs={12} sm={12} className={classes.gridItem}>
-                        <div><Button variant='contained' type='submit' size="small"> Login </Button></div>
+                        <div><Button variant='contained' type='submit' size="small"> LOGIN </Button></div>
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem} >
                         <Typography variant="caption" >
-                            {/* <Link to='/login'> */}
-                            Already have an account? login
-                            {/* </Link> */}
+                            <Link to='/register'>
+                                don’t have an account? register
+                            </Link>
                         </Typography>
                     </Grid>
                 </Grid>
@@ -128,10 +103,6 @@ const Login = ({ setToken }) => {
             </Container>
         </div>
     )
-}
-
-Login.propTypes = {
-    setToken: PropTypes.func.isRequired
 }
 
 export default Login

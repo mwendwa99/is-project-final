@@ -69,6 +69,7 @@ body {
   /* width: 100% !important; */
   /* height: 30px; */
   /* background: var(--lightgreencolor) !important; */
+  /* border: solid 1px black; */
 }
 .MuiInput-root::placeholder {
   font-weight: 700 !important;

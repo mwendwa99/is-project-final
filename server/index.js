@@ -11,7 +11,7 @@ uri = 'mongodb+srv://mwendwa99:lamboghinif2@cluster0.huhb3.mongodb.net/isproject
 app.use(cors());
 
 // for every userRoutes the path has to start with '/user'
-app.use('/user', userRoutes);
+// app.use('/user', userRoutes);
 
 // login token
 app.use('/login', (req, res) => {

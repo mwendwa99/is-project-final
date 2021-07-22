@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Typography, Button, Container, makeStyles, InputBase } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
@@ -37,6 +37,17 @@ const UseStyle = makeStyles((theme) => ({
 const Register = () => {
 
     const classes = UseStyle();
+    const [plate, setPlate] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    // sumbit func
+    const submit = (e) => {
+        // e.preventDefault();
+        console.log({
+            plate, email, password
+        })
+    }
 
     return (
         <div className='body__section'>
@@ -59,38 +70,68 @@ const Register = () => {
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
                         <Typography variant="h1">REGISTER</Typography>
                     </Grid>
-                    <Grid item sm={12} xs={12} className={classes.gridItem}>
-                        <form className={classes.inputSection} >
-                            <InputBase autoFocus='true' type="text" placeholder="number plate" />
+                    <form className={classes.inputSection} >
+                        <Grid item sm={12} xs={12} className={classes.gridItem}>
+                            <Grid container>
+                                <Grid item sm={12} xs={12} className={classes.gridItem}>
+                                    <InputBase type="text" placeholder="number plate"
+                                        onChange={e => setPlate(e.target.value)}
+                                    />
+                                    <div className={classes.plateIcon} >
+                                        <img height="100%" width="100%" src={Assets.plate} alt="number" />
+                                    </div>
+                                </Grid>
+                                <Grid item sm={12} xs={12} className={classes.gridItem}>
+                                    <InputBase type="text" placeholder="email"
+                                        onChange={e => setEmail(e.target.value)}
+                                    />
+                                    <div className={classes.plateIcon} >
+                                        <img height="100%" width="100%" src={Assets.id} alt="email" />
+                                    </div>
+                                </Grid>
+                                <Grid item sm={12} xs={12} className={classes.gridItem}>
+                                    <InputBase type="password" placeholder="password"
+                                        onChange={e => setPassword(e.target.value)}
+                                    />
+                                    <div className={classes.plateIcon} >
+                                        <img height="100%" width="100%" src={Assets.lock} alt="password" />
+                                    </div>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </form >
+                    {/* <Grid item sm={12} xs={12} className={classes.gridItem} >
+                        <form onSubmit={submit} className={classes.inputSection} >
+                            <InputBase autoFocus='true' type="text" placeholder="email"
+                                onChange={e => setEmail(e.target.value)}
+                            />
                             <div className={classes.plateIcon} >
-                                <img height="100%" width="100%" src={Assets.plate} alt="number" />
+                                <img height="100%" width="100%" src={Assets.id} alt="email" />
                             </div>
                         </form >
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem} >
-                        <form className={classes.inputSection} >
-                            <InputBase autoFocus='true' type="text" placeholder="ID number" />
-                            <div className={classes.plateIcon} >
-                                <img height="100%" width="100%" src={Assets.id} alt="id number" />
-                            </div>
-                        </form >
-                    </Grid>
-                    <Grid item sm={12} xs={12} className={classes.gridItem} >
-                        <form className={classes.inputSection} >
-                            <InputBase autoFocus='true' type="text" placeholder="password" />
+                        <form onSubmit={submit} className={classes.inputSection} >
+                            <InputBase autoFocus='true' type="password" placeholder="password"
+                                onChange={e => setPassword(e.target.value)}
+                            />
                             <div className={classes.plateIcon} >
                                 <img height="100%" width="100%" src={Assets.lock} alt="password" />
                             </div>
                         </form >
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12} sm={12} className={classes.gridItem}>
-                        <div><Button variant='contained' size="small"> REGISTER </Button></div>
+                        <div>
+                            <Button variant='contained' type='submit' onClick={submit} size="small">
+                                REGISTER
+                            </Button>
+                        </div>
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem} >
                         <Typography variant="caption" >
-                            Already have an account? login
-                            {/* <Link to='/login'>
-                            </Link> */}
+                            <Link to='/login'>
+                                Already have an account? login
+                            </Link>
                         </Typography>
                     </Grid>
                 </Grid>

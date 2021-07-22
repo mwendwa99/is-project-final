@@ -35,9 +35,9 @@ export default function ButtonAppBar() {
                         <img src={Assets.spots} alt="car-spot" />
                     </Button>
                     <Button variant="text" color="primary" size='large'>
-                        Login
-                        {/* <Link style={{ textDecoration: "none" }} to='/login'>
-                        </Link> */}
+                        <Link style={{ textDecoration: "none" }} to='/login'>
+                            Login
+                        </Link>
                     </Button>
                 </Toolbar>
             </AppBar>
