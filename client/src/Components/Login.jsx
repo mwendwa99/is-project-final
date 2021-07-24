@@ -40,7 +40,7 @@ const Login = () => {
     const [age, setAge] = useState(null);
 
     useEffect(() => {
-        fetch('/user/single-user')
+        fetch('http://localhost:5000/user/user-data')
             .then((res) => res.json())
             .then((age) => setAge(age.age))
     }, [])

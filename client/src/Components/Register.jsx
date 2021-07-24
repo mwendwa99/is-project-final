@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Typography, Button, Container, makeStyles, InputBase } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
@@ -40,14 +40,28 @@ const Register = () => {
     const [plate, setPlate] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [age, setAge] = useState([]);
 
     // sumbit func
-    const submit = (e) => {
-        // e.preventDefault();
-        console.log({
-            plate, email, password
-        })
-    }
+    // const submit = async (e) => {
+    //     // e.preventDefault();
+    //     const response = await fetch('http://localhost:5000/user/user-data', {
+    //         method: 'POST',
+    //         header: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({
+    //             plate, email, password
+    //         })
+    //     });
+    //     const content = await response.json();
+    //     console.log(content)
+    // }
+
+    useEffect(() => {
+        fetch('http://localhost:5000/user/user-data')
+            .then((result) => result.json())
+            .then((email) => setEmail(email.name))
+    }, [])
+
 
     return (
         <div className='body__section'>
@@ -68,7 +82,7 @@ const Register = () => {
                         </Button>
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
-                        <Typography variant="h1">REGISTER</Typography>
+                        <Typography variant="h1"> {!email ? 'wait.' : email} </Typography>
                     </Grid>
                     <form className={classes.inputSection} >
                         <Grid item sm={12} xs={12} className={classes.gridItem}>
@@ -122,7 +136,7 @@ const Register = () => {
                     </Grid> */}
                     <Grid item xs={12} sm={12} className={classes.gridItem}>
                         <div>
-                            <Button variant='contained' type='submit' onClick={submit} size="small">
+                            <Button variant='contained' type='submit' size="small">
                                 REGISTER
                             </Button>
                         </div>
