@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Typography, makeStyles } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 import Assets from '../Assets/Index'
 
@@ -14,7 +15,8 @@ const UseStyle = makeStyles((theme) => ({
         justifyContent: "center",
     },
     footerLinks: {
-        cursor: "pointer"
+        cursor: "pointer",
+        textDecoration: "none"
     }
 }))
 
@@ -26,13 +28,19 @@ const Footer = () => {
         <Grid container className={classes.footerRoot}>
             <Grid container md='6' style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Grid item sm={3}>
-                    <Typography variant="body2" className={classes.footerLinks}>Home</Typography>
+                    <Link to='/' className={classes.footerLinks}>
+                        <Typography variant="body2">Home</Typography>
+                    </Link>
                 </Grid>
                 <Grid item sm={3}>
-                    <Typography variant="body2" className={classes.footerLinks}>About</Typography>
+                    <Link to='/about' className={classes.footerLinks}>
+                        <Typography variant="body2">About</Typography>
+                    </Link>
                 </Grid>
                 <Grid item sm={3}>
-                    <Typography variant="body2" className={classes.footerLinks}>Contacts</Typography>
+                    <Link to='/about' className={classes.footerLinks}>
+                        <Typography variant="body2">Contacts</Typography>
+                    </Link>
                 </Grid>
             </Grid>
             <Grid container style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>

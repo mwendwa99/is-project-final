@@ -64,7 +64,7 @@ const Login = () => {
                         </Button>
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
-                        <Typography variant="h1"> {!age ? 'waiting...' : age} </Typography>
+                        <Typography variant="h1"> Login </Typography>
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
                         <form className={classes.inputSection} >

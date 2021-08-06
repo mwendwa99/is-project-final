@@ -5,6 +5,7 @@ import Home from './Components/Home';
 import Login from './Components/Login';
 import Register from './Components/Register';
 import SpotDetails from './Components/SpotDetails'
+import About from './Components/About';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
@@ -19,6 +20,7 @@ function App() {
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
           <Route path='/details' component={SpotDetails} />
+          <Route path='/about' component={About} />
         </Switch>
       </div>
     </Router>

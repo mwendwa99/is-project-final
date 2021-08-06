@@ -82,7 +82,7 @@ const Register = () => {
                         </Button>
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
-                        <Typography variant="h1"> {!email ? 'wait.' : email} </Typography>
+                        <Typography variant="h1"> Register </Typography>
                     </Grid>
                     <form className={classes.inputSection} >
                         <Grid item sm={12} xs={12} className={classes.gridItem}>
