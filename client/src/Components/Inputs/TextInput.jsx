@@ -20,7 +20,13 @@ export default function TextInput() {
 
     return (
         <form className={classes.root} noValidate autoComplete="off">
-            <TextField id="filled-basic" type="number" inputProps={inputProps} size="small" margin="none" />
+            <TextField
+                id="filled-basic"
+                type="number"
+                inputProps={inputProps}
+                InputProps={{ disableUnderline: true }}
+                size="large"
+                margin="none" />
         </form>
     );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-    Container, Grid, Typography, Divider, Paper, makeStyles,
-    Table, TableBody, TableHead, TableRow, TableCell, TableContainer
+    Container, Grid, Typography, makeStyles,
+    TableBody, TableRow, TableCell
 } from '@material-ui/core';
 import { Email, GitHub, LinkedIn } from '@material-ui/icons';
 import Assets from '../Assets/Index'

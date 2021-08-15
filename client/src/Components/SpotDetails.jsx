@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Grid, Button, Container, Divider, makeStyles } from '@material-ui/core';
+import {
+    Typography, Grid, Button, Container, makeStyles,
+    TableBody, TableRow, TableCell, Table, TableContainer
+} from '@material-ui/core';
 // import { Link } from 'react-router-dom';
 
 
@@ -74,8 +77,36 @@ const SpotDetails = () => {
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item sm={6} xs={6} className={classes.priceCard}>
-                        <div className={classes.inputForm}>
+                    <Grid item sm={6} xs={6}
+                        className={classes.priceCard}
+                    >
+
+                        <Table size='small'>
+                            <TableContainer>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell>
+                                            <Typography variant='subtitle2'>price: </Typography>
+                                        </TableCell>
+                                        <TableCell>300</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell component='th' scope='row'>
+                                            <Typography variant='subtitle2'>spaces:</Typography>
+                                        </TableCell>
+                                        <TableCell><TextInput /></TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>
+                                            <Typography variant='subtitle2'>Day:</Typography>
+                                        </TableCell>
+                                        <TableCell><Date /></TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </TableContainer>
+                        </Table>
+
+                        {/* <div className={classes.inputForm}>
                             <Typography>price:</Typography>
                             <Typography>
                                 {!price ? "loading mf!" : price}
@@ -90,7 +121,7 @@ const SpotDetails = () => {
                         <div className={classes.inputForm}>
                             <Typography>Day:</Typography>
                             <Date />
-                        </div>
+                        </div> */}
 
                     </Grid>
                     <Grid item xs={12} sm={12}>
