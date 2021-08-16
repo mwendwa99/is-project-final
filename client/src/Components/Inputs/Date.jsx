@@ -28,7 +28,6 @@ export default function Date() {
                 InputLabelProps={{
                     shrink: true,
                 }}
-                // inputProps={inputProps}
                 InputProps={{ disableUnderline: true }}
             />
         </form>

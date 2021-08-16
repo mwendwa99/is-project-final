@@ -32,7 +32,9 @@ export default function ButtonAppBar() {
                         </Link>
                     </Button>
                     <Button className='button-image__spot' >
-                        <img src={Assets.spots} alt="car-spot" />
+                        <Link style={{ textDecoration: 'none' }} to='/my-spot'>
+                            <img src={Assets.spots} alt="car-spot" />
+                        </Link>
                     </Button>
                     <Button variant="text" color="primary" size='large'>
                         <Link style={{ textDecoration: "none" }} to='/login'>

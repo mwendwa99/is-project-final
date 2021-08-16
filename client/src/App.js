@@ -6,6 +6,7 @@ import Login from './Components/Login';
 import Register from './Components/Register';
 import SpotDetails from './Components/SpotDetails'
 import About from './Components/About';
+import { SaveError } from './Components/User/SavedSpot'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
@@ -21,6 +22,7 @@ function App() {
           <Route path='/register' component={Register} />
           <Route path='/details' component={SpotDetails} />
           <Route path='/about' component={About} />
+          <Route path='/my-spot' component={SaveError} />
         </Switch>
       </div>
     </Router>

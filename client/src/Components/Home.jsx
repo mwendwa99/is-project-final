@@ -4,6 +4,7 @@ import { makeStyles, Grid, Container, Typography } from '@material-ui/core';
 import Assets from '../Assets/Index';
 import SearchBar from './SearchBar';
 import Map from './Map';
+import Gmap from './Gmap';
 import Spots from './Spots';
 import Footer from './Footer';
 
@@ -57,6 +58,7 @@ export default function SimpleContainer() {
                 </Grid>
                 <Grid container justify="center" alignItems="center">
                     <Map />
+                    {/* <Gmap /> */}
                 </Grid>
                 <Container maxWidth='md'>
                     <Typography variant="h1"> Top spots </Typography>
