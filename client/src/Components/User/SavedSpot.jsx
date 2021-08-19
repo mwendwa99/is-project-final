@@ -1,6 +1,6 @@
 import React from 'react';
 import Assets from '../../Assets/Index'
-import { makeStyles, Typography, Button, Grid, Paper, Container } from '@material-ui/core';
+import { makeStyles, Typography, Button, Grid, Paper, Divider, Container } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 
@@ -67,7 +67,39 @@ export const SaveError = () => {
 
 export const SavedSpot = () => {
     return (
-        <div>
+        <div className='body__section'>
+            <Container maxWidth='lg'>
+                <Grid container>
+                    <Grid item={6}>
+                        <Paper>
+                            <div>
+                                <img src="" alt="" />
+                            </div>
+                            <Typography>Name, locaiton</Typography>
+                            <Typography>features:
+                                <ul>
+                                    <li>fsdkfn</li>
+                                </ul>
+                            </Typography>
+                            <Typography>Booked at price</Typography>
+                            <Typography>Book on date</Typography>
+                        </Paper>
+                    </Grid>
+                    <Grid item sm={6}>
+                        <Paper>
+                            <Typography></Typography>
+                            <Typography></Typography>
+                            <Typography></Typography>
+                            <Typography></Typography>
+                            <Divider />
+                            <Typography></Typography>
+                            <Typography></Typography>
+                            <Typography></Typography>
+                            <Button>cancel</Button>
+                        </Paper>
+                    </Grid>
+                </Grid>
+            </Container>
 
         </div>
     )
