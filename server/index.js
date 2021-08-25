@@ -1,16 +1,26 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const userRoutes = require('./routes/user');
+const userRoutes = require('./routes/userRoute');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+
+// mongoose promise
+mongoose.Promise = global.Promise
 
 const app = express();
 const PORT = 5000;
-uri = 'mongodb+srv://mwendwa99:lamboghinif2@cluster0.huhb3.mongodb.net/isprojectfinal?retryWrites=true&w=majority';
+uri = 'mongodb://127.0.0.1:27017/isprojectfinal';
 
 // connect frontend to backend
 app.use(cors());
 
-// for every userRoutes the path has to start with '/user'
+// parse requests of content type application/json
+app.use(bodyParser.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+// app.use(bodyParser.urlencoded({ extended: false }));
+
+// user route middleware
 app.use('/user', userRoutes);
 
 // login token
@@ -25,15 +35,11 @@ mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then((result) => app.listen(PORT, () => {
-    console.log(`connected to mongo and port: ${PORT}`)
+    console.log(`connected to ${uri} via port: ${PORT}`)
 })).catch((err) => console.log(err))
 
-// app.listen(PORT, () => {
-//     console.log(`app running on port: ${PORT}!`)
-// });
 
 // 404 page
 app.use((req, res) => {
-    res.send("yikes");
-    // res.status(404).sendFile('./404.html', {root: __dirname});
+    res.send("page does not exist!");
 });

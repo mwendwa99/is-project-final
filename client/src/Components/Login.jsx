@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Typography, Button, Container, makeStyles, InputBase } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import Assets from '../Assets/Index'
 
@@ -37,13 +38,24 @@ const UseStyle = makeStyles((theme) => ({
 const Login = () => {
 
     const classes = UseStyle();
-    const [age, setAge] = useState(null);
 
+    const [users, setUsers] = useState()
+
+    const getUser = 'http://localhost:5000/user/all-users';
+
+    // get data
     useEffect(() => {
-        fetch('http://localhost:5000/user/user-data')
-            .then((res) => res.json())
-            .then((age) => setAge(age.age))
+        axios.get(`${getUser}`)
+            .then((result) => {
+                const user = result;
+                setUsers(user);
+                console.log(`response: ${result.Object}`)
+            }).catch((err) => {
+                console.log(`error in GET: ${err}`)
+            })
     }, [])
+
+
 
     return (
         <div className='body__section'>

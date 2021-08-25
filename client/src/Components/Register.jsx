@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Grid, Typography, Button, Container, makeStyles, InputBase } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import axios from 'axios'
 
 import Assets from '../Assets/Index'
 
@@ -32,36 +33,48 @@ const UseStyle = makeStyles((theme) => ({
         height: "30px",
         width: "30px",
     },
-}))
+}));
+
+const postUser = 'http://localhost:5000/user/register-user';
 
 const Register = () => {
 
     const classes = UseStyle();
-    const [plate, setPlate] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [age, setAge] = useState([]);
+    const [numberPlate, setNumberPlate] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [userPassword, setUserPassword] = useState('');
 
-    // sumbit func
-    // const submit = async (e) => {
-    //     // e.preventDefault();
-    //     const response = await fetch('http://localhost:5000/user/user-data', {
-    //         method: 'POST',
-    //         header: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({
-    //             plate, email, password
-    //         })
-    //     });
-    //     const content = await response.json();
-    //     console.log(content)
-    // }
+    // default axios configs
+    axios.defaults.headers.common = {
+        "Content-Type": "application/json"
+    }
 
-    useEffect(() => {
-        fetch('http://localhost:5000/user/user-data')
-            .then((result) => result.json())
-            .then((email) => setEmail(email.name))
-    }, [])
-
+    // map values to backend
+    const formSubmit = (e) => {
+        e.preventDefault();
+        const formData = {
+            plate: numberPlate,
+            email: userEmail,
+            password: userPassword
+        }
+        console.log(formData);
+        axios.post(`${postUser}`,
+            formData,
+            {
+                headers: {
+                    // 'Content-Type': 'application/x-www-form-urlencoded'
+                    "Content-Type": "application/json"
+                }
+            }
+        )
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((err) => {
+                console.log(`error in post data ${err}`)
+            })
+        e.target.reset();
+    }
 
     return (
         <div className='body__section'>
@@ -84,63 +97,43 @@ const Register = () => {
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
                         <Typography variant="h1"> Register </Typography>
                     </Grid>
-                    <form className={classes.inputSection} >
-                        <Grid item sm={12} xs={12} className={classes.gridItem}>
-                            <Grid container>
-                                <Grid item sm={12} xs={12} className={classes.gridItem}>
-                                    <InputBase type="text" placeholder="number plate"
-                                        onChange={e => setPlate(e.target.value)}
-                                    />
-                                    <div className={classes.plateIcon} >
-                                        <img height="100%" width="100%" src={Assets.plate} alt="number" />
-                                    </div>
-                                </Grid>
-                                <Grid item sm={12} xs={12} className={classes.gridItem}>
-                                    <InputBase type="text" placeholder="email"
-                                        onChange={e => setEmail(e.target.value)}
-                                    />
-                                    <div className={classes.plateIcon} >
-                                        <img height="100%" width="100%" src={Assets.id} alt="email" />
-                                    </div>
-                                </Grid>
-                                <Grid item sm={12} xs={12} className={classes.gridItem}>
-                                    <InputBase type="password" placeholder="password"
-                                        onChange={e => setPassword(e.target.value)}
-                                    />
-                                    <div className={classes.plateIcon} >
-                                        <img height="100%" width="100%" src={Assets.lock} alt="password" />
-                                    </div>
-                                </Grid>
+                    {/* ******************************************************************** */}
+                    <form id="register-form" onSubmit={formSubmit} >
+                        <Grid container >
+                            <Grid item sm={12} xs={12} className={classes.inputSection}>
+                                <InputBase type="text" placeholder="number plate" value={numberPlate}
+                                    onChange={e => setNumberPlate(e.target.value)}
+                                />
+                                <div className={classes.plateIcon} >
+                                    <img height="100%" width="100%" src={Assets.plate} alt="number" />
+                                </div>
+                            </Grid>
+                            <Grid item sm={12} xs={12} className={classes.inputSection}>
+                                <InputBase type="text" placeholder="email" value={userEmail}
+                                    onChange={e => setUserEmail(e.target.value)}
+                                />
+                                <div className={classes.plateIcon} >
+                                    <img height="100%" width="100%" src={Assets.id} alt="email" />
+                                </div>
+                            </Grid>
+                            <Grid item sm={12} xs={12} className={classes.inputSection}>
+                                <InputBase type="password" placeholder="password" value={userPassword}
+                                    onChange={e => setUserPassword(e.target.value)}
+                                />
+                                <div className={classes.plateIcon} >
+                                    <img height="100%" width="100%" src={Assets.lock} alt="password" />
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} className={classes.gridItem}>
+                                <div>
+                                    <Button variant='contained' type='submit' size="small">
+                                        REGISTER
+                                    </Button>
+                                </div>
                             </Grid>
                         </Grid>
                     </form >
-                    {/* <Grid item sm={12} xs={12} className={classes.gridItem} >
-                        <form onSubmit={submit} className={classes.inputSection} >
-                            <InputBase autoFocus='true' type="text" placeholder="email"
-                                onChange={e => setEmail(e.target.value)}
-                            />
-                            <div className={classes.plateIcon} >
-                                <img height="100%" width="100%" src={Assets.id} alt="email" />
-                            </div>
-                        </form >
-                    </Grid>
-                    <Grid item sm={12} xs={12} className={classes.gridItem} >
-                        <form onSubmit={submit} className={classes.inputSection} >
-                            <InputBase autoFocus='true' type="password" placeholder="password"
-                                onChange={e => setPassword(e.target.value)}
-                            />
-                            <div className={classes.plateIcon} >
-                                <img height="100%" width="100%" src={Assets.lock} alt="password" />
-                            </div>
-                        </form >
-                    </Grid> */}
-                    <Grid item xs={12} sm={12} className={classes.gridItem}>
-                        <div>
-                            <Button variant='contained' type='submit' size="small">
-                                REGISTER
-                            </Button>
-                        </div>
-                    </Grid>
+                    {/* ****************************************************************** */}
                     <Grid item sm={12} xs={12} className={classes.gridItem} >
                         <Typography variant="caption" >
                             <Link to='/login'>

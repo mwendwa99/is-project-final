@@ -19,6 +19,7 @@ const Assets = {
     DogJumpDoodle: require('./DogJumpDoodle.svg').default,
     CoffeeDoddle: require('./CoffeeDoddle.svg').default,
     DancingDoodle: require('./DancingDoodle.svg').default,
-    busyStreet: require('./busyStreets.png').default
+    busyStreet: require('./busyStreets.png').default,
+    savedSpot: require('./savedSpot.svg').default
 };
 export default Assets;

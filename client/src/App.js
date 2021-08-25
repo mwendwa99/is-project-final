@@ -7,6 +7,7 @@ import Register from './Components/Register';
 import SpotDetails from './Components/SpotDetails'
 import About from './Components/About';
 import { SaveError } from './Components/User/SavedSpot'
+import { SavedSpot } from './Components/User/SavedSpot'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 

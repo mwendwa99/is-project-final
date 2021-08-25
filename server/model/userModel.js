@@ -3,14 +3,14 @@ var Schema = mongoose.Schema;
 
 // define user schema for our database
 const userSchema = new Schema({
-    name: {
+    plate: {
         type: String
         // required: true
     },
-    age: {
-        type: Number
+    email: {
+        type: String
     },
-    gender: {
+    password: {
         type: String
     }
 }, { timestamps: true });

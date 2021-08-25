@@ -22,6 +22,7 @@ const UseStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         paddingLeft: theme.spacing(2),
         borderRadius: 10,
+        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
     },
     table: {
         minWidth: 400,
@@ -41,7 +42,8 @@ const About = () => {
                             style={{
                                 verticalAlign: 'top',
                                 borderRadius: 10,
-                                paddingRight: 4
+                                paddingRight: 4,
+                                boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
                             }}
                             width="100%"
                             height="100%"
@@ -52,14 +54,13 @@ const About = () => {
                         <Typography align='justify' gutterBottom='true' variant='subtitle2' paragraph='true' style={{ flex: 1 }}>
                             The motivation behind Save A Spot is to
                             reduce the hassle it takes for motorists to get parking space
-                            within the CBD as well as to reduce effort the NCCG takes to enforce
-                            the rules of parking in the CBD.
+                            within the CBD through web automation.
                         </Typography>
                         <Typography align='justify' gutterBottom='true' variant='subtitle2' paragraph='true' style={{ flex: 1 }}>
-                            Save A Spot presents an opportunity for motorists to conveniently secure
-                            a parking space within the Central Business District.
-                            With just a few clicks, a user can retrieve information about free spaces
-                            available, price of the allocated space and their booking information all through the internet.
+                            Save A Spot presents an opportunity for you to conveniently secure
+                            a parking space within the Central Business District!
+                            With just a few clicks, get details on parking spaces
+                            available, the price and book away!
                         </Typography>
                         <Grid item md={12}>
                             <Typography variant='h4' style={{ flex: 1 }} gutterBottom='true'  > Contact </Typography>
