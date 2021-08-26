@@ -39,6 +39,7 @@ const Login = () => {
 
     const classes = UseStyle();
 
+
     const [plate, setPlate] = useState('');
     const [password, setPassword] = useState('');
 
@@ -50,11 +51,6 @@ const Login = () => {
             return false;
         }
     }
-
-    // get data
-
-
-
 
     return (
         <div className='body__section'>

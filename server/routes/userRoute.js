@@ -18,7 +18,12 @@ router.route('/register-user').post((req, res, next) => {
         }
     })
     console.log(req.body)
-})
+});
+
+// get user login
+// router.get('user-login', (req, res)=>{
+
+// })
 
 router.get('/all-users', (req, res) => {
     User.find()

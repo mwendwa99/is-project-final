@@ -35,7 +35,7 @@ const UseStyle = makeStyles((theme) => ({
     },
 }));
 
-const postUser = 'http://localhost:5000/user/register-user';
+const postUser = 'user/register-user';
 
 const Register = () => {
 
@@ -73,7 +73,26 @@ const Register = () => {
             .catch((err) => {
                 console.log(`error in post data ${err}`)
             })
-        e.target.reset();
+    }
+
+    // form validation
+    const formValidate = () => {
+        if (numberPlate.length > 0 && userPassword.length > 0 && userEmail > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // clear form
+    const clearForm = () => {
+        if (numberPlate && userEmail && userPassword) {
+            setNumberPlate('');
+            setUserEmail('');
+            setUserPassword('');
+            alert(`${numberPlate} has been registered!`);
+        }
+
     }
 
     return (
@@ -126,7 +145,10 @@ const Register = () => {
                             </Grid>
                             <Grid item xs={12} sm={12} className={classes.gridItem}>
                                 <div>
-                                    <Button variant='contained' type='submit' size="small">
+                                    <Button
+                                        disabled={!formValidate()}
+                                        onClick={clearForm()}
+                                        variant='contained' type='submit' size="small">
                                         REGISTER
                                     </Button>
                                 </div>
