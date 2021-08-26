@@ -39,21 +39,20 @@ const Login = () => {
 
     const classes = UseStyle();
 
-    const [users, setUsers] = useState()
+    const [plate, setPlate] = useState('');
+    const [password, setPassword] = useState('');
 
-    const getUser = 'http://localhost:5000/user/all-users';
+    // form validation
+    const formValidate = () => {
+        if (plate.length > 0 && password.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     // get data
-    useEffect(() => {
-        axios.get(`${getUser}`)
-            .then((result) => {
-                const user = result;
-                setUsers(user);
-                console.log(`response: ${result.Object}`)
-            }).catch((err) => {
-                console.log(`error in GET: ${err}`)
-            })
-    }, [])
+
 
 
 
@@ -80,7 +79,8 @@ const Login = () => {
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
                         <form className={classes.inputSection} >
-                            <InputBase autoFocus='true' type="text" placeholder="number plate" />
+                            <InputBase value={plate} onChange={(e) => setPlate(e.target.value)}
+                                autoFocus='true' type="text" placeholder="number plate" />
                             <div className={classes.plateIcon} >
                                 <img height="100%" width="100%" src={Assets.plate} alt="number" />
                             </div>
@@ -88,14 +88,24 @@ const Login = () => {
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem} >
                         <form className={classes.inputSection} >
-                            <InputBase autoFocus='true' type="text" placeholder="password" />
+                            <InputBase value={password} onChange={(e) => setPassword(e.target.value)}
+                                type="password" placeholder="password" />
                             <div className={classes.plateIcon} >
                                 <img height="100%" width="100%" src={Assets.lock} alt="password" />
                             </div>
                         </form >
                     </Grid>
                     <Grid item xs={12} sm={12} className={classes.gridItem}>
-                        <div><Button variant='contained' type='submit' size="small"> LOGIN </Button></div>
+                        <div>
+                            <Button
+                                component='button'
+                                disabled={!formValidate()}
+                                variant='contained'
+                                type='submit'
+                                size="small">
+                                LOGIN
+                            </Button>
+                        </div>
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem} >
                         <Typography variant="caption" >

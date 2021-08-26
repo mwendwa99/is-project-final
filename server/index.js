@@ -26,7 +26,7 @@ app.use('/user', userRoutes);
 // login token
 app.use('/login', (req, res) => {
     res.send({
-        token: 123,
+        token: test123,
     });
 });
 

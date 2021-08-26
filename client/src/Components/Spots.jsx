@@ -60,7 +60,7 @@ export default function FullWidthGrid() {
                 <Grid style={{ height: "100%" }} item sm={12}>
                     <Paper className={classes.itemPaperDescription}>
                         <Typography variant="body2" > spot available at posta, Nairobi. </Typography>
-                        <Typography variant="caption" > posta, {!namez ? 'loading again' : namez} </Typography>
+                        <Typography variant="caption" > posta, ... </Typography>
                         <Grid container >
                             <Grid item sm={5}>
                                 <div style={{ display: 'flex', alignItems: "center" }} >
