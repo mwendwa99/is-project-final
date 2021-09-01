@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { useState, useEffect, createContext } from 'react';
 import AuthService from '../Service/AuthService';
 
