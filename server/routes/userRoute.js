@@ -17,7 +17,7 @@ router.route('/register-user').post((req, res, next) => {
             res.json(data)
         }
     })
-    console.log(req.body)
+    console.log(req.body);
 });
 
 // get user login
