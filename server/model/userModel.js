@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// define user schema for our database
+// define user schema for database
 const userSchema = new Schema({
     plate: {
         type: String

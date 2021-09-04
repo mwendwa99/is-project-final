@@ -79,21 +79,22 @@ const Register = () => {
     const formValidate = () => {
         if (numberPlate.length > 0 && userPassword.length > 0 && userEmail > 0) {
             return true;
-        } else {
+        }
+        else {
             return false;
         }
     }
 
     // clear form
-    const clearForm = () => {
-        if (numberPlate && userEmail && userPassword) {
-            setNumberPlate('');
-            setUserEmail('');
-            setUserPassword('');
-            alert(`${numberPlate} has been registered!`);
-        }
+    // const clearForm = () => {
+    //     alert(`user has been registered!`);
+    //     // if (numberPlate && userEmail && userPassword) {
+    //     //     setNumberPlate('');
+    //     //     setUserEmail('');
+    //     //     setUserPassword('');
+    //     // }
 
-    }
+    // }
 
     return (
         <div className='body__section'>
@@ -147,7 +148,7 @@ const Register = () => {
                                 <div>
                                     <Button
                                         disabled={!formValidate()}
-                                        onClick={clearForm()}
+                                        // onClick={clearForm()}
                                         variant='contained' type='submit' size="small">
                                         REGISTER
                                     </Button>
