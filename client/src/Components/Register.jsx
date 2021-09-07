@@ -85,16 +85,6 @@ const Register = () => {
         }
     }
 
-    // clear form
-    // const clearForm = () => {
-    //     alert(`user has been registered!`);
-    //     // if (numberPlate && userEmail && userPassword) {
-    //     //     setNumberPlate('');
-    //     //     setUserEmail('');
-    //     //     setUserPassword('');
-    //     // }
-
-    // }
 
     return (
         <div className='body__section'>
@@ -129,7 +119,7 @@ const Register = () => {
                                 </div>
                             </Grid>
                             <Grid item sm={12} xs={12} className={classes.inputSection}>
-                                <InputBase type="text" placeholder="email" value={userEmail}
+                                <InputBase type="email" placeholder="email" value={userEmail}
                                     onChange={e => setUserEmail(e.target.value)}
                                 />
                                 <div className={classes.plateIcon} >
@@ -147,7 +137,7 @@ const Register = () => {
                             <Grid item xs={12} sm={12} className={classes.gridItem}>
                                 <div>
                                     <Button
-                                        disabled={!formValidate()}
+                                        // disabled={!formValidate()}
                                         // onClick={clearForm()}
                                         variant='contained' type='submit' size="small">
                                         REGISTER
@@ -159,7 +149,7 @@ const Register = () => {
                     {/* ****************************************************************** */}
                     <Grid item sm={12} xs={12} className={classes.gridItem} >
                         <Typography variant="caption" >
-                            <Link to='/login'>
+                            <Link to='/'>
                                 Already have an account? login
                             </Link>
                         </Typography>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -19,8 +19,24 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar({ logout, user }) {
     const classes = useStyles();
+
+    const [logState, setLogState] = useState('');
+
+    const onLogout = () => {
+        logout(logState);
+        console.log(user.email)
+    }
+    useEffect(() => {
+        if (user.email !== '') {
+            setLogState('Logout')
+        } else {
+            setLogState('Login')
+        }
+    }, [user.email])
+
+
 
     return (
         <div className={classes.root}>
@@ -36,13 +52,11 @@ export default function ButtonAppBar() {
                             <img src={Assets.spots} alt="car-spot" />
                         </Link>
                     </Button>
-                    <Button variant="text" color="primary" size='large'>
-                        <Link style={{ textDecoration: "none" }} to='/login'>
-                            Login
-                        </Link>
+                    <Button variant="text" color="primary" size='large' onClick={onLogout}>
+                        {logState}
                     </Button>
                 </Toolbar>
             </AppBar>
-        </div>
+        </div >
     );
 }

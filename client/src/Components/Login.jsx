@@ -35,21 +35,15 @@ const UseStyle = makeStyles((theme) => ({
     },
 }))
 
-const Login = () => {
+const Login = ({ login, error }) => {
 
     const classes = UseStyle();
 
+    const [details, setDetails] = useState({ plate: "", email: "", password: "" });
 
-    const [plate, setPlate] = useState('');
-    const [password, setPassword] = useState('');
-
-    // form validation
-    const formValidate = () => {
-        if (plate.length > 0 && password.length > 0) {
-            return true;
-        } else {
-            return false;
-        }
+    const formSubmit = e => {
+        e.preventDefault();
+        login(details);
     }
 
     return (
@@ -66,47 +60,60 @@ const Login = () => {
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
                         <Button className='button-image__logo' variant="text">
                             <Link style={{ textDecoration: "none" }} to='/'>
-                                <img height="100%" width="100%" src={Assets.favicon} alt="favicon" />
+                                <img height="100%" width="100%" src={Assets.favicon} alt="logo" />
                             </Link>
                         </Button>
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
                         <Typography variant="h1"> Login </Typography>
                     </Grid>
-                    <Grid item sm={12} xs={12} className={classes.gridItem}>
-                        <form className={classes.inputSection} >
-                            <InputBase value={plate} onChange={(e) => setPlate(e.target.value)}
-                                autoFocus='true' type="text" placeholder="number plate" />
-                            <div className={classes.plateIcon} >
-                                <img height="100%" width="100%" src={Assets.plate} alt="number" />
-                            </div>
-                        </form >
-                    </Grid>
-                    <Grid item sm={12} xs={12} className={classes.gridItem} >
-                        <form className={classes.inputSection} >
-                            <InputBase value={password} onChange={(e) => setPassword(e.target.value)}
-                                type="password" placeholder="password" />
-                            <div className={classes.plateIcon} >
-                                <img height="100%" width="100%" src={Assets.lock} alt="password" />
-                            </div>
-                        </form >
-                    </Grid>
-                    <Grid item xs={12} sm={12} className={classes.gridItem}>
-                        <div>
-                            <Button
-                                component='button'
-                                disabled={!formValidate()}
-                                variant='contained'
-                                type='submit'
-                                size="small">
-                                LOGIN
-                            </Button>
-                        </div>
-                    </Grid>
+                    {/* ******************************************************************** */}
+                    <form id="register-form" onSubmit={formSubmit} >
+                        <Grid container >
+                            <Grid item sm={12} xs={12} className={classes.inputSection}>
+                                <InputBase type="email" placeholder="email"
+                                    value={details.email}
+                                    onChange={e => setDetails({ ...details, email: e.target.value })}
+                                />
+                                <div className={classes.plateIcon} >
+                                    <img height="100%" width="100%" src={Assets.id} alt="email" />
+                                </div>
+                            </Grid>
+                            <Grid item sm={12} xs={12} className={classes.inputSection}>
+                                <InputBase type="text" placeholder="number plate"
+                                    value={details.plate}
+                                    onChange={e => setDetails({ ...details, plate: e.target.value })}
+                                />
+                                <div className={classes.plateIcon} >
+                                    <img height="100%" width="100%" src={Assets.plate} alt="number plate" />
+                                </div>
+                            </Grid>
+                            <Grid item sm={12} xs={12} className={classes.inputSection}>
+                                <InputBase type="password" placeholder="password"
+                                    value={details.password}
+                                    onChange={e => setDetails({ ...details, password: e.target.value })}
+                                />
+                                <div className={classes.plateIcon} >
+                                    <img height="100%" width="100%" src={Assets.lock} alt="password" />
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} sm={12} className={classes.gridItem}>
+                                <div>
+                                    <Button
+                                        // disabled={!formValidate()}
+                                        // onClick={clearForm()}
+                                        variant='contained' type='submit' size="small">
+                                        LOGIN
+                                    </Button>
+                                </div>
+                            </Grid>
+                        </Grid>
+                    </form >
+                    {/* ****************************************************************** */}
                     <Grid item sm={12} xs={12} className={classes.gridItem} >
                         <Typography variant="caption" >
                             <Link to='/register'>
-                                don’t have an account? register
+                                Don't have an account? Register
                             </Link>
                         </Typography>
                     </Grid>
