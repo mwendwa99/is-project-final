@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles, Container, Typography, Button } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { useAuth } from '../Context/AuthContext';
 
 import Assets from '../Assets/Index'
 
@@ -38,15 +39,9 @@ const useStyles = makeStyles((theme) => ({
 export default function FullWidthGrid() {
     const classes = useStyles();
 
-    const [namez, setName] = useState(null);
+    const { loggedIn } = useAuth()
 
-    useEffect(() => {
-        fetch('/user/single-user')
-            .then((res) => res.json())
-            .then((namez) => setName(namez.name))
-    }, []);
-
-    return (
+    return loggedIn ? (
         <Container className={classes.root} >
             <Grid container style={{
                 display: "flex",
@@ -84,5 +79,5 @@ export default function FullWidthGrid() {
                 </Grid>
             </Grid>
         </Container >
-    );
+    ) : (<Redirect to='/' />)
 }

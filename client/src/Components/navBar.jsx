@@ -6,8 +6,9 @@ import Button from '@material-ui/core/Button';
 
 import Assets from '../Assets/Index.js';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../Context/AuthContext.js';
 
-const useStyles = makeStyles((theme) => ({
+const UseStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
@@ -19,24 +20,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ButtonAppBar({ logout, user }) {
-    const classes = useStyles();
-
-    const [logState, setLogState] = useState('');
-
-    const onLogout = () => {
-        logout(logState);
-        console.log(user.email)
-    }
-    useEffect(() => {
-        if (user.email !== '') {
-            setLogState('Logout')
-        } else {
-            setLogState('Login')
-        }
-    }, [user.email])
-
-
+export default function ButtonAppBar() {
+    const classes = UseStyles();
+    const { logout } = useAuth();
 
     return (
         <div className={classes.root}>
@@ -52,8 +38,8 @@ export default function ButtonAppBar({ logout, user }) {
                             <img src={Assets.spots} alt="car-spot" />
                         </Link>
                     </Button>
-                    <Button variant="text" color="primary" size='large' onClick={onLogout}>
-                        {logState}
+                    <Button variant="text" color="primary" size='large' onClick={logout} >
+                        Logout
                     </Button>
                 </Toolbar>
             </AppBar>
