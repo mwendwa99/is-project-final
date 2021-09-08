@@ -18,19 +18,13 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // user route middleware
-app.use('/user', userRoutes);
-
-// login token
-app.use('/login', (req, res) => {
-    res.send({
-        token: test123,
-    });
-});
+app.use('/api', userRoutes);
 
 // connect to local db with mongoose
 mongoose.connect(uri, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
 }).then((result) => app.listen(PORT, () => {
     console.log(`connected to ${uri} via port: ${PORT}`)
 })).catch((err) => console.log(err))

@@ -62,6 +62,10 @@ body {
   font-size: 1rem !important;
   font-weight: bold !important;
 }
+.MuiTypography-overline {
+  color: red !important;
+  font-weight: 600 !important;
+}
 .MuiTypography-caption {
   color: var(--blueColor);
   font-size: 1rem !important;

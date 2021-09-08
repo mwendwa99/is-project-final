@@ -20,6 +20,7 @@ const UseStyle = makeStyles((theme) => ({
         justifyContent: "center",
         alignItems: "center",
         padding: theme.spacing(0.5),
+        flexDirection: 'column',
     },
     inputSection: {
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
@@ -35,7 +36,7 @@ const UseStyle = makeStyles((theme) => ({
     },
 }));
 
-const postUser = 'user/register-user';
+const postUser = 'api/register-user';
 
 const Register = () => {
 
@@ -43,48 +44,21 @@ const Register = () => {
     const [numberPlate, setNumberPlate] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
-
-    // default axios configs
-    axios.defaults.headers.common = {
-        "Content-Type": "application/json"
-    }
+    const [error, setError] = useState('')
 
     // map values to backend
     const formSubmit = (e) => {
         e.preventDefault();
-        const formData = {
+        const data = {
             plate: numberPlate,
             email: userEmail,
             password: userPassword
         }
-        console.log(formData);
-        axios.post(`${postUser}`,
-            formData,
-            {
-                headers: {
-                    // 'Content-Type': 'application/x-www-form-urlencoded'
-                    "Content-Type": "application/json"
-                }
-            }
-        )
-            .then((res) => {
-                console.log(res.data)
-            })
-            .catch((err) => {
-                console.log(`error in post data ${err}`)
-            })
+        console.log(data);
+        axios.post(`${postUser}`, data)
+            .then(res => console.log(res))
+            .catch(error => alert(error))
     }
-
-    // form validation
-    const formValidate = () => {
-        if (numberPlate.length > 0 && userPassword.length > 0 && userEmail > 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
 
     return (
         <div className='body__section'>
@@ -106,6 +80,10 @@ const Register = () => {
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
                         <Typography variant="h1"> Register </Typography>
+                        {/* {(error === 'true')
+                            ? <Typography variant='overline' align='center'>fill every input!</Typography>
+                            : ""
+                        } */}
                     </Grid>
                     {/* ******************************************************************** */}
                     <form id="register-form" onSubmit={formSubmit} >

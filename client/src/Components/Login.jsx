@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Typography, Button, Container, makeStyles, InputBase } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Grid, Typography, TextField, Button, Container, makeStyles, InputBase } from '@material-ui/core';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../Context/AuthContext';
 
 import Assets from '../Assets/Index'
 
@@ -20,6 +21,7 @@ const UseStyle = makeStyles((theme) => ({
         justifyContent: "center",
         alignItems: "center",
         padding: theme.spacing(1),
+        flexDirection: 'column'
     },
     inputSection: {
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
@@ -33,18 +35,28 @@ const UseStyle = makeStyles((theme) => ({
         height: "30px",
         width: "30px",
     },
-}))
+}));
 
-const Login = ({ login, error }) => {
+const loginUser = 'api/login-user';
+
+const Login = () => {
 
     const classes = UseStyle();
-
-    const [details, setDetails] = useState({ plate: "", email: "", password: "" });
+    const { login } = useAuth()
+    const [details, setDetails] = useState({ email: "", password: "" });
 
     const formSubmit = e => {
         e.preventDefault();
-        login(details);
-    }
+        const data = {
+            email: details.email,
+            password: details.password
+        }
+        axios.post(`${loginUser}`, data)
+            .then(res => {
+                localStorage.setItem('token', res.data.token);
+            })
+            .catch(err => alert(err))
+    };
 
     return (
         <div className='body__section'>
@@ -66,6 +78,9 @@ const Login = ({ login, error }) => {
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
                         <Typography variant="h1"> Login </Typography>
+                        {/* {(error !== '') ? (
+                            <Typography align='center' variant='overline'>{error}</Typography>
+                        ) : ("")} */}
                     </Grid>
                     {/* ******************************************************************** */}
                     <form id="register-form" onSubmit={formSubmit} >
@@ -73,25 +88,25 @@ const Login = ({ login, error }) => {
                             <Grid item sm={12} xs={12} className={classes.inputSection}>
                                 <InputBase type="email" placeholder="email"
                                     value={details.email}
-                                    onChange={e => setDetails({ ...details, email: e.target.value })}
+                                    onChange={e => setDetails({ email: e.target.value })}
                                 />
                                 <div className={classes.plateIcon} >
                                     <img height="100%" width="100%" src={Assets.id} alt="email" />
                                 </div>
                             </Grid>
-                            <Grid item sm={12} xs={12} className={classes.inputSection}>
+                            {/* <Grid item sm={12} xs={12} className={classes.inputSection}>
                                 <InputBase type="text" placeholder="number plate"
                                     value={details.plate}
-                                    onChange={e => setDetails({ ...details, plate: e.target.value })}
+                                    onChange={e => setDetails({plate: e.target.value })}
                                 />
                                 <div className={classes.plateIcon} >
                                     <img height="100%" width="100%" src={Assets.plate} alt="number plate" />
                                 </div>
-                            </Grid>
+                            </Grid> */}
                             <Grid item sm={12} xs={12} className={classes.inputSection}>
                                 <InputBase type="password" placeholder="password"
                                     value={details.password}
-                                    onChange={e => setDetails({ ...details, password: e.target.value })}
+                                    onChange={e => setDetails({ password: e.target.value })}
                                 />
                                 <div className={classes.plateIcon} >
                                     <img height="100%" width="100%" src={Assets.lock} alt="password" />
@@ -100,8 +115,7 @@ const Login = ({ login, error }) => {
                             <Grid item xs={12} sm={12} className={classes.gridItem}>
                                 <div>
                                     <Button
-                                        // disabled={!formValidate()}
-                                        // onClick={clearForm()}
+                                        // onClick={login}
                                         variant='contained' type='submit' size="small">
                                         LOGIN
                                     </Button>

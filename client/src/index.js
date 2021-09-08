@@ -2,13 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-// import AuthProvider from './Context/AuthContext';
+import { AuthProvider } from './Context/AuthContext';
 import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
+
+// default axios configs
+axios.defaults.headers.common = {
+  "Content-Type": "application/json"
+}
 
 ReactDOM.render(
-  // <AuthProvider>
-  <App />,
-  // </AuthProvider>,
+  <AuthProvider>
+    <App />
+  </AuthProvider>,
   document.getElementById('root')
 );
 
