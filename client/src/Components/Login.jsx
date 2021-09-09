@@ -63,7 +63,6 @@ const Login = (props) => {
             localStorage.setItem('user', result.user);
             localStorage.setItem('plate', result.plate);
             login();
-            alert(`welcome ${result.user}`)
         } else {
             alert(result.error)
         }

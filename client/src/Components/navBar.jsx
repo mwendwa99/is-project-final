@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
-
 import Assets from '../Assets/Index.js';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../Context/AuthContext.js';
 
 const UseStyles = makeStyles((theme) => ({
@@ -22,7 +21,13 @@ const UseStyles = makeStyles((theme) => ({
 
 export default function ButtonAppBar() {
     const classes = UseStyles();
+    let history = useHistory();
     const { logout } = useAuth();
+
+    const handleLogout = () => {
+        logout();
+        history.push('/')
+    }
 
     return (
         <div className={classes.root}>
@@ -38,7 +43,7 @@ export default function ButtonAppBar() {
                             <img src={Assets.spots} alt="car-spot" />
                         </Link>
                     </Button>
-                    <Button variant="text" color="primary" size='large' onClick={logout} >
+                    <Button variant="text" color="primary" size='large' onClick={handleLogout} >
                         Logout
                     </Button>
                 </Toolbar>

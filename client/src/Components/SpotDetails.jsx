@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
     Typography, Grid, Button, Container, makeStyles,
     TableBody, TableRow, TableCell, Table, TableContainer
 } from '@material-ui/core';
-// import { Link } from 'react-router-dom';
 
 
 import Assets from '../Assets/Index';
@@ -41,13 +40,6 @@ const UseStyle = makeStyles((theme) => ({
 const SpotDetails = () => {
 
     const classes = UseStyle();
-    const [price, setPrice] = useState(null);
-
-    useEffect(() => {
-        fetch('/user/createuser')
-            .then((res) => res.json())
-            .then((price) => setPrice(price.bro))
-    }, []);
 
     return (
         <div className='body__section'>
@@ -105,24 +97,6 @@ const SpotDetails = () => {
                                 </TableBody>
                             </TableContainer>
                         </Table>
-
-                        {/* <div className={classes.inputForm}>
-                            <Typography>price:</Typography>
-                            <Typography>
-                                {!price ? "loading mf!" : price}
-                            </Typography>
-                        </div>
-                        <Divider />
-                        <div className={classes.inputForm}>
-                            <Typography>spaces:</Typography>
-                            <TextInput />
-                        </div>
-                        <Divider />
-                        <div className={classes.inputForm}>
-                            <Typography>Day:</Typography>
-                            <Date />
-                        </div> */}
-
                     </Grid>
                     <Grid item xs={12} sm={12}>
                         <div><Button variant='contained' size="small"> proceed to pay </Button></div>

@@ -4,7 +4,6 @@ import { makeStyles, Grid, Container, Typography } from '@material-ui/core';
 import Assets from '../Assets/Index';
 import SearchBar from './SearchBar';
 import Map from './Map';
-import Gmap from './Gmap';
 import Spots from './Spots';
 import Footer from './Footer';
 

@@ -44,7 +44,6 @@ const Register = () => {
     const [numberPlate, setNumberPlate] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
-    const [error, setError] = useState('')
 
     // map values to backend
     const formSubmit = (e) => {
