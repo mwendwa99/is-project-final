@@ -1,6 +1,7 @@
+/* eslint-disable import/no-anonymous-default-export */
 export default {
     login: user => {
-        return fetch('user/login-user', {
+        return fetch('api/login-user', {
             method: 'post',
             body: JSON.stringify(user),
             headers: {
@@ -10,7 +11,7 @@ export default {
             .then((data => data));
     },
     register: user => {
-        return fetch('user/register-user', {
+        return fetch('api/register-user', {
             method: 'post',
             body: JSON.stringify(user),
             headers: {

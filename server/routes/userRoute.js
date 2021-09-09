@@ -39,12 +39,13 @@ router.post('/login-user', async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email }).lean()
     if (!user) {
+        console.log('error in get user!');
         return res.json({ status: 'error', error: 'invalid email/password' })
     }
     if (await bcrypt.compare(password, user.password)) {
         // email & password combination is successful
         const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET)
-        return res.json({ status: 'ok', data: token })
+        return res.json({ status: 'ok', data: token, user: email })
     }
     res.json({ status: 'error', error: 'invalid email/password' })
 

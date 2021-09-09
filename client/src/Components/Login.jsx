@@ -3,6 +3,7 @@ import { Grid, Typography, TextField, Button, Container, makeStyles, InputBase }
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../Context/AuthContext';
+// import { loginUser, useAuthDispatch } from '../ContextProvider';
 
 import Assets from '../Assets/Index'
 
@@ -37,27 +38,37 @@ const UseStyle = makeStyles((theme) => ({
     },
 }));
 
-const loginUser = 'api/login-user';
+const Login = (props) => {
 
-const Login = () => {
-
+    const { login } = useAuth();
     const classes = UseStyle();
-    const { login } = useAuth()
-    const [details, setDetails] = useState({ email: "", password: "" });
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    const formSubmit = e => {
+    const formSubmit = async (e) => {
         e.preventDefault();
-        const data = {
-            email: details.email,
-            password: details.password
-        }
-        axios.post(`${loginUser}`, data)
-            .then(res => {
-                localStorage.setItem('token', res.data.token);
+        const result = await fetch('/api/login-user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email,
+                password
             })
-            .catch(err => alert(err))
-    };
+        }).then((res) => res.json())
 
+        if (result.status === 'ok') {
+            // everythign went fine
+            console.log('Got the token: ', result.data)
+            localStorage.setItem('token', result.data);
+            localStorage.setItem('user', result.user);
+            login();
+            alert(`welcome ${result.user}`)
+        } else {
+            alert(result.error)
+        }
+    };
     return (
         <div className='body__section'>
             <Container maxWidth='xs' className={classes.root}>
@@ -87,8 +98,8 @@ const Login = () => {
                         <Grid container >
                             <Grid item sm={12} xs={12} className={classes.inputSection}>
                                 <InputBase type="email" placeholder="email"
-                                    value={details.email}
-                                    onChange={e => setDetails({ email: e.target.value })}
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
                                 />
                                 <div className={classes.plateIcon} >
                                     <img height="100%" width="100%" src={Assets.id} alt="email" />
@@ -105,8 +116,8 @@ const Login = () => {
                             </Grid> */}
                             <Grid item sm={12} xs={12} className={classes.inputSection}>
                                 <InputBase type="password" placeholder="password"
-                                    value={details.password}
-                                    onChange={e => setDetails({ password: e.target.value })}
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
                                 />
                                 <div className={classes.plateIcon} >
                                     <img height="100%" width="100%" src={Assets.lock} alt="password" />
@@ -115,7 +126,7 @@ const Login = () => {
                             <Grid item xs={12} sm={12} className={classes.gridItem}>
                                 <div>
                                     <Button
-                                        // onClick={login}
+                                        // onClick={handleLogin}
                                         variant='contained' type='submit' size="small">
                                         LOGIN
                                     </Button>
