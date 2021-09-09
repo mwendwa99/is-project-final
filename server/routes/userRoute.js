@@ -8,7 +8,7 @@ const JWT_SECRET = 'thisisbetweenme&you'
 // post new user details
 router.post('/register-user', async (req, res, next) => {
 
-    const { email, password: plainTextPassword } = req.body;
+    const { email, password: plainTextPassword, plate } = req.body;
     if (!email || typeof email !== 'string') {
         return res.json({ status: 'error', error: 'Invalid email' })
     }
@@ -22,7 +22,8 @@ router.post('/register-user', async (req, res, next) => {
     try {
         const response = await User.create({
             email,
-            password
+            password,
+            plate
         })
         // console.log('user email created successfully', response)
     } catch (error) {
@@ -48,7 +49,9 @@ router.post('/login-user', async (req, res) => {
     }
     res.json({ status: 'error', error: 'invalid email/password' })
 
-})
+});
+// on login fetch user data
+// reflect with get request from frontend
 
 
 module.exports = router;

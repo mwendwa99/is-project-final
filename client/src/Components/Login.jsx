@@ -61,6 +61,7 @@ const Login = (props) => {
             console.log('Got the token: ', result.data)
             localStorage.setItem('token', result.data);
             localStorage.setItem('user', result.user);
+            localStorage.setItem('plate', result.plate);
             login();
             alert(`welcome ${result.user}`)
         } else {
