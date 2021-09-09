@@ -1,5 +1,4 @@
-import React, { useEffect, createContext, useContext, useState } from "react";
-import axios from "axios";
+import React, { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext({});
 
@@ -19,12 +18,6 @@ const AuthProvider = ({ children }) => {
         loggedIn,
         logout
     };
-
-    useEffect(() => {
-        // pull data from local storage
-        // axios.get('/user')
-    }, [])
-
     return (
         <AuthContext.Provider value={authContextValue}>
             {children}

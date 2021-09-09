@@ -1,7 +1,6 @@
 const express = require('express');
 const User = require('../model/userModel');
 const router = express.Router();
-const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -51,28 +50,5 @@ router.post('/login-user', async (req, res) => {
 
 })
 
-router.get('/user', async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email }).lean()
-    if (!user) {
-        return res.json({ status: 'error', error: 'invalid email/password' })
-    }
-    // if (await bcrypt.compare(password, user.password)) {
-    //     // email & password combination is successful
-    //     const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET)
-    //     return res.json({ status: 'ok', data: token })
-    // }
-    // res.json({ status: 'error', error: 'invalid email/password' })
-
-});
-// single user
-router.get('/user-login', (req, res) => {
-    User.findById(req.body._id)
-        .then((result) => {
-            res.send(result)
-        }).catch((err) => {
-            console.log(`error in getting single user: ${err}`)
-        });
-})
 
 module.exports = router;

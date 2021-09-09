@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Grid, Typography, TextField, Button, Container, makeStyles, InputBase } from '@material-ui/core';
-import { Link, useHistory } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { Grid, Typography, Button, Container, makeStyles, InputBase } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../Context/AuthContext';
-// import { loginUser, useAuthDispatch } from '../ContextProvider';
 
 import Assets from '../Assets/Index'
 
