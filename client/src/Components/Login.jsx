@@ -58,11 +58,9 @@ const Login = (props) => {
 
         if (result.status === 'ok') {
             // everythign went fine
-            console.log('Got the token: ', result.data)
-            localStorage.setItem('token', result.data);
-            localStorage.setItem('user', result.user);
-            localStorage.setItem('plate', result.plate);
+            localStorage.setItem(result.user, result.data);
             login();
+            alert(`welcome ${result.user}!`);
         } else {
             alert(result.error)
         }
@@ -87,9 +85,6 @@ const Login = (props) => {
                     </Grid>
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
                         <Typography variant="h1"> Login </Typography>
-                        {/* {(error !== '') ? (
-                            <Typography align='center' variant='overline'>{error}</Typography>
-                        ) : ("")} */}
                     </Grid>
                     {/* ******************************************************************** */}
                     <form id="register-form" onSubmit={formSubmit} >
@@ -103,15 +98,6 @@ const Login = (props) => {
                                     <img height="100%" width="100%" src={Assets.id} alt="email" />
                                 </div>
                             </Grid>
-                            {/* <Grid item sm={12} xs={12} className={classes.inputSection}>
-                                <InputBase type="text" placeholder="number plate"
-                                    value={details.plate}
-                                    onChange={e => setDetails({plate: e.target.value })}
-                                />
-                                <div className={classes.plateIcon} >
-                                    <img height="100%" width="100%" src={Assets.plate} alt="number plate" />
-                                </div>
-                            </Grid> */}
                             <Grid item sm={12} xs={12} className={classes.inputSection}>
                                 <InputBase type="password" placeholder="password"
                                     value={password}
@@ -124,7 +110,6 @@ const Login = (props) => {
                             <Grid item xs={12} sm={12} className={classes.gridItem}>
                                 <div>
                                     <Button
-                                        // onClick={handleLogin}
                                         variant='contained' type='submit' size="small">
                                         LOGIN
                                     </Button>

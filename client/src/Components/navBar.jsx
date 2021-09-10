@@ -26,6 +26,7 @@ export default function ButtonAppBar() {
 
     const handleLogout = () => {
         logout();
+        localStorage.clear();
         history.push('/')
     }
 
