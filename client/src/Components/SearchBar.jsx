@@ -39,7 +39,7 @@ const TextFields = () => {
         params: { text: `${place}`, language: 'en' },
         headers: {
             'x-rapidapi-host': 'trueway-places.p.rapidapi.com',
-            'x-rapidapi-key': '03610e1218msh38071e8eaab07a7p1f07cbjsn05a5d3cf5616'
+            'x-rapidapi-key': PROCESS.ENV.REACT_RAPID_API_KEY
         }
     };
 
