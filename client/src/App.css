@@ -21,6 +21,17 @@ a {
 body {
   background: var(--greenColor);
 }
+button,
+input[type="submit"],
+input[type="reset"] {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
 .App {
   height: 100vh;
   width: 100%;
@@ -104,9 +115,12 @@ body {
   min-height: 30rem !important;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   border-radius: 20px !important;
+  background-color: white;
+  margin-top: 1rem;
 }
 .map__section--gmap_canvas {
-  height: 45px !important;
+  height: 100% !important;
+  width: 100% !important;
   border-radius: 20px !important;
   position: relative;
   padding-bottom: 45%; /* This is the aspect ratio */

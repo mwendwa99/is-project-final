@@ -60,7 +60,6 @@ const Login = (props) => {
             // everythign went fine
             localStorage.setItem(result.user, result.data);
             login();
-            alert(`welcome ${result.user}!`);
         } else {
             alert(result.error)
         }

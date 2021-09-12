@@ -42,23 +42,23 @@ export default function SimpleContainer() {
                     spacing={5}
                     className={classes.root}
                 >
-                    <Grid sm={5} md={5} lg={5} item>
+                    <Grid sm={6} md={6} lg={6} item>
                         <img height="auto" width="100%" src={Assets.map} alt="map-illustration" />
                     </Grid>
-                    <Grid className={classes.text} sm={5} md={5} lg={5}  >
+                    <Grid className={classes.text} sm={6} md={6} lg={6}  >
                         <Typography variant='h1' >find a space in Nairobi, CBD</Typography>
                         <div className={classes.searchBar} >
                             <SearchBar />
                         </div>
-                        <Typography variant='body1' >Parking in the CBD has just been made easier! <br />
+                        {/* <Typography variant='body1' >Parking in the CBD has just been made easier! <br />
                             Save-A-Spot is an application designed for motorists who need a parking space within the CBD.
-                        </Typography>
+                        </Typography> */}
                     </Grid>
                 </Grid>
-                <Grid container justify="center" alignItems="center">
+                {/* <Grid container justify="center" alignItems="center">
                     <Map />
-                    {/* <Gmap /> */}
-                </Grid>
+                    <Gmap/>
+                </Grid> */}
                 <Container maxWidth='md'>
                     <Typography variant="h1"> Top spots </Typography>
                     {/* map(()=>) on grid container level to iterate with smaller grid and render spots */}
