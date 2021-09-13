@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Assets from '../Assets/Index';
 import { makeStyles, InputBase } from '@material-ui/core';
-import Map from './Map';
+import CustomMap from './Map';
 
 const UseStyle = makeStyles((theme) => ({
     wrapper: {
@@ -30,7 +30,7 @@ const TextFields = () => {
     // const locationDetails = useContext(locationContext)
     const classes = UseStyle();
     const [place, setPlace] = useState('');
-    const [location, setLocation] = useState('');
+    const [location, setLocation] = useState({ id: '', locationName: '', locationData: '' });
 
 
     const options = {
@@ -39,7 +39,7 @@ const TextFields = () => {
         params: { text: `${place}`, language: 'en' },
         headers: {
             'x-rapidapi-host': 'trueway-places.p.rapidapi.com',
-            'x-rapidapi-key': PROCESS.ENV.REACT_RAPID_API_KEY
+            'x-rapidapi-key': process.env.REACT_APP_RAPID_KEY
         }
     };
 
@@ -47,16 +47,24 @@ const TextFields = () => {
         e.preventDefault();
         // get spot
         axios.request(options).then(function (response) {
-            console.log(response.data.results[0]);
-            setLocation(response.data.results[0]);
+            console.log(response.data.results);
+            setLocation(
+                {
+                    locationId: response.data.results[0].id,
+                    locationName: response.data.results[0].address,
+                    locationData: response.data.results[0].location,
+                }
+            );
         }).catch(function (error) {
             console.error(error);
             alert(error);
         });
     }
 
+    // console.log(`this is location from api:${location}`)
     return (
         <div className={classes.wrapper}>
+            <h1>{location ? location.locationName : 'waiting'} </h1>
             <form onSubmit={formSubmit} className={classes.root} >
                 <InputBase
                     autoFocus='true'
@@ -71,7 +79,9 @@ const TextFields = () => {
                     </button>
                 </div>
             </form >
-            {/* <Map location={location} /> */}
+            <div >
+                <CustomMap locationDataObject={location} />
+            </div>
         </div>
     );
 };
