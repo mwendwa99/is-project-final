@@ -3,7 +3,6 @@ import { makeStyles, Grid, Container, Typography } from '@material-ui/core';
 
 import Assets from '../Assets/Index';
 import SearchBar from './SearchBar';
-import Map from './Map';
 import Spots from './Spots';
 import Footer from './Footer';
 
@@ -18,7 +17,6 @@ const UseStyle = makeStyles((theme) => ({
 
     },
     searchBar: {
-        paddingTop: theme.spacing(3),
         paddingBottom: theme.spacing(3),
     },
     text: {
@@ -50,18 +48,10 @@ export default function SimpleContainer() {
                         <div className={classes.searchBar} >
                             <SearchBar />
                         </div>
-                        {/* <Typography variant='body1' >Parking in the CBD has just been made easier! <br />
-                            Save-A-Spot is an application designed for motorists who need a parking space within the CBD.
-                        </Typography> */}
                     </Grid>
                 </Grid>
-                {/* <Grid container justify="center" alignItems="center">
-                    <Map />
-                    <Gmap/>
-                </Grid> */}
                 <Container maxWidth='md'>
                     <Typography variant="h1"> Top spots </Typography>
-                    {/* map(()=>) on grid container level to iterate with smaller grid and render spots */}
                     <Grid container>
                         <Grid item sm={4} > <Spots /></Grid>
                         <Grid item sm={4} > <Spots /></Grid>

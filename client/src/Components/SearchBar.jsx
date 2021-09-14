@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Assets from '../Assets/Index';
-import { makeStyles, InputBase } from '@material-ui/core';
+import { makeStyles, InputBase, Typography } from '@material-ui/core';
 import CustomMap from './Map';
 
 const UseStyle = makeStyles((theme) => ({
@@ -64,7 +64,7 @@ const TextFields = () => {
     // console.log(`this is location from api:${location}`)
     return (
         <div className={classes.wrapper}>
-            <h1>{location ? location.locationName : 'waiting'} </h1>
+            <Typography variant='subtitle2'>{location ? location.locationName : 'waiting'} </Typography>
             <form onSubmit={formSubmit} className={classes.root} >
                 <InputBase
                     autoFocus='true'
