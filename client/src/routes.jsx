@@ -6,6 +6,7 @@ import SpotDetails from './Components/SpotDetails'
 import About from './Components/About';
 import { SaveError } from './Components/User/SavedSpot'
 import { SavedSpot } from './Components/User/SavedSpot'
+import Admin from './Admin/Admin';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -36,6 +37,7 @@ export const UnAuthenticatedRoutes = () => {
             )}
           />
           <Route path='/register' component={Register} />
+          <Route path='/admin' component={Admin} />
         </div>
       </Switch>
     </Router>

@@ -123,6 +123,9 @@ const Login = (props) => {
                                 Don't have an account? Register
                             </Link>
                         </Typography>
+                        <Link to='/admin'>
+                            go to admin
+                        </Link>
                     </Grid>
                 </Grid>
                 <div>
