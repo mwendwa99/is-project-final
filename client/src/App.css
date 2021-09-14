@@ -73,6 +73,11 @@ input[type="reset"] {
   font-size: 1rem !important;
   font-weight: bold !important;
 }
+.MuiButton-textSecondary {
+  color: white !important;
+  font-size: 1rem !important;
+  font-weight: bold !important;
+}
 .MuiTypography-overline {
   color: red !important;
   font-weight: 600 !important;
@@ -95,6 +100,14 @@ input[type="reset"] {
 .MuiInputBase-root::placeholder {
   font-weight: 700 !important;
   font-size: xx-large !important;
+}
+.MuiDivider-root {
+  background-color: #58dd90 !important;
+}
+.MuiListItemText-root {
+  color: white !important;
+  font-size: 1rem;
+  font-weight: 500;
 }
 .body__section {
   margin-top: 4rem;

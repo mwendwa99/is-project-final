@@ -1,22 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
+import {
+    Drawer, AppBar, Toolbar, List, CssBaseline, Button,
+    Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText
+} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+import Assets from '../Assets/Index';
 
 const drawerWidth = 240;
 
@@ -52,12 +46,15 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerOpen: {
         width: drawerWidth,
+        backgroundColor: '#13497C',
+        color: 'white',
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
     drawerClose: {
+        backgroundColor: '#13497C',
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -80,12 +77,18 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         padding: theme.spacing(3),
     },
+    Btn: {
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
+        // backgroundColor: 'red',
+    }
 }));
 
 export default function MiniDrawer() {
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -117,7 +120,7 @@ export default function MiniDrawer() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap>
-                        Mini variant drawer
+                        Register Your Parking Space
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -136,27 +139,48 @@ export default function MiniDrawer() {
             >
                 <div className={classes.toolbar}>
                     <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                        {
+                            theme.direction === 'rtl' ? <ChevronRightIcon style={{ fill: 'white' }} />
+                                : <ChevronLeftIcon style={{ fill: 'white' }} />
+                        }
                     </IconButton>
                 </div>
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    {['Organization'].map((text, index) => (
                         <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemIcon>{
+                                index % 2 === 0 ? <img src={Assets.org} alt="org" />
+                                    : <img src={Assets.space} alt="space" />
+                            }</ListItemIcon>
+                            <ListItemText disableTypography='true' primary={text} />
                         </ListItem>
                     ))}
                 </List>
-                <Divider />
+                <Divider style={{ fill: 'white' }} />
                 <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                    {['Parking Spaces'].map((text, index) => (
                         <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemIcon>{
+                                index % 2 === 0 ? <img src={Assets.space} alt="space" />
+                                    : <img src={Assets.org} alt="org" />
+                            }</ListItemIcon>
+                            <ListItemText disableTypography='true' primary={text} />
                         </ListItem>
                     ))}
                 </List>
+                <div className={classes.Btn} >
+                    <List>
+                        {['Logout'].map((text, index) => (
+                            <ListItem button key={text}>
+                                <ListItemIcon>{
+                                    <ExitToAppIcon style={{ fill: 'white' }} />
+                                }</ListItemIcon>
+                                <ListItemText disableTypography='true' primary={text} />
+                            </ListItem>
+                        ))}
+                    </List>
+                </div>
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
