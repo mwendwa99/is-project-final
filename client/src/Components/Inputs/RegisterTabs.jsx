@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Grid, Tabs, Tab, Typography, Box, InputBase, Button } from '@material-ui/core';
-import { Business, RecentActors, Lock } from '@material-ui/icons';
+import { Business, Mail, Lock, Commute } from '@material-ui/icons';
 import Assets from '../../Assets/Index'
 
 function TabPanel(props) {
@@ -95,7 +95,7 @@ export default function SimpleTabs() {
                             // onChange={e => setNumberPlate(e.target.value)}
                             />
                             <div className={classes.plateIcon} >
-                                <img height="100%" width="100%" src={Assets.plate} alt="number" />
+                                <Commute fontSize='medium' />
                             </div>
                         </Grid>
                         <Grid item sm={12} xs={12} className={classes.inputSection}>
@@ -104,7 +104,7 @@ export default function SimpleTabs() {
                             // onChange={e => setUserEmail(e.target.value)}
                             />
                             <div className={classes.plateIcon} >
-                                <img height="100%" width="100%" src={Assets.id} alt="email" />
+                                <Mail fontSize='medium' />
                             </div>
                         </Grid>
                         <Grid item sm={12} xs={12} className={classes.inputSection}>
@@ -113,7 +113,7 @@ export default function SimpleTabs() {
                             // onChange={e => setUserPassword(e.target.value)}
                             />
                             <div className={classes.plateIcon} >
-                                <img height="100%" width="100%" src={Assets.lock} alt="password" />
+                                <Lock fontSize='medium' />
                             </div>
                         </Grid>
                         <Grid item xs={12} sm={12} className={classes.gridItem}>
@@ -147,7 +147,7 @@ export default function SimpleTabs() {
                             // onChange={e => setUserEmail(e.target.value)}
                             />
                             <div className={classes.plateIcon} >
-                                <RecentActors fontSize='medium' />
+                                <Mail fontSize='medium' />
                             </div>
                         </Grid>
                         <Grid item sm={12} xs={12} className={classes.inputSection}>
