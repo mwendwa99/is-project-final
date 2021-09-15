@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Grid, Typography, Button, Container, makeStyles, InputBase } from '@material-ui/core';
+import { Grid, Typography, Button, Container, makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../Context/AuthContext';
-
-import Assets from '../Assets/Index'
+import Assets from '../Assets/Index';
+import FullWidthTabs from './Inputs/Tabs';
 
 const UseStyle = makeStyles((theme) => ({
     root: {
@@ -11,7 +11,6 @@ const UseStyle = makeStyles((theme) => ({
     },
     gridContainer: {
         background: '#EDF5E0',
-        padding: theme.spacing(1),
         boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
         borderRadius: '20px',
     },
@@ -19,20 +18,7 @@ const UseStyle = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: theme.spacing(1),
         flexDirection: 'column'
-    },
-    inputSection: {
-        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-        borderRadius: " 15px",
-        display: "flex",
-        margin: theme.spacing(1),
-        padding: theme.spacing(0.5),
-        background: '#C4C4C4',
-    },
-    plateIcon: {
-        height: "30px",
-        width: "30px",
     },
 }));
 
@@ -85,37 +71,12 @@ const Login = (props) => {
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
                         <Typography variant="h1"> Login </Typography>
                     </Grid>
+                    <Grid item sm={12} xs={12} className={classes.gridItem}>
+                        <FullWidthTabs />
+                    </Grid>
+
                     {/* ******************************************************************** */}
-                    <form id="register-form" onSubmit={formSubmit} >
-                        <Grid container >
-                            <Grid item sm={12} xs={12} className={classes.inputSection}>
-                                <InputBase type="email" placeholder="email"
-                                    value={email}
-                                    onChange={e => setEmail(e.target.value)}
-                                />
-                                <div className={classes.plateIcon} >
-                                    <img height="100%" width="100%" src={Assets.id} alt="email" />
-                                </div>
-                            </Grid>
-                            <Grid item sm={12} xs={12} className={classes.inputSection}>
-                                <InputBase type="password" placeholder="password"
-                                    value={password}
-                                    onChange={e => setPassword(e.target.value)}
-                                />
-                                <div className={classes.plateIcon} >
-                                    <img height="100%" width="100%" src={Assets.lock} alt="password" />
-                                </div>
-                            </Grid>
-                            <Grid item xs={12} sm={12} className={classes.gridItem}>
-                                <div>
-                                    <Button
-                                        variant='contained' type='submit' size="small">
-                                        LOGIN
-                                    </Button>
-                                </div>
-                            </Grid>
-                        </Grid>
-                    </form >
+
                     {/* ****************************************************************** */}
                     <Grid item sm={12} xs={12} className={classes.gridItem} >
                         <Typography variant="caption" >
