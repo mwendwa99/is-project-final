@@ -7,6 +7,8 @@ import {
 } from '@material-ui/core';
 import { Menu, ChevronLeft, ChevronRight, ExitToApp, Edit, Delete } from '@material-ui/icons';
 import Assets from '../Assets/Index';
+import { useAuth } from '../Context/AuthContext';
+import { useHistory } from 'react-router';
 
 const drawerWidth = 240;
 
@@ -121,22 +123,64 @@ const OrgPage = () => {
 
 const ParkingPage = ({ Component }) => {
     const classes = useStyles();
+
+    // axios fetch from db
+    const initialList = [
+        {
+            id: '12345',
+            location: 'Kimathi St',
+            features: 'cctv',
+            description: 'suitable for sedans',
+            price: 350,
+            spaces: 5
+        },
+        {
+            id: '42112',
+            location: 'Accra Rd',
+            features: 'wifi',
+            description: 'suitable for all cars',
+            price: 450,
+            spaces: 5
+        },
+        {
+            id: '43452',
+            location: 'Moi Ave',
+            features: 'watchman',
+            description: 'suitable for public vehilces',
+            price: 350,
+            spaces: 5
+        }
+    ];
+    const [itemList, setItemList] = useState(initialList)
+
+    // axios delete from db
+    const deleteItem = (id) => {
+        const newList = itemList.filter((itemList) => itemList.id !== id);
+        setItemList(newList);
+    }
     return (
         <Grid container>
-            <Grid className={classes.itemDetails} item sm={8}>
-                <List>
-                    {['location1', 'location2', 'location3', 'location4', 'location5'].map((text, index) => (
-                        <ListItem key={text}>
-                            <ListItemText disableTypography='true' primary={text} />
+            <Grid className={classes.itemDetails} item sm={12}>
+                {itemList.map((item) => (
+                    <List key={item.id}>
+                        <ListItem >
+                            <ListItemText disableTypography='true'>
+                                {item.location}
+                                <ul>
+                                    <li> description {item.description} </li>
+                                    <li> price:  {item.price} </li>
+                                    <li> spaces available: {item.spaces} </li>
+                                </ul>
+                            </ListItemText>
                             <ListItemIcon >{
                                 <IconButton><Edit onClick={() => Component('Organization')} button style={{ fill: 'white' }} /></IconButton>
                             }</ListItemIcon>
                             <ListItemIcon>{
-                                <IconButton><Delete button style={{ fill: 'white' }} /></IconButton>
+                                <IconButton onClick={() => deleteItem(item.id)} ><Delete button style={{ fill: 'white' }} /></IconButton>
                             }</ListItemIcon>
                         </ListItem>
-                    ))}
-                </List>
+                    </List>
+                ))}
             </Grid>
         </Grid>
     )
@@ -147,6 +191,14 @@ export default function MiniDrawer() {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
     const [component, setComponent] = useState('Organization');
+    const { logout } = useAuth();
+    const history = useHistory();
+
+    const handleLogout = () => {
+        localStorage.clear();
+        logout();
+        history.push('/');
+    }
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -228,7 +280,7 @@ export default function MiniDrawer() {
                     ))}
                 </List>
                 <div className={classes.Btn} >
-                    <List>
+                    <List onClick={handleLogout} >
                         {['Logout'].map((text, index) => (
                             <ListItem button key={text}>
                                 <ListItemIcon>{
