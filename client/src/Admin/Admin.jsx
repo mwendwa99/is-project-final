@@ -2,14 +2,10 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {
-    Drawer, AppBar, Toolbar, List, CssBaseline, Button,
+    Drawer, AppBar, Toolbar, List, CssBaseline, TextField, Grid, Button,
     Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
+import { Menu, ChevronLeft, ChevronRight, ExitToApp, Edit, Delete } from '@material-ui/icons';
 import Assets from '../Assets/Index';
 
 const drawerWidth = 240;
@@ -46,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerOpen: {
         width: drawerWidth,
-        backgroundColor: '#13497C',
+        backgroundColor: '#05396B',
         color: 'white',
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
@@ -54,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
         }),
     },
     drawerClose: {
-        backgroundColor: '#13497C',
+        backgroundColor: '#05396B',
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -81,14 +77,76 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         bottom: 0,
         width: '100%',
-        // backgroundColor: 'red',
+    },
+    textField: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+        borderRadius: '5px',
+        backgroundColor: '#EDF5E0',
+        '& > *': {
+            margin: theme.spacing(1),
+            width: '25ch',
+        },
+    },
+    itemDetails: {
+        // backgroundColor: '#EDF5E0',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'stretch',
+        alignItems: 'stretch',
+        backgroundColor: '#05396B',
+        borderRadius: '5px'
     }
 }));
+
+const OrgPage = () => {
+    const classes = useStyles();
+    return (
+        <form className={classes.textField} noValidate autoComplete="off">
+            <Grid item sm={8}>
+                <Typography align='center' variant='h6'>Enter details about your organization</Typography>
+                <TextField id="outlined-primary" label="Name of organization" variant="outlined" color="primary" fullWidth />
+                <TextField id="outlined-primary" label="location" variant="outlined" color="primary" />
+                <TextField id="outlined-primary" label="parking spaces available" type="number" variant="outlined" color="primary" />
+                <TextField id="outlined-primary" label="features" variant="outlined" color="primary" />
+                <TextField id="outlined-primary" label="description" variant="outlined" color="primary" />
+                <TextField id="outlined-primary" label="price per lot" type='number' variant="outlined" color="primary" />
+                <Button type='submit' variant='contained' >Submit</Button>
+            </Grid>
+        </form>
+    )
+};
+
+const ParkingPage = ({ Component }) => {
+    const classes = useStyles();
+    return (
+        <Grid container>
+            <Grid className={classes.itemDetails} item sm={8}>
+                <List>
+                    {['location1', 'location2', 'location3', 'location4', 'location5'].map((text, index) => (
+                        <ListItem key={text}>
+                            <ListItemText disableTypography='true' primary={text} />
+                            <ListItemIcon >{
+                                <IconButton><Edit onClick={() => Component('Organization')} button style={{ fill: 'white' }} /></IconButton>
+                            }</ListItemIcon>
+                            <ListItemIcon>{
+                                <IconButton><Delete button style={{ fill: 'white' }} /></IconButton>
+                            }</ListItemIcon>
+                        </ListItem>
+                    ))}
+                </List>
+            </Grid>
+        </Grid>
+    )
+}
 
 export default function MiniDrawer() {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = useState(false);
+    const [component, setComponent] = useState('Organization');
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -117,7 +175,7 @@ export default function MiniDrawer() {
                             [classes.hide]: open,
                         })}
                     >
-                        <MenuIcon />
+                        <Menu />
                     </IconButton>
                     <Typography variant="h6" noWrap>
                         Register Your Parking Space
@@ -140,15 +198,15 @@ export default function MiniDrawer() {
                 <div className={classes.toolbar}>
                     <IconButton onClick={handleDrawerClose}>
                         {
-                            theme.direction === 'rtl' ? <ChevronRightIcon style={{ fill: 'white' }} />
-                                : <ChevronLeftIcon style={{ fill: 'white' }} />
+                            theme.direction === 'rtl' ? <ChevronRight style={{ fill: 'white' }} />
+                                : <ChevronLeft style={{ fill: 'white' }} />
                         }
                     </IconButton>
                 </div>
                 <Divider />
                 <List>
                     {['Organization'].map((text, index) => (
-                        <ListItem button key={text}>
+                        <ListItem button key={text} onClick={() => setComponent('Organization')} >
                             <ListItemIcon>{
                                 index % 2 === 0 ? <img src={Assets.org} alt="org" />
                                     : <img src={Assets.space} alt="space" />
@@ -157,10 +215,10 @@ export default function MiniDrawer() {
                         </ListItem>
                     ))}
                 </List>
-                <Divider style={{ fill: 'white' }} />
+                <Divider />
                 <List>
                     {['Parking Spaces'].map((text, index) => (
-                        <ListItem button key={text}>
+                        <ListItem button key={text} onClick={() => setComponent('Your Parking Spaces')}>
                             <ListItemIcon>{
                                 index % 2 === 0 ? <img src={Assets.space} alt="space" />
                                     : <img src={Assets.org} alt="org" />
@@ -174,7 +232,7 @@ export default function MiniDrawer() {
                         {['Logout'].map((text, index) => (
                             <ListItem button key={text}>
                                 <ListItemIcon>{
-                                    <ExitToAppIcon style={{ fill: 'white' }} />
+                                    <ExitToApp style={{ fill: 'white' }} />
                                 }</ListItemIcon>
                                 <ListItemText disableTypography='true' primary={text} />
                             </ListItem>
@@ -184,29 +242,12 @@ export default function MiniDrawer() {
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
-                <Typography paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                    ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-                    facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-                    gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-                    donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                    adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-                    Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-                    imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-                    arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-                    donec massa sapien faucibus et molestie ac.
-                </Typography>
-                <Typography paragraph>
-                    Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-                    facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-                    tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-                    consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-                    vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
-                    hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
-                    tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
-                    nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
-                    accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-                </Typography>
+                <Typography style={{ paddingBottom: '1rem' }} variant='h1'>{component}</Typography>
+                {
+                    component === 'Organization' ? <OrgPage />
+                        : component === 'Your Parking Spaces' ? <ParkingPage Component={setComponent} />
+                            : <h1>Loading ...</h1>
+                }
             </main>
         </div>
     );
