@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoute');
+const orgRoutes = require('./routes/orgRoute');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
@@ -19,6 +20,9 @@ app.use(bodyParser.json());
 
 // user route middleware
 app.use('/api', userRoutes);
+
+// organization route
+app.use(orgRoutes);
 
 // connect to local db with mongoose
 mongoose.connect(uri, {

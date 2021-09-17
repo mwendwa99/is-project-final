@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {
@@ -9,6 +9,7 @@ import { Menu, ChevronLeft, ChevronRight, ExitToApp, Edit, Delete } from '@mater
 import Assets from '../Assets/Index';
 import { useAuth } from '../Context/AuthContext';
 import { useHistory } from 'react-router';
+import axios from 'axios';
 
 const drawerWidth = 240;
 
@@ -103,71 +104,72 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const OrgPage = () => {
+const OrgPage = ({ Component }) => {
     const classes = useStyles();
+    const [name, setName] = useState('');
+    const [location, setLocation] = useState('');
+    const [spaces, setSpaces] = useState(0);
+    const [features, setFeatures] = useState('');
+    const [description, setDescription] = useState('');
+    const [price, setPrice] = useState(0);
+
+    // post details to db
+    const formSubmit = (e) => {
+        e.preventDefault();
+        const data = { name: name, location: location, spaces: spaces, features: features, description: description, price: price }
+        axios.post('register-org', data)
+            .then()
+            .catch(error => alert(error))
+    }
     return (
-        <form className={classes.textField} noValidate autoComplete="off">
+        <form onSubmit={formSubmit} className={classes.textField} noValidate autoComplete="off">
             <Grid item sm={8}>
                 <Typography align='center' variant='h6'>Enter details about your organization</Typography>
-                <TextField id="outlined-primary" label="Name of organization" variant="outlined" color="primary" fullWidth />
-                <TextField id="outlined-primary" label="location" variant="outlined" color="primary" />
-                <TextField id="outlined-primary" label="parking spaces available" type="number" variant="outlined" color="primary" />
-                <TextField id="outlined-primary" label="features" variant="outlined" color="primary" />
-                <TextField id="outlined-primary" label="description" variant="outlined" color="primary" />
-                <TextField id="outlined-primary" label="price per lot" type='number' variant="outlined" color="primary" />
-                <Button type='submit' variant='contained' >Submit</Button>
+                <TextField id="outlined-primary" value={name} label="Name of organization" variant="outlined" color="primary" fullWidth
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <TextField id="outlined-primary" value={location} label="location" variant="outlined" color="primary"
+                    onChange={(e) => setLocation(e.target.value)}
+                />
+                <TextField id="outlined-primary" value={spaces} label="parking spaces available" type="number" variant="outlined" color="primary"
+                    onChange={(e) => setSpaces(e.target.value)}
+                />
+                <TextField id="outlined-primary" value={features} label="features" variant="outlined" color="primary"
+                    onChange={(e) => setFeatures(e.target.value)}
+                />
+                <TextField id="outlined-primary" value={description} label="description" variant="outlined" color="primary"
+                    onChange={(e) => setDescription(e.target.value)}
+                />
+                <TextField id="outlined-primary" value={price} label="price per lot" type='number' variant="outlined" color="primary"
+                    onChange={(e) => setPrice(e.target.value)}
+                />
+                <Button type='submit' variant='contained' onClick={() => Component('Your Parking Spaces')} >Submit</Button>
             </Grid>
         </form>
     )
 };
 
-const ParkingPage = ({ Component }) => {
+const ParkingPage = ({ Component, data }) => {
     const classes = useStyles();
-
-    // axios fetch from db
-    const initialList = [
-        {
-            id: '12345',
-            location: 'Kimathi St',
-            features: 'cctv',
-            description: 'suitable for sedans',
-            price: 350,
-            spaces: 5
-        },
-        {
-            id: '42112',
-            location: 'Accra Rd',
-            features: 'wifi',
-            description: 'suitable for all cars',
-            price: 450,
-            spaces: 5
-        },
-        {
-            id: '43452',
-            location: 'Moi Ave',
-            features: 'watchman',
-            description: 'suitable for public vehilces',
-            price: 350,
-            spaces: 5
-        }
-    ];
-    const [itemList, setItemList] = useState(initialList)
+    const [itemList, setItemList] = useState(data);
 
     // axios delete from db
     const deleteItem = (id) => {
-        const newList = itemList.filter((itemList) => itemList.id !== id);
+        const newList = itemList.filter((itemList) => itemList._id !== id);
         setItemList(newList);
     }
     return (
         <Grid container>
             <Grid className={classes.itemDetails} item sm={12}>
                 {itemList.map((item) => (
-                    <List key={item.id}>
+                    <List key={item._id}>
                         <ListItem >
                             <ListItemText disableTypography='true'>
-                                {item.location}
+                                {item.name}
                                 <ul>
-                                    <li> description {item.description} </li>
+                                    <li> description: {item.description} </li>
+                                    <li> features: {item.features} </li>
+                                    <li> location: {item.location} </li>
                                     <li> price:  {item.price} </li>
                                     <li> spaces available: {item.spaces} </li>
                                 </ul>
@@ -176,7 +178,7 @@ const ParkingPage = ({ Component }) => {
                                 <IconButton><Edit onClick={() => Component('Organization')} button style={{ fill: 'white' }} /></IconButton>
                             }</ListItemIcon>
                             <ListItemIcon>{
-                                <IconButton onClick={() => deleteItem(item.id)} ><Delete button style={{ fill: 'white' }} /></IconButton>
+                                <IconButton onClick={() => deleteItem(item._id)} ><Delete button style={{ fill: 'white' }} /></IconButton>
                             }</ListItemIcon>
                         </ListItem>
                     </List>
@@ -191,8 +193,16 @@ export default function MiniDrawer() {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
     const [component, setComponent] = useState('Organization');
+    const [details, setDetails] = useState();
     const { logout } = useAuth();
     const history = useHistory();
+
+    useEffect(() => {
+        axios.get('get-org')
+            .then((response) => {
+                setDetails(response.data);
+            }).catch((error) => console.log(`error in fetching organization: ${error}`))
+    }, [details])
 
     const handleLogout = () => {
         localStorage.clear();
@@ -296,8 +306,8 @@ export default function MiniDrawer() {
                 <div className={classes.toolbar} />
                 <Typography style={{ paddingBottom: '1rem' }} variant='h1'>{component}</Typography>
                 {
-                    component === 'Organization' ? <OrgPage />
-                        : component === 'Your Parking Spaces' ? <ParkingPage Component={setComponent} />
+                    component === 'Organization' ? <OrgPage Component={setComponent} />
+                        : component === 'Your Parking Spaces' ? <ParkingPage Component={setComponent} data={details} />
                             : <h1>Loading ...</h1>
                 }
             </main>

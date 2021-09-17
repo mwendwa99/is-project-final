@@ -87,7 +87,9 @@ export default function SimpleTabs() {
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
-                <form id="register-form"  >
+                <form id="register-form"
+                // onSubmit={formSubmit}
+                >
                     <Grid container >
                         <Grid item sm={12} xs={12} className={classes.inputSection}>
                             <InputBase type="email" placeholder="email"
