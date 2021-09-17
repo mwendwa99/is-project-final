@@ -11,7 +11,7 @@ route.post('/register-org', async (req, res) => {
         const response = await Org.create({
             name, features, description, location, price, spaces
         })
-        console.log('organization details created successfully', response)
+        // console.log('organization details created successfully', response)
     } catch (error) {
         if (error.code === 11000) {
             return (res.json({ status: 'error', error: 'organization already exist!' }))
