@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoute');
 const orgRoutes = require('./routes/orgRoute');
+const adminRoutes = require('./routes/adminRoute');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
@@ -14,15 +15,14 @@ uri = 'mongodb://127.0.0.1:27017/isprojectfinal';
 
 // connect frontend to backend
 app.use(cors());
-
 // parse requests of content type application/json
 app.use(bodyParser.json());
-
 // user route middleware
 app.use('/api', userRoutes);
-
 // organization route
 app.use(orgRoutes);
+// admin route
+app.use('/admin', adminRoutes);
 
 // connect to local db with mongoose
 mongoose.connect(uri, {
@@ -36,5 +36,5 @@ mongoose.connect(uri, {
 
 // 404 page
 app.use((req, res) => {
-    res.send("page does not exist!");
+    res.send("page does not exist bro!");
 });

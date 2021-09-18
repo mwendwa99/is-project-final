@@ -23,33 +23,8 @@ const UseStyle = makeStyles((theme) => ({
 }));
 
 const Login = (props) => {
-
-    const { login } = useAuth();
     const classes = UseStyle();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
 
-    const formSubmit = async (e) => {
-        e.preventDefault();
-        const result = await fetch('/api/login-user', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email,
-                password
-            })
-        }).then((res) => res.json())
-
-        if (result.status === 'ok') {
-            // everythign went fine
-            localStorage.setItem(result.user, result.data);
-            login();
-        } else {
-            alert(result.error)
-        }
-    };
     return (
         <div className='body__section'>
             <Container maxWidth='xs' className={classes.root}>

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Grid, Tabs, Tab, Typography, Box, InputBase, Button } from '@material-ui/core';
 import { Mail, Lock } from '@material-ui/icons';
+import { useAuth } from '../../Context/AuthContext';
+import { useHistory } from 'react-router-dom';
 import Assets from '../../Assets/Index'
 
 function TabPanel(props) {
@@ -72,11 +74,57 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleTabs() {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(0);
+    const [adminEmail, setAdminEmail] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [adminPassword, setAdminPassword] = useState('');
+    const [userPassword, setUserPassword] = useState('');
+    const { login } = useAuth();
+    const history = useHistory();
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    // userlogin
+    const formSubmitUser = async (e) => {
+        e.preventDefault();
+        const result = await fetch('/api/login-user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userEmail, userPassword })
+        }).then(res => res.json())
+        if (result.status === 'ok') {
+            // everything went fine
+            localStorage.setItem('token', result.data);
+            login();
+        } else {
+            alert(result.error)
+        }
+    }
+
+    // admin login
+    const formSubmitAdmin = async (e) => {
+        e.preventDefault();
+        const result = await fetch('/admin/login-admin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ adminEmail, adminPassword })
+        }).then(res => res.json())
+        if (result.status === 'ok') {
+
+            // everything went fine
+            localStorage.setItem('token', result.data);
+            login();
+            history.push('/admin');
+        } else {
+            alert(result.error)
+        }
+    }
 
     return (
         <div className={classes.root}>
@@ -88,13 +136,13 @@ export default function SimpleTabs() {
             </AppBar>
             <TabPanel value={value} index={0}>
                 <form id="register-form"
-                // onSubmit={formSubmit}
+                    onSubmit={formSubmitUser}
                 >
                     <Grid container >
                         <Grid item sm={12} xs={12} className={classes.inputSection}>
                             <InputBase type="email" placeholder="email"
-                            // value={email}
-                            // onChange={e => setEmail(e.target.value)}
+                                value={userEmail}
+                                onChange={e => setUserEmail(e.target.value)}
                             />
                             <div className={classes.plateIcon} >
                                 <Mail fontSize='medium' />
@@ -102,8 +150,8 @@ export default function SimpleTabs() {
                         </Grid>
                         <Grid item sm={12} xs={12} className={classes.inputSection}>
                             <InputBase type="password" placeholder="password"
-                            // value={password}
-                            // onChange={e => setPassword(e.target.value)}
+                                value={userPassword}
+                                onChange={e => setUserPassword(e.target.value)}
                             />
                             <div className={classes.plateIcon} >
                                 <Lock fontSize='medium' />
@@ -121,12 +169,14 @@ export default function SimpleTabs() {
                 </form >
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <form id="register-form"  >
+                <form id="register-form"
+                    onSubmit={formSubmitAdmin}
+                >
                     <Grid container >
                         <Grid item sm={12} xs={12} className={classes.inputSection}>
                             <InputBase type="email" placeholder="email"
-                            // value={email}
-                            // onChange={e => setEmail(e.target.value)}
+                                value={adminEmail}
+                                onChange={e => setAdminEmail(e.target.value)}
                             />
                             <div className={classes.plateIcon} >
                                 <Mail fontSize='medium' />
@@ -134,8 +184,8 @@ export default function SimpleTabs() {
                         </Grid>
                         <Grid item sm={12} xs={12} className={classes.inputSection}>
                             <InputBase type="password" placeholder="password"
-                            // value={password}
-                            // onChange={e => setPassword(e.target.value)}
+                                value={adminPassword}
+                                onChange={e => setAdminPassword(e.target.value)}
                             />
                             <div className={classes.plateIcon} >
                                 <Lock fontSize='medium' />

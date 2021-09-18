@@ -14,12 +14,14 @@ export const AuthenticatedRoutes = () => {
   return (
     <Router >
       <Switch>
+        <Route path='/admin' component={Admin} />
         <div className="App">
           <NavBar />
           <Route path='/' exact component={Home} />
           <Route path='/details' component={SpotDetails} />
           <Route path='/about' component={About} />
           <Route path='/my-spot' component={SaveError} />
+          <Route component={Home} />
         </div>
       </Switch>
     </Router>
@@ -37,7 +39,7 @@ export const UnAuthenticatedRoutes = () => {
             )}
           />
           <Route path='/register' component={Register} />
-          <Route path='/admin' component={Admin} />
+          <Route component={Login} />
         </div>
       </Switch>
     </Router>

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Grid, Tabs, Tab, Typography, Box, InputBase, Button } from '@material-ui/core';
 import { Business, Mail, Lock, Commute } from '@material-ui/icons';
+import axios from 'axios';
 import Assets from '../../Assets/Index'
 
 function TabPanel(props) {
@@ -72,7 +73,40 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleTabs() {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(0);
+    const [numberPlate, setNumberPlate] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [userPassword, setUserPassword] = useState('');
+    const [organization, setOrganization] = useState('');
+    const [adminEmail, setAdminEmail] = useState('');
+    const [adminPassword, setAdminPassword] = useState('');
+
+    // map user values to backend
+    const formSubmitUser = (e) => {
+        e.preventDefault();
+        const data = {
+            plate: numberPlate,
+            userEmail: userEmail,
+            userPassword: userPassword
+        }
+        console.log(data);
+        axios.post('/api/register-user', data)
+            .then(res => console.log(res))
+            .catch(error => alert(error))
+    }
+    // map admin values to backend
+    const formSubmitAdmin = (e) => {
+        e.preventDefault();
+        const data = {
+            organization: organization,
+            adminEmail: adminEmail,
+            adminPassword: adminPassword
+        }
+        console.log(data);
+        axios.post('/admin/register-admin', data)
+            .then(res => console.log(res))
+            .catch(error => alert(error))
+    }
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -87,12 +121,14 @@ export default function SimpleTabs() {
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
-                <form id="register-form"  >
+                <form id="register-form"
+                    onSubmit={formSubmitUser}
+                >
                     <Grid container >
                         <Grid item sm={12} xs={12} className={classes.inputSection}>
                             <InputBase type="text" placeholder="number plate"
-                            // value={numberPlate}
-                            // onChange={e => setNumberPlate(e.target.value)}
+                                value={numberPlate}
+                                onChange={e => setNumberPlate(e.target.value)}
                             />
                             <div className={classes.plateIcon} >
                                 <Commute fontSize='medium' />
@@ -100,8 +136,8 @@ export default function SimpleTabs() {
                         </Grid>
                         <Grid item sm={12} xs={12} className={classes.inputSection}>
                             <InputBase type="email" placeholder="email"
-                            // value={userEmail}
-                            // onChange={e => setUserEmail(e.target.value)}
+                                value={userEmail}
+                                onChange={e => setUserEmail(e.target.value)}
                             />
                             <div className={classes.plateIcon} >
                                 <Mail fontSize='medium' />
@@ -109,8 +145,8 @@ export default function SimpleTabs() {
                         </Grid>
                         <Grid item sm={12} xs={12} className={classes.inputSection}>
                             <InputBase type="password" placeholder="password"
-                            // value={userPassword}
-                            // onChange={e => setUserPassword(e.target.value)}
+                                value={userPassword}
+                                onChange={e => setUserPassword(e.target.value)}
                             />
                             <div className={classes.plateIcon} >
                                 <Lock fontSize='medium' />
@@ -130,12 +166,14 @@ export default function SimpleTabs() {
                 </form >
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <form id="register-form"  >
+                <form id="register-form"
+                    onSubmit={formSubmitAdmin}
+                >
                     <Grid container >
                         <Grid item sm={12} xs={12} className={classes.inputSection}>
                             <InputBase type="text" placeholder="organization"
-                            // value={numberPlate}
-                            // onChange={e => setNumberPlate(e.target.value)}
+                                value={organization}
+                                onChange={e => setOrganization(e.target.value)}
                             />
                             <div className={classes.plateIcon} >
                                 <Business fontSize='medium' />
@@ -143,8 +181,8 @@ export default function SimpleTabs() {
                         </Grid>
                         <Grid item sm={12} xs={12} className={classes.inputSection}>
                             <InputBase type="email" placeholder="email"
-                            // value={userEmail}
-                            // onChange={e => setUserEmail(e.target.value)}
+                                value={adminEmail}
+                                onChange={e => setAdminEmail(e.target.value)}
                             />
                             <div className={classes.plateIcon} >
                                 <Mail fontSize='medium' />
@@ -152,8 +190,8 @@ export default function SimpleTabs() {
                         </Grid>
                         <Grid item sm={12} xs={12} className={classes.inputSection}>
                             <InputBase type="password" placeholder="password"
-                            // value={userPassword}
-                            // onChange={e => setUserPassword(e.target.value)}
+                                value={adminPassword}
+                                onChange={e => setAdminPassword(e.target.value)}
                             />
                             <div className={classes.plateIcon} >
                                 <Lock fontSize='medium' />
