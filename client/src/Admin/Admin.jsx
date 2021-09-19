@@ -5,7 +5,11 @@ import {
     Drawer, AppBar, Toolbar, List, CssBaseline, TextField, Grid, Button,
     Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText
 } from '@material-ui/core';
-import { Menu, ChevronLeft, ChevronRight, ExitToApp, Edit, Delete } from '@material-ui/icons';
+import {
+    Menu, ChevronLeft, ChevronRight, ExitToApp,
+    //  Edit, 
+    Delete
+} from '@material-ui/icons';
 import Assets from '../Assets/Index';
 import { useAuth } from '../Context/AuthContext';
 import { useHistory } from 'react-router';
@@ -120,6 +124,7 @@ const OrgPage = ({ Component }) => {
         axios.post('register-org', data)
             .then()
             .catch(error => alert(error))
+        Component('Your Parking Spaces')
     }
     return (
         <form onSubmit={formSubmit} className={classes.textField} noValidate autoComplete="off">
@@ -143,7 +148,7 @@ const OrgPage = ({ Component }) => {
                 <TextField id="outlined-primary" value={price} label="price per lot" type='number' variant="outlined" color="primary"
                     onChange={(e) => setPrice(e.target.value)}
                 />
-                <Button type='submit' variant='contained' onClick={() => Component('Your Parking Spaces')} >Submit</Button>
+                <Button type='submit' variant='contained'>Submit</Button>
             </Grid>
         </form>
     )
@@ -157,7 +162,10 @@ const ParkingPage = ({ Component, data }) => {
     const deleteItem = (id) => {
         const newList = itemList.filter((itemList) => itemList._id !== id);
         setItemList(newList);
+        axios.delete(`/delete-org/${id}`)
     }
+    // useEffect(() => {
+    // }, [itemList])
     return (
         <Grid container>
             <Grid className={classes.itemDetails} item sm={12}>
@@ -174,9 +182,9 @@ const ParkingPage = ({ Component, data }) => {
                                     <li> spaces available: {item.spaces} </li>
                                 </ul>
                             </ListItemText>
-                            <ListItemIcon >{
+                            {/* <ListItemIcon >{
                                 <IconButton><Edit onClick={() => Component('Organization')} button style={{ fill: 'white' }} /></IconButton>
-                            }</ListItemIcon>
+                            }</ListItemIcon> */}
                             <ListItemIcon>{
                                 <IconButton onClick={() => deleteItem(item._id)} ><Delete button style={{ fill: 'white' }} /></IconButton>
                             }</ListItemIcon>
@@ -194,7 +202,7 @@ export default function MiniDrawer() {
     const [open, setOpen] = useState(false);
     const [component, setComponent] = useState('Organization');
     const [details, setDetails] = useState();
-    const { adminLogout } = useAuth();
+    const { adminLogout, adminLoggedIn } = useAuth();
     const history = useHistory();
 
     useEffect(() => {
@@ -218,7 +226,7 @@ export default function MiniDrawer() {
         setOpen(false);
     };
 
-    return (
+    return adminLoggedIn ? (
         <div className={classes.root}>
             <CssBaseline />
             <AppBar
@@ -312,5 +320,7 @@ export default function MiniDrawer() {
                 }
             </main>
         </div>
-    );
+    ) : (
+        history.push('/')
+    )
 }

@@ -119,7 +119,7 @@ export default function SimpleTabs() {
             // everything went fine
             localStorage.setItem('token', result.data);
             adminLogin();
-            history.push('/admin');
+            history.push('/');
         } else {
             alert(result.error)
         }

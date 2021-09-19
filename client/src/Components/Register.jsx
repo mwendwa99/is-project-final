@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Grid, Typography, Button, Container, makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import RegisterTabs from './Inputs/RegisterTabs';
 
 import Assets from '../Assets/Index'
@@ -35,28 +34,8 @@ const UseStyle = makeStyles((theme) => ({
     },
 }));
 
-const postUser = 'api/register-user';
-
 const Register = () => {
-
     const classes = UseStyle();
-    const [numberPlate, setNumberPlate] = useState('');
-    const [userEmail, setUserEmail] = useState('');
-    const [userPassword, setUserPassword] = useState('');
-
-    // map values to backend
-    const formSubmit = (e) => {
-        e.preventDefault();
-        const data = {
-            plate: numberPlate,
-            email: userEmail,
-            password: userPassword
-        }
-        console.log(data);
-        axios.post(`${postUser}`, data)
-            .then(res => console.log(res))
-            .catch(error => alert(error))
-    }
 
     return (
         <div className='body__section'>
@@ -82,9 +61,6 @@ const Register = () => {
                     <Grid item sm={12} xs={12} className={classes.gridItem}>
                         <RegisterTabs />
                     </Grid>
-                    {/* ******************************************************************** */}
-
-                    {/* ****************************************************************** */}
                     <Grid item sm={12} xs={12} className={classes.gridItem} >
                         <Typography variant="caption" >
                             <Link to='/'>

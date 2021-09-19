@@ -18,7 +18,6 @@ route.post('/register-org', async (req, res) => {
         } throw error
     }
 });
-
 // get org details
 route.get('/get-org', async (req, res) => {
     let details = Org.find({}, function (err, details) {
@@ -29,6 +28,18 @@ route.get('/get-org', async (req, res) => {
             res.json(details);
         }
     });
+})
+// delete org details
+route.delete('/delete-org/:id', (req, res) => {
+    Org.findByIdAndRemove(req.params.id)
+        .exec()
+        .then(doc => {
+            if (!doc) {
+                return (res.json({ status: 'error', error: 'item does not exist!' }))
+            } else {
+                return res.status(204).end();
+            }
+        }).catch((error) => console.log(error))
 })
 
 module.exports = route;
