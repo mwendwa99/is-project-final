@@ -1,19 +1,24 @@
 import React, { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext({});
-// export const locationContext = createContext([]);
 
 const AuthProvider = ({ children }) => {
 
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [userLoggedIn, setUserLoggedIn] = useState(false);
+    const [adminLoggedIn, setAdminLoggedIn] = useState(false);
 
-    const login = async () => setLoggedIn(true)
-    const logout = async () => setLoggedIn(false)
+    const login = async () => setUserLoggedIn(true);
+    const logout = async () => setUserLoggedIn(false);
+    const adminLogin = async () => setAdminLoggedIn(true);
+    const adminLogout = async () => setAdminLoggedIn(false);
 
     const authContextValue = {
         login,
-        loggedIn,
-        logout
+        userLoggedIn,
+        logout,
+        adminLogin,
+        adminLoggedIn,
+        adminLogout,
     };
     return (
         <AuthContext.Provider value={authContextValue}>

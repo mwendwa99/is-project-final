@@ -194,7 +194,7 @@ export default function MiniDrawer() {
     const [open, setOpen] = useState(false);
     const [component, setComponent] = useState('Organization');
     const [details, setDetails] = useState();
-    const { logout } = useAuth();
+    const { adminLogout } = useAuth();
     const history = useHistory();
 
     useEffect(() => {
@@ -206,7 +206,7 @@ export default function MiniDrawer() {
 
     const handleLogout = () => {
         localStorage.clear();
-        logout();
+        adminLogout();
         history.push('/');
     }
 

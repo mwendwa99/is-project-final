@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Grid, Typography, Button, Container, makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../Context/AuthContext';
 import Assets from '../Assets/Index';
 import FullWidthTabs from './Inputs/Tabs';
 

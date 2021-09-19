@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Grid, Tabs, Tab, Typography, Box, InputBase, Button } from '@material-ui/core';
 import { Business, Mail, Lock, Commute } from '@material-ui/icons';
 import axios from 'axios';
-import Assets from '../../Assets/Index'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -155,8 +154,6 @@ export default function SimpleTabs() {
                         <Grid item xs={12} sm={12} className={classes.gridItem}>
                             <div>
                                 <Button
-                                    // disabled={!formValidate()}
-                                    // onClick={clearForm()}
                                     variant='contained' type='submit' size="small">
                                     REGISTER
                                 </Button>

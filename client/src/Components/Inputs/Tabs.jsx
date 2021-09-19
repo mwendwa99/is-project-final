@@ -5,7 +5,6 @@ import { AppBar, Grid, Tabs, Tab, Typography, Box, InputBase, Button } from '@ma
 import { Mail, Lock } from '@material-ui/icons';
 import { useAuth } from '../../Context/AuthContext';
 import { useHistory } from 'react-router-dom';
-import Assets from '../../Assets/Index'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -79,7 +78,7 @@ export default function SimpleTabs() {
     const [userEmail, setUserEmail] = useState('');
     const [adminPassword, setAdminPassword] = useState('');
     const [userPassword, setUserPassword] = useState('');
-    const { login } = useAuth();
+    const { login, adminLogin } = useAuth();
     const history = useHistory();
 
     const handleChange = (event, newValue) => {
@@ -119,7 +118,7 @@ export default function SimpleTabs() {
 
             // everything went fine
             localStorage.setItem('token', result.data);
-            login();
+            adminLogin();
             history.push('/admin');
         } else {
             alert(result.error)

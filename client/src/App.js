@@ -1,13 +1,26 @@
 import React from 'react';
 import './App.css';
 import { useAuth } from './Context/AuthContext';
-import { AuthenticatedRoutes, UnAuthenticatedRoutes } from './routes';
+import { AuthenticatedRoutes, UnAuthenticatedRoutes, AdminRoute } from './routes';
 
 function App() {
 
-  let { loggedIn } = useAuth();
+  const { userLoggedIn, adminLoggedIn } = useAuth();
 
-  return (loggedIn ? (<AuthenticatedRoutes />) : (<UnAuthenticatedRoutes />))
+  if (userLoggedIn) {
+    return (
+      <AuthenticatedRoutes />
+    )
+  }
+  if (adminLoggedIn) {
+    return (
+      <AdminRoute />
+    )
+  } else {
+    return (
+      <UnAuthenticatedRoutes />
+    )
+  }
 
 };
 
