@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Grid, Tabs, Tab, Typography, Box, InputBase, Button } from '@material-ui/core';
 import { Mail, Lock } from '@material-ui/icons';
 import { useAuth } from '../../Context/AuthContext';
+import auth from '../../Service/AuthService';
 import { useHistory } from 'react-router-dom';
 
 function TabPanel(props) {
@@ -71,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SimpleTabs() {
+export default function SimpleTabs(props) {
     const classes = useStyles();
     const [value, setValue] = useState(0);
     const [adminEmail, setAdminEmail] = useState('');
@@ -159,6 +160,11 @@ export default function SimpleTabs() {
                         <Grid item xs={12} sm={12} className={classes.gridItem}>
                             <div>
                                 <Button
+                                    // onClick={() => {
+                                    //     auth.login(() => {
+                                    //         history.push('/home')
+                                    //     })
+                                    // }}
                                     variant='contained' type='submit' size="small">
                                     LOGIN
                                 </Button>

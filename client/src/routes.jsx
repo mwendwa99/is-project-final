@@ -47,3 +47,14 @@ export const UnAuthenticatedRoutes = () => {
     </Router>
   )
 };
+// export const Routes = () => {
+//   return (
+//     <Router>
+//       <Switch>
+//         <Route exact path='/' component={Login} />
+//         <Route path='/home' component={Home} />
+//         <Route path='/register' component={Register} />
+//       </Switch>
+//     </Router>
+//   )
+// }
