@@ -6,8 +6,7 @@ const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = 'thisisbetweenme&you'
 // post new user details
-router.post('/register-user', async (req, res, next) => {
-
+router.post('/register-user', async (req, res) => {
     const { userEmail, userPassword: plainTextPassword, plate } = req.body;
     if (!userEmail || typeof userEmail !== 'string') {
         return res.json({ status: 'error', error: 'Invalid email' })
@@ -24,12 +23,13 @@ router.post('/register-user', async (req, res, next) => {
             userPassword,
             plate
         })
-        // console.log('user email created successfully', response)
+        console.log('user email created successfully', response)
     } catch (error) {
         if (error.code === 11000) {
             // duplicate key
             return (res.json({ status: 'error', error: 'email already exists!' }))
-        } throw error
+        }
+        return (res.json({ status: 'error', error: error }))
     }
 });
 

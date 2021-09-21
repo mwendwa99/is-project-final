@@ -90,7 +90,7 @@ export default function SimpleTabs() {
         }
         console.log(data);
         axios.post('/api/register-user', data)
-            .then(res => console.log(res))
+            // .then(res => console.log(res))
             .catch(error => alert(error))
     }
     // map admin values to backend

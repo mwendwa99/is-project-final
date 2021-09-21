@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const OrgPage = ({ Component }) => {
+export const OrgPage = ({ Component }) => {
     const classes = useStyles();
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
@@ -154,7 +154,7 @@ const OrgPage = ({ Component }) => {
     )
 };
 
-const ParkingPage = ({ Component, data }) => {
+export const ParkingPage = ({ data }) => {
     const classes = useStyles();
     const [itemList, setItemList] = useState(data);
 
@@ -313,11 +313,12 @@ export default function MiniDrawer() {
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <Typography style={{ paddingBottom: '1rem' }} variant='h1'>{component}</Typography>
-                {
+                {/* {
                     component === 'Organization' ? <OrgPage Component={setComponent} />
                         : component === 'Your Parking Spaces' ? <ParkingPage Component={setComponent} data={details} />
                             : <h1>Loading ...</h1>
-                }
+                } */}
+                <OrgPage />
             </main>
         </div>
     ) : (

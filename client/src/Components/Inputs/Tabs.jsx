@@ -99,7 +99,9 @@ export default function SimpleTabs(props) {
         if (result.status === 'ok') {
             // everything went fine
             localStorage.setItem('token', result.data);
-            login();
+            localStorage.setItem('email', result.email);
+            login(result.email);
+            history.push('/');
         } else {
             alert(result.error)
         }
@@ -119,8 +121,12 @@ export default function SimpleTabs(props) {
 
             // everything went fine
             localStorage.setItem('token', result.data);
-            adminLogin();
+            localStorage.setItem('email', result.admin);
+            console.log(result)
+            adminLogin(result.admin);
+
             history.push('/');
+
         } else {
             alert(result.error)
         }

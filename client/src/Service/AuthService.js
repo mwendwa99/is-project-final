@@ -1,15 +1,22 @@
+import axios from 'axios';
+
 class Auth {
     constructor() {
         this.authenticated = false
     }
     // login with a callback fetch to server
-    login(cb) {
+    login(userEmail, userPassword) {
         this.authenticated = true;
-        cb();
+        // try {
+        axios.post('/api/login-user',
+            { userEmail, userPassword }
+        ).then((res) => console.log(res))
+        // } catch (error) {
+        //     console.log(error)
+        // }
     }
-    logout(cb) {
+    logout() {
         this.authenticated = false;
-        cb();
     }
     isauthenticated() {
         return this.authenticated

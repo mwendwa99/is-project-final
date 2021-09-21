@@ -39,9 +39,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FullWidthGrid() {
     const classes = useStyles();
 
-    const { loggedIn } = useAuth()
-
-    return loggedIn ? (
+    return (
         <Container className={classes.root} >
             <Grid container style={{
                 display: "flex",
@@ -79,5 +77,5 @@ export default function FullWidthGrid() {
                 </Grid>
             </Grid>
         </Container >
-    ) : (<Redirect to='/' />)
+    )
 }

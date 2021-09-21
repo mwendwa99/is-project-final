@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, Grid, Container, Typography } from '@material-ui/core';
-
+import { useAuth } from '../Context/AuthContext';
 import Assets from '../Assets/Index';
 import SearchBar from './SearchBar';
 import Spots from './Spots';
@@ -27,7 +27,8 @@ const UseStyle = makeStyles((theme) => ({
 
 export default function SimpleContainer() {
 
-    const classes = UseStyle()
+    const classes = UseStyle();
+
 
     return (
         <div>
