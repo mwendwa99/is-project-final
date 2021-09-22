@@ -35,6 +35,17 @@ input[type="reset"] {
   cursor: pointer;
   outline: inherit;
 }
+.user-list li {
+  /* ul li { */
+  /* content: "\2022"; */
+  color: var(--blueColor) !important;
+  font-size: x-large !important;
+  font-weight: bold !important;
+  /* display: inline-block; */
+  /* width: 1em; */
+  /* margin-left: -1em; */
+  /* } */
+}
 .App {
   height: 100vh;
   width: 100%;

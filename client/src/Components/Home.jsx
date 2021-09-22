@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { makeStyles, Grid, Container, Typography } from '@material-ui/core';
-import { useAuth } from '../Context/AuthContext';
+import React from 'react';
+import { makeStyles, Grid, Typography } from '@material-ui/core';
 import Assets from '../Assets/Index';
 import SearchBar from './SearchBar';
 import Spots from './Spots';
@@ -22,6 +21,9 @@ const UseStyle = makeStyles((theme) => ({
     text: {
         paddingTop: theme.spacing(2),
         paddingBottom: theme.spacing(2)
+    },
+    spots: {
+        // maxWidth: 700
     }
 }));
 
@@ -50,15 +52,11 @@ export default function SimpleContainer() {
                             <SearchBar />
                         </div>
                     </Grid>
-                </Grid>
-                <Container maxWidth='md'>
-                    <Typography variant="h1"> Top spots </Typography>
-                    <Grid container>
-                        <Grid item sm={4} > <Spots /></Grid>
-                        <Grid item sm={4} > <Spots /></Grid>
-                        <Grid item sm={4} > <Spots /></Grid>
+                    <Grid className={classes.spots} item sm={12} >
+                        <Typography align="center" variant="h1"> Parking Lots </Typography>
+                        <Spots />
                     </Grid>
-                </Container>
+                </Grid>
             </div >
             <Footer />
         </div>

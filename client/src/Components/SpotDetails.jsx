@@ -3,8 +3,6 @@ import {
     Typography, Grid, Button, Container, makeStyles,
     TableBody, TableRow, TableCell, Table, TableContainer
 } from '@material-ui/core';
-
-
 import Assets from '../Assets/Index';
 import Date from './Inputs/Date';
 import TextInput from './Inputs/TextInput';
@@ -40,7 +38,6 @@ const UseStyle = makeStyles((theme) => ({
 const SpotDetails = () => {
 
     const classes = UseStyle();
-
     return (
         <div className='body__section'>
             <Container maxWidth='md' className={classes.root}>

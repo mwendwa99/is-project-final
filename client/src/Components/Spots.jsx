@@ -1,81 +1,80 @@
-import React from 'react';
-import { makeStyles, Container, Typography, Button } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
+import React, { useState, useEffect } from 'react';
+import {
+    makeStyles, Typography, Button, ListItemIcon,
+    List, ListItem, ListItemText
+} from '@material-ui/core';
+import { Money, Favorite } from '@material-ui/icons';
 import Grid from '@material-ui/core/Grid';
-import { Link, Redirect } from 'react-router-dom';
-import { useAuth } from '../Context/AuthContext';
-
+import axios from 'axios';
 import Assets from '../Assets/Index'
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        marginBottom: "3rem",
-        padding: "1rem",
-        width: "100%",
-        height: "20rem",
+    grid: {
+        display: "flex", flexDirection: "row",
+        justifyContent: 'space-around',
     },
-    paper: {
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-        height: "18rem",
-        width: "100%",
-        borderRadius: "20px",
-    },
-    itemPaperImage: {
-        width: "100%",
-        height: "9rem",
-        borderRadius: "20px 20px 0 0",
-        overflow: "hidden",
-    },
-    itemPaperDescription: {
+    gridItem: {
+        display: "flex", flexDirection: "column",
+        backgroundColor: '#F8F0C6',
+        alignItems: 'center',
+        justifyContent: 'center',
         padding: theme.spacing(1),
-        backgroundColor: "#F8F0C6",
-        width: "100%",
-        borderRadius: "0 0 20px 20px",
+        margin: theme.spacing(1),
+        borderRadius: "10px",
+        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
     },
 }));
 
 export default function FullWidthGrid() {
     const classes = useStyles();
+    const [initialList, setInitialList] = useState([])
+
+    useEffect(() => {
+        axios.get('/get-org')
+            .then((response) => {
+                setInitialList(response.data)
+            }).catch((error) => console.log(`error in fetch Spots ${error}`))
+    }, [])
 
     return (
-        <Container className={classes.root} >
-            <Grid container style={{
-                display: "flex",
-                flexDirection: "column",
-            }} >
-                <Grid item sm={12}>
-                    <Paper className={classes.itemPaperImage}>
-                        <img height="100%" width="100%" src={Assets.parking} alt="parking" />
-                    </Paper>
-                </Grid>
-                <Grid style={{ height: "100%" }} item sm={12}>
-                    <Paper className={classes.itemPaperDescription}>
-                        <Typography variant="body2" > spot available at posta, Nairobi. </Typography>
-                        <Typography variant="caption" > posta, ... </Typography>
-                        <Grid container >
-                            <Grid item sm={5}>
-                                <div style={{ display: 'flex', alignItems: "center" }} >
-                                    <img width="20%" height="20%" src={Assets.money} alt="money icon" />
-                                    <Typography variant="caption" >Kes: 150</Typography>
-                                </div>
-                            </Grid>
-                            <Grid item sm={7} >
-                                <Typography variant="caption" >spots-free: 10</Typography>
-                            </Grid>
-                            <Grid item sm={12} xs={12} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                <div><Button variant='contained' size="small">
-                                    <Link to='/details' style={{ textDecoration: "none" }}>
-                                        Save Me!
-                                    </Link>
+        <Grid wrap='nowrap'
+            container
+            spacing={2}
+            className={classes.grid}
+            alignItems="center"
+            justify="center" >
+            {
+                initialList.map((item) => (
+                    < List key={item._id} >
+                        <Grid className={classes.gridItem} item sm={12}>
+                            <img height="100%" width="100%" src={Assets.parking} alt="parking" />
+                            <ListItem >
+                                <ListItemText disableTypography='true'>
+                                    <Typography variant="body1" >{!item.name ? 'loading...' : item.name} </Typography>
+                                    <Typography variant="subtitle" > {!item.location ? 'loading...' : item.location} </Typography>
+                                    <ul className='user-list' >
+                                        <li>
+                                            <div style={{ display: 'flex', alignItems: "center" }} >
+                                                <Money />
+                                                <Typography variant="caption" >price: KES {!item.price ? 'loading...' : item.price}</Typography>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <Typography variant="caption" >free spots: {!item.spaces ? 'loading...' : item.spaces} </Typography>
+                                        </li>
+                                    </ul>
+                                </ListItemText>
+                            </ListItem>
+                            <ListItemIcon>{
+                                <Button variant="contained" size="small" >
+                                    <Favorite button /> Save Me!
                                 </Button>
-                                </div>
-                            </Grid>
+                            }</ListItemIcon>
+
                         </Grid>
-                    </Paper>
-                </Grid>
-            </Grid>
-        </Container >
+                    </List >
+                ))
+            }
+        </Grid>
     )
 }

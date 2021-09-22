@@ -7,7 +7,6 @@ import {
 } from '@material-ui/core';
 import {
     Menu, ChevronLeft, ChevronRight, ExitToApp,
-    //  Edit, 
     Delete
 } from '@material-ui/icons';
 import Assets from '../Assets/Index';
@@ -188,9 +187,6 @@ export const ParkingPage = ({ data }) => {
                                     <li> spaces available: {item.spaces} </li>
                                 </ul>
                             </ListItemText>
-                            {/* <ListItemIcon >{
-                                <IconButton><Edit onClick={() => Component('Organization')} button style={{ fill: 'white' }} /></IconButton>
-                            }</ListItemIcon> */}
                             <ListItemIcon>{
                                 <IconButton onClick={() => deleteItem(item._id)} ><Delete button style={{ fill: 'white' }} /></IconButton>
                             }</ListItemIcon>
