@@ -6,7 +6,6 @@ import Login from './Components/Login';
 import Register from './Components/Register';
 import SpotDetails from './Components/SpotDetails'
 import About from './Components/About';
-import { ParkingPage, OrgPage } from './Admin/Admin'
 import { SaveError } from './Components/User/SavedSpot'
 import Admin from './Admin/Admin';
 

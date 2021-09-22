@@ -158,14 +158,20 @@ export const ParkingPage = ({ data }) => {
     const classes = useStyles();
     const [itemList, setItemList] = useState(data);
 
+    useEffect(() => {
+        axios.get('get-org')
+            .then((response) => {
+                setItemList(response.data);
+            }).catch((error) => console.log(`error in fetching organization: ${error}`))
+    }, [itemList])
+
     // axios delete from db
     const deleteItem = (id) => {
         const newList = itemList.filter((itemList) => itemList._id !== id);
         setItemList(newList);
         axios.delete(`/delete-org/${id}`)
     }
-    // useEffect(() => {
-    // }, [itemList])
+
     return (
         <Grid container>
             <Grid className={classes.itemDetails} item sm={12}>
@@ -313,12 +319,12 @@ export default function MiniDrawer() {
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <Typography style={{ paddingBottom: '1rem' }} variant='h1'>{component}</Typography>
-                {/* {
+                {
                     component === 'Organization' ? <OrgPage Component={setComponent} />
                         : component === 'Your Parking Spaces' ? <ParkingPage Component={setComponent} data={details} />
                             : <h1>Loading ...</h1>
-                } */}
-                <OrgPage />
+                }
+                {/* <OrgPage /> */}
             </main>
         </div>
     ) : (
