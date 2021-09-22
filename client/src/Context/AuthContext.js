@@ -7,9 +7,9 @@ const AuthProvider = ({ children }) => {
     const [userLoggedIn, setUserLoggedIn] = useState();
     const [adminLoggedIn, setAdminLoggedIn] = useState();
 
-    const login = async (email) => setUserLoggedIn(email);
+    const login = async (user) => setUserLoggedIn(user);
     const logout = async () => setUserLoggedIn();
-    const adminLogin = async (token) => setAdminLoggedIn(token);
+    const adminLogin = async (admin) => setAdminLoggedIn(admin);
     const adminLogout = async () => setAdminLoggedIn();
 
     const authContextValue = {

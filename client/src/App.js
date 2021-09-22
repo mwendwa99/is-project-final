@@ -6,6 +6,7 @@ import { AuthenticatedRoutes, UnAuthenticatedRoutes, AdminRoute } from './routes
 function App() {
   const { userLoggedIn, adminLoggedIn } = useAuth();
   if (userLoggedIn) {
+    console.log('logged in as a user!')
     return (
       <AuthenticatedRoutes />
     )

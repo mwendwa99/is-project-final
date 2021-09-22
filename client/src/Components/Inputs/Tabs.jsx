@@ -98,9 +98,9 @@ export default function SimpleTabs(props) {
         }).then(res => res.json())
         if (result.status === 'ok') {
             // everything went fine
-            localStorage.setItem('token', result.data);
-            localStorage.setItem('email', result.email);
-            login(result.email);
+            localStorage.setItem('user', result.data);
+            // localStorage.setItem('email', result.email);
+            login(result.data);
             history.push('/');
         } else {
             alert(result.error)
@@ -120,11 +120,10 @@ export default function SimpleTabs(props) {
         if (result.status === 'ok') {
 
             // everything went fine
-            localStorage.setItem('token', result.data);
-            localStorage.setItem('email', result.admin);
-            console.log(result)
-            adminLogin(result.admin);
-
+            localStorage.setItem('admin', result.data);
+            // localStorage.setItem('admin', result.admin);
+            // console.log(result)
+            adminLogin(result.data);
             history.push('/');
 
         } else {

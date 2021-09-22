@@ -9,13 +9,14 @@ import About from './Components/About';
 import { SaveError } from './Components/User/SavedSpot'
 import Admin from './Admin/Admin';
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
+
 
 export const AdminRoute = () => {
   const { adminLogin, adminLoggedIn } = useAuth();
 
   useEffect(() => {
-    const currentUser = localStorage.getItem('email')
+    const currentUser = localStorage.getItem('admin')
     if (currentUser === adminLoggedIn) {
       adminLogin(currentUser);
     }
@@ -34,7 +35,7 @@ export const AuthenticatedRoutes = () => {
 
   const { login, userLoggedIn } = useAuth()
   useEffect(() => {
-    const currentUser = localStorage.getItem('email')
+    const currentUser = localStorage.getItem('user')
     if (currentUser === userLoggedIn) {
       login(currentUser);
     }
@@ -56,14 +57,18 @@ export const AuthenticatedRoutes = () => {
 };
 
 export const UnAuthenticatedRoutes = () => {
-  const { login } = useAuth()
+  const { login, adminLogin } = useAuth()
 
   useEffect(() => {
-    const currentUser = localStorage.getItem('token')
-    if (currentUser) {
-      login(currentUser);
+    const user = localStorage.getItem('user')
+    const admin = localStorage.getItem('admin')
+    if (user) {
+      login(user);
     }
-  }, [login]);
+    if (admin) {
+      adminLogin(admin)
+    }
+  }, [login, adminLogin]);
   return (
     <Router>
       <Switch>
