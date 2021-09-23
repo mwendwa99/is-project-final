@@ -2,6 +2,9 @@ const Org = require('../model/orgModel');
 const express = require('express');
 const route = express.Router();
 
+// add new user post requests
+// add ++ or -- logic on client side then send update request to org db
+
 route.post('/register-org', async (req, res) => {
     const { name, features, description, location, price, spaces } = req.body;
     if (!name || typeof name !== 'string') {
