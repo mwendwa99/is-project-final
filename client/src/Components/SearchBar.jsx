@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Assets from '../Assets/Index';
 import { makeStyles, InputBase, Typography } from '@material-ui/core';
@@ -31,7 +31,14 @@ const TextFields = () => {
     const classes = UseStyle();
     const [place, setPlace] = useState('');
     const [location, setLocation] = useState({ id: '', locationName: '', locationData: '' });
+    const [availableSpace, setAvailableSpace] = useState();
 
+    useEffect(() => {
+        axios.get('/get-org')
+            .then(res => {
+                setAvailableSpace(res.data)
+            })
+    }, [])
 
     const options = {
         method: 'GET',
@@ -47,7 +54,6 @@ const TextFields = () => {
         e.preventDefault();
         // get spot
         axios.request(options).then(function (response) {
-            console.log(response.data.results);
             setLocation(
                 {
                     locationId: response.data.results[0].id,
@@ -80,7 +86,7 @@ const TextFields = () => {
                 </div>
             </form >
             <div >
-                <CustomMap locationDataObject={location} />
+                <CustomMap availableSpace={availableSpace} locationDataObject={location} />
             </div>
         </div>
     );
