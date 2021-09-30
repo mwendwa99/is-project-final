@@ -16,18 +16,39 @@ export function CustomMap({ google, availableSpace, locationDataObject }) {
     const [loc, setLoc] = useState()
     const [geoCode, setGeoCode] = useState({ lat: '', lng: '' })
 
+    // set  states for the marker initial position
+    // if availableSpace ? setGecode states
+    // use googles geocode to convert to coordinates
+    // render marker
 
     useEffect(() => {
         const params = {
             access_key: '1ef34865ebeb328d83af2a87db07123c',
-            query: 'Tom Mboya St',
-            country: 'KE',
-            region: 'Nairobi'
+            query: {
+                "batch": [
+                    {
+                        "query": `${locationNames[0]}`,
+                        "country": 'KE',
+                        "region": 'Nairobi'
+                    },
+                    {
+                        "query": `${locationNames[1]}`,
+                        "country": 'KE',
+                        "region": 'Nairobi'
+                    },
+                    {
+                        "query": `${locationNames[2]}`,
+                        "country": 'KE',
+                        "region": 'Nairobi'
+                    }
+                ]
+            },
         }
         axios.get('http://api.positionstack.com/v1/forward', { params })
             .then((res) => {
                 // setData(res.data.data[0])
-                setGeoCode({ lat: res.data.data[0].latitude, lng: res.data.data[0].longitude })
+                // setGeoCode({ lat: res.data.data[0].latitude, lng: res.data.data[0].longitude })
+                setLoc(res)
             })
             .then(
                 // if (await availableSpace) {
@@ -42,7 +63,7 @@ export function CustomMap({ google, availableSpace, locationDataObject }) {
 
     }, [availableSpace])
 
-    console.log(locationNames)
+    console.log(loc)
 
 
     // 1.2921° S, 36.8219° E
