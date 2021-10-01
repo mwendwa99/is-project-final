@@ -3,67 +3,74 @@ import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { Grid } from '@material-ui/core';
 import axios from 'axios';
 import { ContactSupportRounded } from '@material-ui/icons';
+import { useOrg } from '../Context/AuthContext';
 
 const mapStyle = {
     height: "100%",
     width: "100%"
 }
 
-const locationNames = [];
+// const locationNames = [{
+//     "query": ''
+// }];
 
-export function CustomMap({ google, availableSpace, locationDataObject }) {
 
-    const [loc, setLoc] = useState()
+export function CustomMap({ google, locationDataObject }) {
+
+    const [apiRes, setApiRes] = useState()
     const [geoCode, setGeoCode] = useState({ lat: '', lng: '' })
 
-    // set  states for the marker initial position
-    // if availableSpace ? setGecode states
-    // use googles geocode to convert to coordinates
-    // render marker
+    const { orgDetails } = useOrg();
+
+    // console.log('this is the details', orgDetails);
+
+
+    // let data = orgDetails.map((item) => (
+    //     query:{
+    //         "batch":[
+    //             "query":{item.location}
+    //         ]
+    //     }
+    // )
+    // )
+    // console.log(data)
+
+
+    // orgDetails.map((item)=>({
+    // query:{item.location}
+    // }))
+    // orgDetails.map((item) => ({ locationNames: item.location }))
+
+    // console.log('this is the location', locationNames);
+
+    const params = {
+        access_key: '1ef34865ebeb328d83af2a87db07123c',
+        query: {
+            "batch": [
+                // "query": `${}`
+            ]
+        },
+        country: 'KE',
+        region: 'Nairobi'
+    }
 
     useEffect(() => {
-        const params = {
-            access_key: '1ef34865ebeb328d83af2a87db07123c',
-            query: {
-                "batch": [
-                    {
-                        "query": `${locationNames[0]}`,
-                        "country": 'KE',
-                        "region": 'Nairobi'
-                    },
-                    {
-                        "query": `${locationNames[1]}`,
-                        "country": 'KE',
-                        "region": 'Nairobi'
-                    },
-                    {
-                        "query": `${locationNames[2]}`,
-                        "country": 'KE',
-                        "region": 'Nairobi'
-                    }
-                ]
-            },
-        }
+
         axios.get('http://api.positionstack.com/v1/forward', { params })
             .then((res) => {
-                // setData(res.data.data[0])
-                // setGeoCode({ lat: res.data.data[0].latitude, lng: res.data.data[0].longitude })
-                setLoc(res)
+                setApiRes(res.data)
             })
-            .then(
-                // if (await availableSpace) {
-                availableSpace.map((item,) =>
-                    locationNames.push(item.location)
-                )
-                // }
-            )
             .catch(error => {
                 console.log(error);
             });
 
-    }, [availableSpace])
+    }, [orgDetails, apiRes])
 
-    console.log(loc)
+    // console.log('this is the res', apiRes);
+
+
+
+    // console.log(locationNames)
 
 
     // 1.2921° S, 36.8219° E

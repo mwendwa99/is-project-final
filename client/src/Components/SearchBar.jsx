@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import Assets from '../Assets/Index';
 import { makeStyles, InputBase, Typography } from '@material-ui/core';
@@ -9,7 +9,6 @@ const UseStyle = makeStyles((theme) => ({
         display: "flex",
         flexDirection: 'column',
         justifyContent: 'space-between',
-        // padding: theme.spacing(1),
     },
     root: {
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
@@ -27,18 +26,9 @@ const UseStyle = makeStyles((theme) => ({
 
 
 const TextFields = () => {
-    // const locationDetails = useContext(locationContext)
     const classes = UseStyle();
     const [place, setPlace] = useState('');
     const [location, setLocation] = useState({ id: '', locationName: '', locationData: '' });
-    const [availableSpace, setAvailableSpace] = useState();
-
-    useEffect(() => {
-        axios.get('/get-org')
-            .then(res => {
-                setAvailableSpace(res.data)
-            })
-    }, [])
 
     const options = {
         method: 'GET',
@@ -67,7 +57,6 @@ const TextFields = () => {
         });
     }
 
-    // console.log(`this is location from api:${location}`)
     return (
         <div className={classes.wrapper}>
             <Typography variant='subtitle2'>{location ? location.locationName : 'waiting'} </Typography>
@@ -86,7 +75,7 @@ const TextFields = () => {
                 </div>
             </form >
             <div >
-                <CustomMap availableSpace={availableSpace} locationDataObject={location} />
+                <CustomMap locationDataObject={location} />
             </div>
         </div>
     );
