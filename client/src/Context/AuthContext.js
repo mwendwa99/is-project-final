@@ -3,12 +3,10 @@ import axios from 'axios';
 
 const AuthContext = createContext({});
 const OrgContext = createContext();
-const UserContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [userLoggedIn, setUserLoggedIn] = useState();
     const [adminLoggedIn, setAdminLoggedIn] = useState();
-    const [availableSpace, setAvailableSpace] = useState();
 
     const login = async (user) => setUserLoggedIn(user);
     const logout = async () => setUserLoggedIn();
@@ -41,7 +39,11 @@ const OrgProvider = ({ children }) => {
             .catch((err) => console.log(err))
     }, []);
 
-    const geoData = async (data) => setPayload(data)
+    const geoData = async (data) => {
+        Object.keys(data).map((i) =>
+            setPayload(data[i])
+        );
+    }
     const orgValue = { orgDetails, geoData, payload }
 
     return (

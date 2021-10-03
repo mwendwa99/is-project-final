@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { Grid } from '@material-ui/core';
 import axios from 'axios';
-import { ContactSupportRounded } from '@material-ui/icons';
 import { useOrg } from '../Context/AuthContext';
 
 const mapStyle = {
@@ -11,12 +10,11 @@ const mapStyle = {
 }
 
 const locationNames = {};
-// const geoCodes = {};
 
 export function CustomMap({ google, locationDataObject }) {
 
     const { orgDetails, payload, geoData } = useOrg();
-    const [geoCodes, setGeoCodes] = useState()
+    const [geoInfo, setGeoInfo] = useState([])
 
     // map details from mongo to array object
     let data = orgDetails.map((item, id) =>
@@ -25,7 +23,7 @@ export function CustomMap({ google, locationDataObject }) {
     useEffect(() => {
         // map looped organization locations to api params
         const params = {
-            access_key: '1ef34865ebeb328d83af2a87db07123c',
+            access_key: process.env.REACT_APP_GEO_KEY,
             query: {
                 "batch": `${data}`
             },
@@ -43,11 +41,15 @@ export function CustomMap({ google, locationDataObject }) {
 
     }, [])
 
+    console.log('new payload', payload)
+
     // consume geo data from global state
-    var geoDataArray = Object.keys(payload).map(function (i) {
-        return payload[i];
-    });
-    console.log('with map', geoDataArray)
+    // return each value of array in its own array
+    // truncate array to only have lat and long
+    var geoDataArray = Object.keys(payload).map((i) => {
+        return Object.values(payload[i]).slice(0, 2)
+    }
+    );
 
     return (
         <Grid container className="map__section">
@@ -62,7 +64,10 @@ export function CustomMap({ google, locationDataObject }) {
                     {
                         geoDataArray ?
                             geoDataArray.map((item, id) =>
-                                <Marker key={id} position={{ lat: item.latitude, lng: item.longitude }} />
+
+                                <Marker key={id}
+                                    position={{ lat: item[0], lng: item[1] }}
+                                />
                             )
                             : ''
 
