@@ -10,68 +10,51 @@ const mapStyle = {
     width: "100%"
 }
 
-// const locationNames = [{
-//     "query": ''
-// }];
-
+const locationNames = {};
+// const geoCodes = {};
 
 export function CustomMap({ google, locationDataObject }) {
 
-    const [apiRes, setApiRes] = useState()
-    const [geoCode, setGeoCode] = useState({ lat: '', lng: '' })
+    const { orgDetails, payload, geoData } = useOrg();
+    const [geoCodes, setGeoCodes] = useState({ lat: '', lng: '' })
 
-    const { orgDetails } = useOrg();
-
-    // console.log('this is the details', orgDetails);
-
-
-    // let data = orgDetails.map((item) => (
-    //     query:{
-    //         "batch":[
-    //             "query":{item.location}
-    //         ]
-    //     }
-    // )
-    // )
-    // console.log(data)
-
-
-    // orgDetails.map((item)=>({
-    // query:{item.location}
-    // }))
-    // orgDetails.map((item) => ({ locationNames: item.location }))
-
-    // console.log('this is the location', locationNames);
-
-    const params = {
-        access_key: '1ef34865ebeb328d83af2a87db07123c',
-        query: {
-            "batch": [
-                // "query": `${}`
-            ]
-        },
-        country: 'KE',
-        region: 'Nairobi'
-    }
-
+    // map details from mongo to array object
+    let data = orgDetails.map((item, id) =>
+        locationNames['query'] = item.location
+    );
     useEffect(() => {
-
+        // map looped organization locations to api params
+        const params = {
+            access_key: '1ef34865ebeb328d83af2a87db07123c',
+            query: {
+                "batch": `${data}`
+            },
+            country: 'KE',
+            region: 'Nairobi'
+        }
+        // get geocode data of organizations
         axios.get('http://api.positionstack.com/v1/forward', { params })
             .then((res) => {
-                setApiRes(res.data)
+                // push geo data to the global state
+                geoData(res.data)
             })
             .catch(error => {
                 console.log(error);
             });
 
-    }, [orgDetails, apiRes])
+    }, [])
 
-    // console.log('this is the res', apiRes);
+    // consume geo data from global state
+    useEffect(() => {
+        for (var key in payload) {
+            if (payload.hasOwnProperty(key)) {
+                // console.log(key, " -> ", payload[key]);
+                setGeoCodes(payload[key])
+            }
+        }
+    }, [payload])
 
-
-
-    // console.log(locationNames)
-
+    console.log('codes', geoCodes)
 
     // 1.2921° S, 36.8219° E
     return (
@@ -85,14 +68,14 @@ export function CustomMap({ google, locationDataObject }) {
                     initialCenter={{ lat: -1.283721, lng: 36.822759 }}
                     zoom={!locationDataObject ? 14 : 15.5}
                 >
-                    {/* {
-                        locationDataObject.locationData ? <Marker position={locationDataObject.locationData} />
-                            :
-                            data.map((item, id) =>
-                                <Marker key={id} position={geoCode} />
-                            )
+                    {
+                        // geoCodes ?
+                        //     geoCodes.map((item, id) =>
+                        //         <Marker key={id} position={{ lat: item.latitude, lng: item.longitude }} />
+                        //     )
+                        //     : ''
 
-                    } */}
+                    }
                 </Map>
             </Grid>
         </Grid>

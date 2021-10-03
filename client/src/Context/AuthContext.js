@@ -33,15 +33,17 @@ const AuthProvider = ({ children }) => {
 
 const OrgProvider = ({ children }) => {
     const [orgDetails, setOrgDetails] = useState();
+    const [payload, setPayload] = useState();
 
     useEffect(() => {
         axios.get('/get-org')
             .then((res) => setOrgDetails(res.data))
             .catch((err) => console.log(err))
     }, []);
-    const orgValue = {
-        orgDetails,
-    }
+
+    const geoData = async (data) => setPayload(data)
+    const orgValue = { orgDetails, geoData, payload }
+
     return (
         <OrgContext.Provider value={orgValue}>
             {children}
