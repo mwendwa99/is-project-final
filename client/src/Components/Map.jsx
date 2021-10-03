@@ -16,7 +16,7 @@ const locationNames = {};
 export function CustomMap({ google, locationDataObject }) {
 
     const { orgDetails, payload, geoData } = useOrg();
-    const [geoCodes, setGeoCodes] = useState({ lat: '', lng: '' })
+    const [geoCodes, setGeoCodes] = useState()
 
     // map details from mongo to array object
     let data = orgDetails.map((item, id) =>
@@ -35,7 +35,6 @@ export function CustomMap({ google, locationDataObject }) {
         // get geocode data of organizations
         axios.get('http://api.positionstack.com/v1/forward', { params })
             .then((res) => {
-                // push geo data to the global state
                 geoData(res.data)
             })
             .catch(error => {
@@ -45,21 +44,13 @@ export function CustomMap({ google, locationDataObject }) {
     }, [])
 
     // consume geo data from global state
-    useEffect(() => {
-        for (var key in payload) {
-            if (payload.hasOwnProperty(key)) {
-                // console.log(key, " -> ", payload[key]);
-                setGeoCodes(payload[key])
-            }
-        }
-    }, [payload])
+    var geoDataArray = Object.keys(payload).map(function (i) {
+        return payload[i];
+    });
+    console.log('with map', geoDataArray)
 
-    console.log('codes', geoCodes)
-
-    // 1.2921° S, 36.8219° E
     return (
         <Grid container className="map__section">
-            {/* <h1> {data[0]} </h1> */}
             <Grid item className="map__section--gmap_canvas" md={12}>
                 <Map
                     google={google}
@@ -69,11 +60,11 @@ export function CustomMap({ google, locationDataObject }) {
                     zoom={!locationDataObject ? 14 : 15.5}
                 >
                     {
-                        // geoCodes ?
-                        //     geoCodes.map((item, id) =>
-                        //         <Marker key={id} position={{ lat: item.latitude, lng: item.longitude }} />
-                        //     )
-                        //     : ''
+                        geoDataArray ?
+                            geoDataArray.map((item, id) =>
+                                <Marker key={id} position={{ lat: item.latitude, lng: item.longitude }} />
+                            )
+                            : ''
 
                     }
                 </Map>

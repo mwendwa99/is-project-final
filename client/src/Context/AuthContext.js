@@ -32,8 +32,8 @@ const AuthProvider = ({ children }) => {
 };
 
 const OrgProvider = ({ children }) => {
-    const [orgDetails, setOrgDetails] = useState();
-    const [payload, setPayload] = useState();
+    const [orgDetails, setOrgDetails] = useState([]);
+    const [payload, setPayload] = useState([]);
 
     useEffect(() => {
         axios.get('/get-org')
