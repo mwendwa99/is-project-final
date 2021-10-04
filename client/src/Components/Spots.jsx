@@ -7,6 +7,7 @@ import { Money, Favorite } from '@material-ui/icons';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import Assets from '../Assets/Index'
+import { UserStateValue } from '../Context/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
     grid: {
@@ -27,14 +28,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FullWidthGrid() {
     const classes = useStyles();
-    const [initialList, setInitialList] = useState([])
+    const [initialList, setInitialList] = useState([]);
+    const [userSpot, setUserSpot] = UserStateValue()
 
     useEffect(() => {
         axios.get('/get-org')
             .then((response) => {
                 setInitialList(response.data)
             }).catch((error) => console.log(`error in fetch Spots ${error}`))
-    }, [])
+    }, []);
+
+    // console.log('initial', initialList)
+
+    // SAVE SPOT DETAILS TO LOCAL STORAGE
+    // ONCLICK BUTTON TO SELECT ONE WHICH MATCHES WITH ID AND PUSH TO GLOBAL STATE
+    // ALL THE BEST BRO!
+
 
     return (
         <Grid wrap='nowrap'
@@ -44,7 +53,7 @@ export default function FullWidthGrid() {
             alignItems="center"
             justify="center" >
             {
-                initialList.map((item) => (
+                initialList.map((item, index) => (
                     < List key={item._id} >
                         <Grid className={classes.gridItem} item sm={12}>
                             <img height="100%" width="100%" src={Assets.parking} alt="parking" />
@@ -66,7 +75,9 @@ export default function FullWidthGrid() {
                                 </ListItemText>
                             </ListItem>
                             <ListItemIcon>{
-                                <Button variant="contained" size="small" >
+                                <Button
+                                    // onClick={addToSpots(item._id, item.name)}
+                                    variant="contained" size="small" >
                                     <Favorite button /> Save Me!
                                 </Button>
                             }</ListItemIcon>

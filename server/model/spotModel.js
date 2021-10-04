@@ -1,29 +1,36 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema();
+var Schema = mongoose.Schema;
 
 const spotSchema = new Schema({
     name: {
         type: String,
         required: true
     },
+    id: {
+        type: String
+    },
+    // location: {
+    //     type: {
+    //         type: String,
+    //         enum: ['Point'], //location type
+    //         required: true
+    //     },
+    //     coordintates: {
+    //         type: [Number],
+    //         required: true
+    //     }
+    // },
     location: {
-        type: {
-            type: String,
-            enum: ['Point'], //location type
-            required: true
-        },
-        coordintates: {
-            type: [Number],
-            required: true
-        }
+        type: String
     },
     features: {
-        type: Array,
-        required: true
+        type: String,
+    },
+    description: {
+        type: String
     },
     spaces: {
         type: Number,
-        required: true
     },
     price: {
         type: Number,
@@ -32,4 +39,4 @@ const spotSchema = new Schema({
 });
 
 const Spot = mongoose.model('Spot', spotSchema);
-module.exports = User;
+module.exports = Spot;

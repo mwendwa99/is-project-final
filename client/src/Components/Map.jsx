@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { Grid } from '@material-ui/core';
 import axios from 'axios';
@@ -14,7 +14,6 @@ const locationNames = {};
 export function CustomMap({ google, locationDataObject }) {
 
     const { orgDetails, payload, geoData } = useOrg();
-    const [geoInfo, setGeoInfo] = useState([])
 
     // map details from mongo to array object
     let data = orgDetails.map((item, id) =>
@@ -40,8 +39,6 @@ export function CustomMap({ google, locationDataObject }) {
             });
 
     }, [])
-
-    console.log('new payload', payload)
 
     // consume geo data from global state
     // return each value of array in its own array

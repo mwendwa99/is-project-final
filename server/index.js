@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoute');
 const orgRoutes = require('./routes/orgRoute');
 const adminRoutes = require('./routes/adminRoute');
+const spotRoutes = require('./routes/spotRoute')
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
@@ -21,6 +22,8 @@ app.use(bodyParser.json());
 app.use('/api', userRoutes);
 // organization route
 app.use(orgRoutes);
+// spot route
+app.use(spotRoutes)
 // admin route
 app.use('/admin', adminRoutes);
 

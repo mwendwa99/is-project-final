@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { AuthProvider, OrgProvider } from './Context/AuthContext';
+import { AuthProvider, OrgProvider, UserProvider } from './Context/AuthContext';
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios';
 
@@ -14,7 +14,9 @@ axios.defaults.headers.common = {
 ReactDOM.render(
   <AuthProvider>
     <OrgProvider>
-      <App />
+      <UserProvider >
+        <App />
+      </UserProvider>
     </OrgProvider>
   </AuthProvider>,
   document.getElementById('root')
