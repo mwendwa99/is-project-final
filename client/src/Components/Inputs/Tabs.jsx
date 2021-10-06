@@ -99,6 +99,7 @@ export default function SimpleTabs(props) {
         if (result.status === 'ok') {
             // everything went fine
             localStorage.setItem('user', result.data);
+            localStorage.setItem('email', result.email);
             // localStorage.setItem('email', result.email);
             login(result.data);
             history.push('/');

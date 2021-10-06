@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAuth } from './Context/AuthContext';
 import NavBar from './Components/navBar';
 import Home from './Components/Home';
@@ -9,7 +9,7 @@ import About from './Components/About';
 import { SaveError } from './Components/User/SavedSpot'
 import Admin from './Admin/Admin';
 
-import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 export const AdminRoute = () => {

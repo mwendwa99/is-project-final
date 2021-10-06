@@ -7,7 +7,8 @@ import { Money, Favorite } from '@material-ui/icons';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import Assets from '../Assets/Index'
-import { UserStateValue } from '../Context/AuthContext';
+import { useSavedValue } from '../Context/AuthContext';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
     grid: {
@@ -29,20 +30,42 @@ const useStyles = makeStyles((theme) => ({
 export default function FullWidthGrid() {
     const classes = useStyles();
     const [initialList, setInitialList] = useState([]);
-    const [userSpot, setUserSpot] = UserStateValue()
+    const [clickedIndex, setClickedIndex] = useState([]);
+    const { savedSpot, userSavedSpot } = useSavedValue();
+    const history = useHistory()
+
 
     useEffect(() => {
         axios.get('/get-org')
             .then((response) => {
                 setInitialList(response.data)
             }).catch((error) => console.log(`error in fetch Spots ${error}`))
-    }, []);
 
-    // console.log('initial', initialList)
+        if (userSavedSpot) {
+            history.push('/details')
+        }
+    }, [userSavedSpot, history]);
 
     // SAVE SPOT DETAILS TO LOCAL STORAGE
     // ONCLICK BUTTON TO SELECT ONE WHICH MATCHES WITH ID AND PUSH TO GLOBAL STATE
     // ALL THE BEST BRO!
+
+
+    const addToSpots = (index, name, location, spaces, price) => () => {
+        setClickedIndex((state) => ([{
+            // ...state, // <-- copy previous state
+            [index]: {
+                name: name,
+                location: location,
+                spaces: spaces,
+                price: price
+            }// <-- update value by index key
+        }]));
+    };
+    console.log('CLICKED INDEX', clickedIndex);
+    savedSpot(clickedIndex);
+    // localStorage.setItem('savedspot', `${clickedIndex.name}`)
+    // console.log('USER SPOT', userSavedSpot);
 
 
     return (
@@ -76,7 +99,7 @@ export default function FullWidthGrid() {
                             </ListItem>
                             <ListItemIcon>{
                                 <Button
-                                    // onClick={addToSpots(item._id, item.name)}
+                                    onClick={addToSpots(index, item.name, item.location, item.spaces, item.price)}
                                     variant="contained" size="small" >
                                     <Favorite button /> Save Me!
                                 </Button>

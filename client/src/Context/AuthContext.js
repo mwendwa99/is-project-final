@@ -55,17 +55,23 @@ const OrgProvider = ({ children }) => {
 }
 
 const UserProvider = ({ children }) => {
-    const [userSpot, setUserSpot] = useState([]);
-    console.log('state', userSpot);
+    const [userSavedSpot, setUserSavedSpot] = useState()
 
     // function to update user saves to backend
     const savedSpot = async (data) => {
         // axios post
+        setUserSavedSpot(data);
+        localStorage.setItem('savedspot', data)
+    }
 
+
+    const values = {
+        savedSpot,
+        userSavedSpot,
     }
 
     return (
-        <UserContext.Provider value={[userSpot, setUserSpot]}>
+        <UserContext.Provider value={values}>
             {children}
         </UserContext.Provider>
     )
@@ -74,6 +80,6 @@ const UserProvider = ({ children }) => {
 
 const useAuth = () => useContext(AuthContext);
 const useOrg = () => useContext(OrgContext);
-const UserStateValue = () => useContext(UserContext);
+const useSavedValue = () => useContext(UserContext);
 
-export { AuthProvider, useAuth, OrgProvider, useOrg, UserStateValue, UserProvider }
+export { AuthProvider, useAuth, OrgProvider, useOrg, useSavedValue, UserProvider }
