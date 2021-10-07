@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import Assets from '../Assets/Index'
 import { useSavedValue } from '../Context/AuthContext';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     grid: {
@@ -31,25 +31,23 @@ export default function FullWidthGrid() {
     const classes = useStyles();
     const [initialList, setInitialList] = useState([]);
     const [clickedIndex, setClickedIndex] = useState([]);
-    const { savedSpot, userSavedSpot } = useSavedValue();
-    const history = useHistory()
+    const { savedSpot } = useSavedValue();
+    const history = useHistory();
 
+    const setDataFunc = (state) => {
+        if (state.length) {
+            history.push('/details')
+        }
+    }
 
     useEffect(() => {
         axios.get('/get-org')
             .then((response) => {
                 setInitialList(response.data)
-            }).catch((error) => console.log(`error in fetch Spots ${error}`))
+            }).catch((error) => console.log(`error in fetch Spots ${error}`));
 
-        if (userSavedSpot) {
-            history.push('/details')
-        }
-    }, [userSavedSpot, history]);
-
-    // SAVE SPOT DETAILS TO LOCAL STORAGE
-    // ONCLICK BUTTON TO SELECT ONE WHICH MATCHES WITH ID AND PUSH TO GLOBAL STATE
-    // ALL THE BEST BRO!
-
+        // setDataFunc();
+    }, []);
 
     const addToSpots = (index, name, location, spaces, price) => () => {
         setClickedIndex((state) => ([{
@@ -61,12 +59,10 @@ export default function FullWidthGrid() {
                 price: price
             }// <-- update value by index key
         }]));
+        setDataFunc(clickedIndex)
     };
-    console.log('CLICKED INDEX', clickedIndex);
+    // console.log('CLICKED INDEX', clickedIndex);
     savedSpot(clickedIndex);
-    // localStorage.setItem('savedspot', `${clickedIndex.name}`)
-    // console.log('USER SPOT', userSavedSpot);
-
 
     return (
         <Grid wrap='nowrap'
@@ -99,7 +95,11 @@ export default function FullWidthGrid() {
                             </ListItem>
                             <ListItemIcon>{
                                 <Button
-                                    onClick={addToSpots(index, item.name, item.location, item.spaces, item.price)}
+                                    // component={Link}
+                                    // to='/details'
+                                    onClick={
+                                        addToSpots(index, item.name, item.location, item.spaces, item.price)
+                                    }
                                     variant="contained" size="small" >
                                     <Favorite button /> Save Me!
                                 </Button>

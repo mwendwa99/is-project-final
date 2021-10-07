@@ -8,6 +8,7 @@ import SpotDetails from './Components/SpotDetails'
 import About from './Components/About';
 import { SaveError } from './Components/User/SavedSpot'
 import Admin from './Admin/Admin';
+import { useSavedValue } from './Context/AuthContext';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -32,6 +33,8 @@ export const AdminRoute = () => {
 }
 
 export const AuthenticatedRoutes = () => {
+  const { userSavedSpot } = useSavedValue();
+
 
   const { login, userLoggedIn } = useAuth()
   useEffect(() => {
@@ -47,7 +50,9 @@ export const AuthenticatedRoutes = () => {
         <div className="App">
           <NavBar />
           <Route exact path='/' component={Home} />
-          <Route exact path='/details' component={SpotDetails} />
+          <Route exact path='/details' render={({ userSavedSpot }) => (
+            <SpotDetails userSavedSpot={userSavedSpot} />
+          )} />
           <Route exact path='/about' component={About} />
           <Route exact path='/my-spot' component={SaveError} />
         </div>

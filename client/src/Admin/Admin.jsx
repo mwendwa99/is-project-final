@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {
     Drawer, AppBar, Toolbar, List, CssBaseline, TextField, Grid, Button,
-    Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText
+    Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText, Fade
 } from '@material-ui/core';
 import {
     Menu, ChevronLeft, ChevronRight, ExitToApp,
@@ -126,30 +126,32 @@ export const OrgPage = ({ Component }) => {
         Component('Your Parking Spaces')
     }
     return (
-        <form onSubmit={formSubmit} className={classes.textField} noValidate autoComplete="off">
-            <Grid item sm={8}>
-                <Typography align='center' variant='h6'>Enter details about your organization</Typography>
-                <TextField id="outlined-primary" value={name} label="Name of organization" variant="outlined" color="primary" fullWidth
-                    onChange={(e) => setName(e.target.value)}
-                />
-                <TextField id="outlined-primary" value={location} label="location" variant="outlined" color="primary"
-                    onChange={(e) => setLocation(e.target.value)}
-                />
-                <TextField id="outlined-primary" value={spaces} label="parking spaces available" type="number" variant="outlined" color="primary"
-                    onChange={(e) => setSpaces(e.target.value)}
-                />
-                <TextField id="outlined-primary" value={features} label="features" variant="outlined" color="primary"
-                    onChange={(e) => setFeatures(e.target.value)}
-                />
-                <TextField id="outlined-primary" value={description} label="description" variant="outlined" color="primary"
-                    onChange={(e) => setDescription(e.target.value)}
-                />
-                <TextField id="outlined-primary" value={price} label="price per lot" type='number' variant="outlined" color="primary"
-                    onChange={(e) => setPrice(e.target.value)}
-                />
-                <Button type='submit' variant='contained'>Submit</Button>
-            </Grid>
-        </form>
+        <Fade in timeout={1000}>
+            <form onSubmit={formSubmit} className={classes.textField} noValidate autoComplete="off">
+                <Grid item sm={8}>
+                    <Typography align='center' variant='h6'>Enter details about your organization</Typography>
+                    <TextField id="outlined-primary" value={name} label="Name of organization" variant="outlined" color="primary" fullWidth
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <TextField id="outlined-primary" value={location} label="location" variant="outlined" color="primary"
+                        onChange={(e) => setLocation(e.target.value)}
+                    />
+                    <TextField id="outlined-primary" value={spaces} label="parking spaces available" type="number" variant="outlined" color="primary"
+                        onChange={(e) => setSpaces(e.target.value)}
+                    />
+                    <TextField id="outlined-primary" value={features} label="features" variant="outlined" color="primary"
+                        onChange={(e) => setFeatures(e.target.value)}
+                    />
+                    <TextField id="outlined-primary" value={description} label="description" variant="outlined" color="primary"
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                    <TextField id="outlined-primary" value={price} label="price per lot" type='number' variant="outlined" color="primary"
+                        onChange={(e) => setPrice(e.target.value)}
+                    />
+                    <Button type='submit' variant='contained'>Submit</Button>
+                </Grid>
+            </form>
+        </Fade>
     )
 };
 
@@ -172,29 +174,31 @@ export const ParkingPage = ({ data }) => {
     }
 
     return (
-        <Grid container>
-            <Grid className={classes.itemDetails} item sm={12}>
-                {itemList.map((item) => (
-                    <List key={item._id}>
-                        <ListItem >
-                            <ListItemText disableTypography='true'>
-                                {item.name}
-                                <ul>
-                                    <li> description: {item.description} </li>
-                                    <li> features: {item.features} </li>
-                                    <li> location: {item.location} </li>
-                                    <li> price:  {item.price} </li>
-                                    <li> spaces available: {item.spaces} </li>
-                                </ul>
-                            </ListItemText>
-                            <ListItemIcon>{
-                                <IconButton onClick={() => deleteItem(item._id)} ><Delete button style={{ fill: 'white' }} /></IconButton>
-                            }</ListItemIcon>
-                        </ListItem>
-                    </List>
-                ))}
+        <Fade in timeout={1000}>
+            <Grid container>
+                <Grid className={classes.itemDetails} item sm={12}>
+                    {itemList.map((item) => (
+                        <List key={item._id}>
+                            <ListItem >
+                                <ListItemText disableTypography='true'>
+                                    {item.name}
+                                    <ul>
+                                        <li> description: {item.description} </li>
+                                        <li> features: {item.features} </li>
+                                        <li> location: {item.location} </li>
+                                        <li> price:  {item.price} </li>
+                                        <li> spaces available: {item.spaces} </li>
+                                    </ul>
+                                </ListItemText>
+                                <ListItemIcon>{
+                                    <IconButton onClick={() => deleteItem(item._id)} ><Delete button style={{ fill: 'white' }} /></IconButton>
+                                }</ListItemIcon>
+                            </ListItem>
+                        </List>
+                    ))}
+                </Grid>
             </Grid>
-        </Grid>
+        </Fade>
     )
 }
 
@@ -320,7 +324,6 @@ export default function MiniDrawer() {
                         : component === 'Your Parking Spaces' ? <ParkingPage Component={setComponent} data={details} />
                             : <h1>Loading ...</h1>
                 }
-                {/* <OrgPage /> */}
             </main>
         </div>
     ) : (

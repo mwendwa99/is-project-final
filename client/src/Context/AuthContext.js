@@ -63,8 +63,6 @@ const UserProvider = ({ children }) => {
         setUserSavedSpot(data);
         localStorage.setItem('savedspot', data)
     }
-
-
     const values = {
         savedSpot,
         userSavedSpot,

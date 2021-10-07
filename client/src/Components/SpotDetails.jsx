@@ -35,9 +35,13 @@ const UseStyle = makeStyles((theme) => ({
     },
 }))
 
-const SpotDetails = () => {
 
+const SpotDetails = ({ userSavedSpot = [] }) => {
     const classes = UseStyle();
+
+    console.log('DETAILS', userSavedSpot);
+
+
     return (
         <div className='body__section'>
             <Container maxWidth='md' className={classes.root}>
@@ -50,8 +54,8 @@ const SpotDetails = () => {
                 </Grid>
                 <Grid container className={classes.gridContainer}>
                     <Grid item sm={6} xs={6} >
-                        <Grid container>
-                            <Grid item xs={12}><Typography>Name, Location</Typography></Grid>
+                        <Grid container >
+                            <Grid item xs={12}><Typography>, </Typography></Grid>
                             <Grid item xs={4} style={{ paddingTop: "0.5rem" }}>
                                 <Typography>Features</Typography>
                             </Grid>
