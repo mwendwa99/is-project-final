@@ -25,6 +25,7 @@ export default function TextInput() {
                 type="number"
                 inputProps={inputProps}
                 InputProps={{ disableUnderline: true }}
+                placeholder='number of spaces'
                 size="large"
                 margin="none" />
         </form>

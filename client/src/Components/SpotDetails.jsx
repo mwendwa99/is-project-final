@@ -15,9 +15,18 @@ const UseStyle = makeStyles((theme) => ({
         borderRadius: '20px',
         marginTop: theme.spacing(1),
         padding: theme.spacing(1),
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
     },
     gridContainer: {
         padding: theme.spacing(0.5),
+    },
+    gridItem: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     imageContainer: {
         height: "20rem",
@@ -36,74 +45,96 @@ const UseStyle = makeStyles((theme) => ({
 }))
 
 
-const SpotDetails = ({ userSavedSpot = [] }) => {
+const SpotDetails = ({ data }) => {
     const classes = UseStyle();
+    let userSpot = Object.keys(data).map((i) => {
+        return Object.values(data[i])
+    }
+    );
 
-    console.log('DETAILS', userSavedSpot);
-
+    console.log('NEWARR', userSpot);
 
     return (
         <div className='body__section'>
-            <Container maxWidth='md' className={classes.root}>
-                <Grid container className={classes.gridContainer}>
-                    <Grid item sm={12}>
-                        <div className={classes.imageContainer}>
-                            <img src={Assets.parking} style={{ borderRadius: "20px" }} height="100%" width="100%" alt="" />
-                        </div>
-                    </Grid>
-                </Grid>
-                <Grid container className={classes.gridContainer}>
-                    <Grid item sm={6} xs={6} >
-                        <Grid container >
-                            <Grid item xs={12}><Typography>, </Typography></Grid>
-                            <Grid item xs={4} style={{ paddingTop: "0.5rem" }}>
-                                <Typography>Features</Typography>
+            {
+                userSpot.map((item) =>
+                    item.map((value, index) =>
+                        <Container maxWidth='md' className={classes.root} key={index}>
+                            <Grid container className={classes.gridContainer}>
+                                <Grid item sm={12}>
+                                    <div className={classes.imageContainer}>
+                                        <img
+                                            src="https://images.pexels.com/photos/681335/pexels-photo-681335.jpeg"
+                                            style={{ borderRadius: "20px" }}
+                                            height="100%" width="100%" alt="" />
+                                    </div>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={8} style={{ padding: "1rem" }}>
-                                <ul>
-                                    <li><Typography variant="subtitle">examples</Typography></li>
-                                    <li><Typography variant="subtitle">examples</Typography></li>
-                                    <li><Typography variant="subtitle">examples</Typography></li>
-                                    <li><Typography variant="subtitle">examples</Typography></li>
-                                    <li><Typography variant="subtitle">examples</Typography></li>
-                                </ul>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item sm={6} xs={6}
-                        className={classes.priceCard}
-                    >
+                            <Grid container className={classes.gridContainer}>
+                                <Grid item sm={12} >
+                                    <Grid container className={classes.gridItem}  >
+                                        <Grid item sm={12}>
+                                            <Typography >
+                                                {value.name}, {value.location}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item sm={12} className={classes.priceCard}>
+                                            <Table size='large'  >
+                                                <TableContainer  >
+                                                    <TableBody>
+                                                        <TableRow
+                                                            key={index}
 
-                        <Table size='small'>
-                            <TableContainer>
-                                <TableBody>
-                                    <TableRow>
-                                        <TableCell>
-                                            <Typography variant='subtitle2'>price: </Typography>
-                                        </TableCell>
-                                        <TableCell>300</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell component='th' scope='row'>
-                                            <Typography variant='subtitle2'>spaces:</Typography>
-                                        </TableCell>
-                                        <TableCell><TextInput /></TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>
-                                            <Typography variant='subtitle2'>Day:</Typography>
-                                        </TableCell>
-                                        <TableCell><Date /></TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </TableContainer>
-                        </Table>
-                    </Grid>
-                    <Grid item xs={12} sm={12}>
-                        <div><Button variant='contained' size="small"> proceed to pay </Button></div>
-                    </Grid>
-                </Grid>
-            </Container>
+                                                        >
+                                                            <TableCell>
+                                                                <Typography variant='h5'>price: </Typography>
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <Typography variant='h6'>{value.price}</Typography>
+                                                            </TableCell>
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell component='th' scope='row'>
+                                                                <Typography variant='h5'>spaces:</Typography>
+                                                            </TableCell>
+                                                            <TableCell><TextInput /></TableCell>
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell component='th' scope='row'>
+                                                                <Typography variant='h5'>Description:</Typography>
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <Typography variant='h6'>{value.description}</Typography>
+                                                            </TableCell>
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell component='th' scope='row'>
+                                                                <Typography variant='h5'>Features:</Typography>
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <Typography variant='h6'>{value.features}</Typography>
+                                                            </TableCell>
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>
+                                                                <Typography variant='h5'>Day:</Typography>
+                                                            </TableCell>
+                                                            <TableCell><Date /></TableCell>
+                                                        </TableRow>
+                                                    </TableBody>
+                                                </TableContainer>
+                                            </Table>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={12} sm={12}>
+                                    <div><Button variant='contained' size="small"> proceed to pay </Button></div>
+                                </Grid>
+                            </Grid>
+                        </Container>
+                    )
+                )
+            }
         </div >
     )
 }

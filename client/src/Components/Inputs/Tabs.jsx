@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Grid, Tabs, Tab, Typography, Box, InputBase, Button } from '@material-ui/core';
 import { Mail, Lock } from '@material-ui/icons';
 import { useAuth } from '../../Context/AuthContext';
-import auth from '../../Service/AuthService';
 import { useHistory } from 'react-router-dom';
 
 function TabPanel(props) {

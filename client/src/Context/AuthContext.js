@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useReducer } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from 'axios';
 
 const AuthContext = createContext({});
@@ -55,7 +55,7 @@ const OrgProvider = ({ children }) => {
 }
 
 const UserProvider = ({ children }) => {
-    const [userSavedSpot, setUserSavedSpot] = useState()
+    const [userSavedSpot, setUserSavedSpot] = useState([])
 
     // function to update user saves to backend
     const savedSpot = async (data) => {

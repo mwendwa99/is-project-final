@@ -35,7 +35,7 @@ export default function FullWidthGrid() {
     const history = useHistory();
 
     const setDataFunc = (state) => {
-        if (state.length) {
+        if (state.length === 1) {
             history.push('/details')
         }
     }
@@ -49,20 +49,22 @@ export default function FullWidthGrid() {
         // setDataFunc();
     }, []);
 
-    const addToSpots = (index, name, location, spaces, price) => () => {
+    const addToSpots = (index, name, location, features, description, spaces, price) => () => {
         setClickedIndex((state) => ([{
             // ...state, // <-- copy previous state
             [index]: {
                 name: name,
                 location: location,
                 spaces: spaces,
-                price: price
+                price: price,
+                features: features,
+                description: description,
             }// <-- update value by index key
         }]));
-        setDataFunc(clickedIndex)
     };
-    // console.log('CLICKED INDEX', clickedIndex);
+    console.log('CLICKED INDEX', clickedIndex);
     savedSpot(clickedIndex);
+    setDataFunc(clickedIndex)
 
     return (
         <Grid wrap='nowrap'
@@ -98,7 +100,7 @@ export default function FullWidthGrid() {
                                     // component={Link}
                                     // to='/details'
                                     onClick={
-                                        addToSpots(index, item.name, item.location, item.spaces, item.price)
+                                        addToSpots(index, item.name, item.location, item.description, item.features, item.spaces, item.price)
                                     }
                                     variant="contained" size="small" >
                                     <Favorite button /> Save Me!

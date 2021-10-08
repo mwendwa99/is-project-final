@@ -33,10 +33,9 @@ export const AdminRoute = () => {
 }
 
 export const AuthenticatedRoutes = () => {
+  const { login, userLoggedIn } = useAuth();
   const { userSavedSpot } = useSavedValue();
 
-
-  const { login, userLoggedIn } = useAuth()
   useEffect(() => {
     const currentUser = localStorage.getItem('user')
     if (currentUser === userLoggedIn) {
@@ -50,8 +49,8 @@ export const AuthenticatedRoutes = () => {
         <div className="App">
           <NavBar />
           <Route exact path='/' component={Home} />
-          <Route exact path='/details' render={({ userSavedSpot }) => (
-            <SpotDetails userSavedSpot={userSavedSpot} />
+          <Route exact path='/details' render={(props) => (
+            <SpotDetails {...props} data={userSavedSpot} />
           )} />
           <Route exact path='/about' component={About} />
           <Route exact path='/my-spot' component={SaveError} />
