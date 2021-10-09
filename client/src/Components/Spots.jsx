@@ -34,23 +34,24 @@ export default function FullWidthGrid() {
     const { savedSpot } = useSavedValue();
     const history = useHistory();
 
+    // on successful data map push to details page
     const setDataFunc = (state) => {
         if (state.length === 1) {
             history.push('/details')
         }
     }
 
+    // on page load get organization details
     useEffect(() => {
         axios.get('/get-org')
             .then((response) => {
                 setInitialList(response.data)
             }).catch((error) => console.log(`error in fetch Spots ${error}`));
-
-        // setDataFunc();
     }, []);
 
+    // map each value of mapped array to an oject based on their index
     const addToSpots = (index, name, location, features, description, spaces, price) => () => {
-        setClickedIndex((state) => ([{
+        setClickedIndex(() => ([{
             // ...state, // <-- copy previous state
             [index]: {
                 name: name,
@@ -62,7 +63,6 @@ export default function FullWidthGrid() {
             }// <-- update value by index key
         }]));
     };
-    console.log('CLICKED INDEX', clickedIndex);
     savedSpot(clickedIndex);
     setDataFunc(clickedIndex)
 
@@ -97,8 +97,6 @@ export default function FullWidthGrid() {
                             </ListItem>
                             <ListItemIcon>{
                                 <Button
-                                    // component={Link}
-                                    // to='/details'
                                     onClick={
                                         addToSpots(index, item.name, item.location, item.description, item.features, item.spaces, item.price)
                                     }

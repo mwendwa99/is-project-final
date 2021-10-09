@@ -56,7 +56,7 @@ export function CustomMap({ google, locationDataObject }) {
                     style={mapStyle}
                     mapTypeId='roadmap'
                     initialCenter={{ lat: -1.283721, lng: 36.822759 }}
-                    zoom={!locationDataObject ? 14 : 15.5}
+                    zoom={17.5}
                 >
                     {
                         geoDataArray ?

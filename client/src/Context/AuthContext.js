@@ -31,7 +31,10 @@ const AuthProvider = ({ children }) => {
 };
 
 const OrgProvider = ({ children }) => {
+    // details from backend
     const [orgDetails, setOrgDetails] = useState([]);
+
+    // api response from positionstack
     const [payload, setPayload] = useState([]);
 
     useEffect(() => {
@@ -61,7 +64,6 @@ const UserProvider = ({ children }) => {
     const savedSpot = async (data) => {
         // axios post
         setUserSavedSpot(data);
-        localStorage.setItem('savedspot', data)
     }
     const values = {
         savedSpot,
