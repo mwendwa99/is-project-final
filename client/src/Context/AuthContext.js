@@ -35,6 +35,7 @@ const OrgProvider = ({ children }) => {
     const [orgDetails, setOrgDetails] = useState([]);
 
     // api response from positionstack
+    // position stack
     const [payload, setPayload] = useState([]);
 
     useEffect(() => {
