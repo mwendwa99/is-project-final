@@ -9,6 +9,7 @@ const mapStyle = {
     width: "100%"
 }
 
+// refactor to useRef()
 const locationNames = {};
 
 export function CustomMap({ google, locationDataObject }) {
