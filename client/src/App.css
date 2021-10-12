@@ -19,7 +19,7 @@ a {
   font-size: large;
 }
 body {
-  background: var(--greenColor);
+  background-color: var(--greenColor);
 }
 li {
   color: white !important;

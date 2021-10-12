@@ -3,7 +3,7 @@ import axios from 'axios';
 import Assets from '../Assets/Index';
 import { makeStyles, InputBase, Typography } from '@material-ui/core';
 import CustomMap from './Map';
-import ReactSearchBox from 'react-search-box';
+// import ReactSearchBox from 'react-search-box';
 import { useOrg } from '../Context/AuthContext';
 
 const UseStyle = makeStyles((theme) => ({
@@ -91,13 +91,6 @@ const TextFields = () => {
     return (
         <div className={classes.wrapper}>
             {/* <Typography variant='subtitle2'>{location ? location.locationName : 'waiting'} </Typography> */}
-            <ul  >
-                {data.map((post, i) => (
-                    <li key={i} style={{ color: 'white' }} >
-                        <Typography variant='h1' style={{ color: 'white' }}>{post.name}</Typography>
-                    </li>
-                ))}
-            </ul>
             <form
                 //  onSubmit={formSubmit} 
                 className={classes.root} >
@@ -115,6 +108,15 @@ const TextFields = () => {
                 </div>
             </form >
 
+            {/* <Typography>
+                <ul  >
+                    {data.map((post, i) => (
+                        <li key={i} style={{ color: 'black' }} >
+                            <Typography variant='h1' style={{ color: 'black' }}>{post.name}</Typography>
+                        </li>
+                    ))}
+                </ul>
+            </Typography> */}
             <div >
                 <CustomMap locationDataObject={location} />
             </div>
