@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Typography, Grid, Button, Container, makeStyles,
     TableBody, TableRow, TableCell, Table, TableContainer, Fade
@@ -46,10 +46,17 @@ const UseStyle = makeStyles((theme) => ({
 
 const SpotDetails = ({ data }) => {
     const classes = UseStyle();
+    const [initialValue, setInitialValue] = useState();
+
     let userSpot = Object.keys(data).map((i) => {
         return Object.values(data[i])
     }
     );
+
+    // pull data from TextInput component
+    const pullDataFromChild = (data) => {
+        setInitialValue(data)
+    }
 
     return (
         <Fade in timeout={1500}>
@@ -68,67 +75,81 @@ const SpotDetails = ({ data }) => {
                                         </div>
                                     </Grid>
                                 </Grid>
-                                <Grid container className={classes.gridContainer}>
-                                    <Grid item sm={12} >
-                                        <Grid container className={classes.gridItem}  >
-                                            <Grid item sm={12}>
-                                                <Typography >
-                                                    {value.name}, {value.location}
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item sm={12} className={classes.priceCard}>
-                                                <Table size='large'  >
-                                                    <TableContainer  >
-                                                        <TableBody>
-                                                            <TableRow
-                                                                key={index}
+                                <form>
+                                    <Grid container className={classes.gridContainer}>
+                                        <Grid item sm={12} >
+                                            <Grid container className={classes.gridItem}  >
+                                                <Grid item sm={12}>
+                                                    <Typography >
+                                                        {value.name}, {value.location}
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item sm={12} className={classes.priceCard}>
+                                                    <Table size='large'  >
+                                                        <TableContainer  >
+                                                            <TableBody>
+                                                                <TableRow
+                                                                    key={index}
 
-                                                            >
-                                                                <TableCell>
-                                                                    <Typography variant='h5'>price: </Typography>
-                                                                </TableCell>
-                                                                <TableCell>
-                                                                    <Typography variant='h6'>{value.price}</Typography>
-                                                                </TableCell>
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell component='th' scope='row'>
-                                                                    <Typography variant='h5'>spaces:</Typography>
-                                                                </TableCell>
-                                                                <TableCell><TextInput /></TableCell>
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell component='th' scope='row'>
-                                                                    <Typography variant='h5'>Description:</Typography>
-                                                                </TableCell>
-                                                                <TableCell>
-                                                                    <Typography variant='h6'>{value.description}</Typography>
-                                                                </TableCell>
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell component='th' scope='row'>
-                                                                    <Typography variant='h5'>Features:</Typography>
-                                                                </TableCell>
-                                                                <TableCell>
-                                                                    <Typography variant='h6'>{value.features}</Typography>
-                                                                </TableCell>
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>
-                                                                    <Typography variant='h5'>Day:</Typography>
-                                                                </TableCell>
-                                                                <TableCell><Date /></TableCell>
-                                                            </TableRow>
-                                                        </TableBody>
-                                                    </TableContainer>
-                                                </Table>
+                                                                >
+                                                                    <TableCell>
+                                                                        <Typography variant='h5'>price: </Typography>
+                                                                    </TableCell>
+                                                                    <TableCell>
+                                                                        <Typography variant='h6'>
+                                                                            {
+                                                                                initialValue ?
+                                                                                    value.price * initialValue
+                                                                                    : value.price
+                                                                            }
+                                                                        </Typography>
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                                <TableRow>
+                                                                    <TableCell component='th' scope='row'>
+                                                                        <Typography variant='h5'>spaces:</Typography>
+                                                                    </TableCell>
+                                                                    <TableCell>
+                                                                        <TextInput
+                                                                            spaces={value.spaces}
+                                                                            initialValue={initialValue}
+                                                                            sendDataToParent={pullDataFromChild}
+                                                                        />
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                                <TableRow>
+                                                                    <TableCell component='th' scope='row'>
+                                                                        <Typography variant='h5'>Description:</Typography>
+                                                                    </TableCell>
+                                                                    <TableCell>
+                                                                        <Typography variant='h6'>{value.description}</Typography>
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                                <TableRow>
+                                                                    <TableCell component='th' scope='row'>
+                                                                        <Typography variant='h5'>Features:</Typography>
+                                                                    </TableCell>
+                                                                    <TableCell>
+                                                                        <Typography variant='h6'>{value.features}</Typography>
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                                <TableRow>
+                                                                    <TableCell>
+                                                                        <Typography variant='h5'>Day:</Typography>
+                                                                    </TableCell>
+                                                                    <TableCell><Date /></TableCell>
+                                                                </TableRow>
+                                                            </TableBody>
+                                                        </TableContainer>
+                                                    </Table>
+                                                </Grid>
                                             </Grid>
                                         </Grid>
+                                        <Grid item xs={12} sm={12}>
+                                            <div><Button variant='contained' type='submit' size="small"> proceed to pay </Button></div>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item xs={12} sm={12}>
-                                        <div><Button variant='contained' size="small"> proceed to pay </Button></div>
-                                    </Grid>
-                                </Grid>
+                                </form>
                             </Container>
                         )
                     )
