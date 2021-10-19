@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
@@ -14,8 +14,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Date() {
+export default function Date({ sendDate }) {
     const classes = useStyles();
+    const [date, setDate] = useState();
+
+    sendDate(date);
 
     return (
         <form className={classes.container} noValidate>
@@ -23,12 +26,12 @@ export default function Date() {
                 id="date"
                 label="Date"
                 type="date"
-                defaultValue="2017-05-24"
                 className={classes.textField}
                 InputLabelProps={{
                     shrink: true,
                 }}
                 InputProps={{ disableUnderline: true }}
+                onChange={(e) => setDate(e.target.value)}
             />
         </form>
     );

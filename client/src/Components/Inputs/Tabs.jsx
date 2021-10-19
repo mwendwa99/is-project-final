@@ -165,11 +165,6 @@ export default function SimpleTabs(props) {
                         <Grid item xs={12} sm={12} className={classes.gridItem}>
                             <div>
                                 <Button
-                                    // onClick={() => {
-                                    //     auth.login(() => {
-                                    //         history.push('/home')
-                                    //     })
-                                    // }}
                                     variant='contained' type='submit' size="small">
                                     LOGIN
                                 </Button>

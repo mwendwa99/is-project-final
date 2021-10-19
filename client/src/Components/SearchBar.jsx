@@ -3,7 +3,6 @@ import axios from 'axios';
 import Assets from '../Assets/Index';
 import { makeStyles, InputBase, Typography } from '@material-ui/core';
 import CustomMap from './Map';
-// import ReactSearchBox from 'react-search-box';
 import { useOrg } from '../Context/AuthContext';
 
 const UseStyle = makeStyles((theme) => ({
@@ -29,70 +28,11 @@ const UseStyle = makeStyles((theme) => ({
 const TextFields = () => {
     const classes = UseStyle();
     const [place, setPlace] = useState('');
-    const [location, setLocation] = useState({ id: '', locationName: '', locationData: '' });
-    const { orgDetails } = useOrg();
-
-    // get single location names into an array
-    let data = orgDetails.map((item) => item.location);
-
-    // const formSubmit = (e) => {
-    //     e.preventDefault();
-    //     // get spot
-    //     axios.request(options).then(function (response) {
-    //         setLocation(
-    //             {
-    //                 locationId: response.data.results[0].id,
-    //                 locationName: response.data.results[0].address,
-    //                 locationData: response.data.results[0].location,
-    //             }
-    //         );
-    //     }).catch(function (error) {
-    //         console.error(error);
-    //         alert(error);
-    //     });
-    // }
-
-    // useEffect(() => {
-    //     const options = {
-    //         method: 'GET',
-    //         url: 'https://trueway-places.p.rapidapi.com/FindPlaceByText',
-    //         params: { text: `${place}`, language: 'en' },
-    //         headers: {
-    //             'x-rapidapi-host': 'trueway-places.p.rapidapi.com',
-    //             'x-rapidapi-key': process.env.REACT_APP_RAPID_KEY
-    //         }
-    //     };
-
-    //     axios.request(options).then(function (response) {
-    //         setLocation(
-    //             {
-    //                 locationId: response.data.results[0].id,
-    //                 locationName: response.data.results[0].address,
-    //                 locationData: response.data.results[0].location,
-    //             }
-    //         );
-    //     }).catch(function (error) {
-    //         console.error(error);
-    //         alert(error);
-    //     });
-    // }, []);
-
-    const onChange = (data, event) => {
-
-        return data.filter((item) => {
-            const locationName = item
-            return locationName.includes(event)
-        })
-
-    }
-    console.log('locale', data)
-
+    const [location] = useState({ id: '', locationName: '', locationData: '' });
 
     return (
         <div className={classes.wrapper}>
-            {/* <Typography variant='subtitle2'>{location ? location.locationName : 'waiting'} </Typography> */}
             <form
-                //  onSubmit={formSubmit} 
                 className={classes.root} >
                 <InputBase
                     autoFocus='true'
@@ -107,16 +47,6 @@ const TextFields = () => {
                     </button>
                 </div>
             </form >
-
-            {/* <Typography>
-                <ul  >
-                    {data.map((post, i) => (
-                        <li key={i} style={{ color: 'black' }} >
-                            <Typography variant='h1' style={{ color: 'black' }}>{post.name}</Typography>
-                        </li>
-                    ))}
-                </ul>
-            </Typography> */}
             <div >
                 <CustomMap locationDataObject={location} />
             </div>

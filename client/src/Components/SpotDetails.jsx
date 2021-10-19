@@ -47,6 +47,15 @@ const UseStyle = makeStyles((theme) => ({
 const SpotDetails = ({ data }) => {
     const classes = UseStyle();
     const [initialValue, setInitialValue] = useState();
+    const [dateValue, setDateValue] = useState();
+    const [formData, setFormData] = useState({
+        name: '',
+        price: '',
+        spaces: '',
+        description: '',
+        features: '',
+        day: '',
+    })
 
     let userSpot = Object.keys(data).map((i) => {
         return Object.values(data[i])
@@ -58,13 +67,32 @@ const SpotDetails = ({ data }) => {
         setInitialValue(data)
     }
 
+    // pull data from Date component
+    const pullDate = (date) => {
+        setDateValue(date)
+    }
+
+    const onFormSubmit = (e) => {
+        e.preventDefault();
+        setFormData({
+            name: e.target.value,
+            price: e.target.value,
+            spaces: e.target.value,
+            description: e.target.value,
+            features: e.target.value,
+            day: dateValue,
+        })
+    }
+
+    console.log('form Data', formData)
+
     return (
         <Fade in timeout={1500}>
             <div className='body__section'>
                 {
                     userSpot.map((item) =>
-                        item.map((value, index) =>
-                            <Container maxWidth='md' className={classes.root} key={index}>
+                        item.map((value, index) => {
+                            return <Container maxWidth='md' className={classes.root} key={index}>
                                 <Grid container className={classes.gridContainer}>
                                     <Grid item sm={12}>
                                         <div className={classes.imageContainer}>
@@ -75,18 +103,18 @@ const SpotDetails = ({ data }) => {
                                         </div>
                                     </Grid>
                                 </Grid>
-                                <form>
+                                <form onSubmit={onFormSubmit}>
                                     <Grid container className={classes.gridContainer}>
-                                        <Grid item sm={12} >
-                                            <Grid container className={classes.gridItem}  >
+                                        <Grid item sm={12}>
+                                            <Grid container className={classes.gridItem}>
                                                 <Grid item sm={12}>
-                                                    <Typography >
+                                                    <Typography>
                                                         {value.name}, {value.location}
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item sm={12} className={classes.priceCard}>
-                                                    <Table size='large'  >
-                                                        <TableContainer  >
+                                                    <Table size='large'>
+                                                        <TableContainer>
                                                             <TableBody>
                                                                 <TableRow
                                                                     key={index}
@@ -96,12 +124,12 @@ const SpotDetails = ({ data }) => {
                                                                         <Typography variant='h5'>price: </Typography>
                                                                     </TableCell>
                                                                     <TableCell>
-                                                                        <Typography variant='h6'>
-                                                                            {
-                                                                                initialValue ?
-                                                                                    value.price * initialValue
-                                                                                    : value.price
-                                                                            }
+                                                                        <Typography variant='h6'
+                                                                            value={formData.price}
+                                                                        >
+                                                                            {initialValue ?
+                                                                                value.price * initialValue
+                                                                                : value.price}
                                                                         </Typography>
                                                                     </TableCell>
                                                                 </TableRow>
@@ -113,8 +141,7 @@ const SpotDetails = ({ data }) => {
                                                                         <TextInput
                                                                             spaces={value.spaces}
                                                                             initialValue={initialValue}
-                                                                            sendDataToParent={pullDataFromChild}
-                                                                        />
+                                                                            sendDataToParent={pullDataFromChild} />
                                                                     </TableCell>
                                                                 </TableRow>
                                                                 <TableRow>
@@ -122,7 +149,12 @@ const SpotDetails = ({ data }) => {
                                                                         <Typography variant='h5'>Description:</Typography>
                                                                     </TableCell>
                                                                     <TableCell>
-                                                                        <Typography variant='h6'>{value.description}</Typography>
+                                                                        {/* <Typography variant='h6'>{value.description}</Typography> */}
+                                                                        <Typography
+                                                                            variant='h6'
+                                                                            value={value.description}
+                                                                            label='description'
+                                                                        />
                                                                     </TableCell>
                                                                 </TableRow>
                                                                 <TableRow>
@@ -137,7 +169,9 @@ const SpotDetails = ({ data }) => {
                                                                     <TableCell>
                                                                         <Typography variant='h5'>Day:</Typography>
                                                                     </TableCell>
-                                                                    <TableCell><Date /></TableCell>
+                                                                    <TableCell>
+                                                                        <Date sendDate={pullDate} />
+                                                                    </TableCell>
                                                                 </TableRow>
                                                             </TableBody>
                                                         </TableContainer>
@@ -146,11 +180,12 @@ const SpotDetails = ({ data }) => {
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} sm={12}>
-                                            <div><Button variant='contained' type='submit' size="small"> proceed to pay </Button></div>
+                                            <div><Button variant='contained' type='submit' size="small"> save this spot</Button></div>
                                         </Grid>
                                     </Grid>
                                 </form>
-                            </Container>
+                            </Container>;
+                        }
                         )
                     )
                 }
