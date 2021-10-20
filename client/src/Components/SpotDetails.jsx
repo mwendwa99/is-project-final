@@ -46,9 +46,11 @@ const UseStyle = makeStyles((theme) => ({
 
 const SpotDetails = ({ data }) => {
     const classes = UseStyle();
+    const user = localStorage.getItem('email');
     const [initialValue, setInitialValue] = useState();
     const [dateValue, setDateValue] = useState();
     const [formData, setFormData] = useState({
+        user: '',
         name: '',
         price: '',
         spaces: '',
@@ -72,14 +74,15 @@ const SpotDetails = ({ data }) => {
         setDateValue(date)
     }
 
-    const onFormSubmit = (e) => {
-        e.preventDefault();
+    const onClickFunc = async (name, location, price, description, features) => {
         setFormData({
-            name: e.target.value,
-            price: e.target.value,
-            spaces: e.target.value,
-            description: e.target.value,
-            features: e.target.value,
+            email: user,
+            name: name,
+            location: location,
+            spaces: initialValue,
+            price: price,
+            description: description,
+            features: features,
             day: dateValue,
         })
     }
@@ -103,87 +106,86 @@ const SpotDetails = ({ data }) => {
                                         </div>
                                     </Grid>
                                 </Grid>
-                                <form onSubmit={onFormSubmit}>
-                                    <Grid container className={classes.gridContainer}>
-                                        <Grid item sm={12}>
-                                            <Grid container className={classes.gridItem}>
-                                                <Grid item sm={12}>
-                                                    <Typography>
-                                                        {value.name}, {value.location}
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item sm={12} className={classes.priceCard}>
-                                                    <Table size='large'>
-                                                        <TableContainer>
-                                                            <TableBody>
-                                                                <TableRow
-                                                                    key={index}
+                                <Grid container className={classes.gridContainer}>
+                                    <Grid item sm={12}>
+                                        <Grid container className={classes.gridItem}>
+                                            <Grid item sm={12}>
+                                                <Typography>
+                                                    {value.name}, {value.location}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item sm={12} className={classes.priceCard}>
+                                                <Table size='large'>
+                                                    <TableContainer>
+                                                        <TableBody>
+                                                            <TableRow
+                                                                key={index}
 
-                                                                >
-                                                                    <TableCell>
-                                                                        <Typography variant='h5'>price: </Typography>
-                                                                    </TableCell>
-                                                                    <TableCell>
-                                                                        <Typography variant='h6'
-                                                                            value={formData.price}
-                                                                        >
-                                                                            {initialValue ?
-                                                                                value.price * initialValue
-                                                                                : value.price}
-                                                                        </Typography>
-                                                                    </TableCell>
-                                                                </TableRow>
-                                                                <TableRow>
-                                                                    <TableCell component='th' scope='row'>
-                                                                        <Typography variant='h5'>spaces:</Typography>
-                                                                    </TableCell>
-                                                                    <TableCell>
-                                                                        <TextInput
-                                                                            spaces={value.spaces}
-                                                                            initialValue={initialValue}
-                                                                            sendDataToParent={pullDataFromChild} />
-                                                                    </TableCell>
-                                                                </TableRow>
-                                                                <TableRow>
-                                                                    <TableCell component='th' scope='row'>
-                                                                        <Typography variant='h5'>Description:</Typography>
-                                                                    </TableCell>
-                                                                    <TableCell>
-                                                                        {/* <Typography variant='h6'>{value.description}</Typography> */}
-                                                                        <Typography
-                                                                            variant='h6'
-                                                                            value={value.description}
-                                                                            label='description'
-                                                                        />
-                                                                    </TableCell>
-                                                                </TableRow>
-                                                                <TableRow>
-                                                                    <TableCell component='th' scope='row'>
-                                                                        <Typography variant='h5'>Features:</Typography>
-                                                                    </TableCell>
-                                                                    <TableCell>
-                                                                        <Typography variant='h6'>{value.features}</Typography>
-                                                                    </TableCell>
-                                                                </TableRow>
-                                                                <TableRow>
-                                                                    <TableCell>
-                                                                        <Typography variant='h5'>Day:</Typography>
-                                                                    </TableCell>
-                                                                    <TableCell>
-                                                                        <Date sendDate={pullDate} />
-                                                                    </TableCell>
-                                                                </TableRow>
-                                                            </TableBody>
-                                                        </TableContainer>
-                                                    </Table>
-                                                </Grid>
+                                                            >
+                                                                <TableCell>
+                                                                    <Typography variant='h5'>price: </Typography>
+                                                                </TableCell>
+                                                                <TableCell>
+                                                                    <Typography variant='h6'>
+                                                                        {initialValue ?
+                                                                            value.price * initialValue
+                                                                            : value.price}
+                                                                    </Typography>
+                                                                </TableCell>
+                                                            </TableRow>
+                                                            <TableRow>
+                                                                <TableCell component='th' scope='row'>
+                                                                    <Typography variant='h5'>spaces:</Typography>
+                                                                </TableCell>
+                                                                <TableCell>
+                                                                    <TextInput
+                                                                        spaces={value.spaces}
+                                                                        initialValue={initialValue}
+                                                                        sendDataToParent={pullDataFromChild} />
+                                                                </TableCell>
+                                                            </TableRow>
+                                                            <TableRow>
+                                                                <TableCell component='th' scope='row'>
+                                                                    <Typography variant='h5'>Description:</Typography>
+                                                                </TableCell>
+                                                                <TableCell>
+                                                                    <Typography variant='h6'>
+                                                                        {value.description}
+                                                                    </Typography>
+                                                                </TableCell>
+                                                            </TableRow>
+                                                            <TableRow>
+                                                                <TableCell component='th' scope='row'>
+                                                                    <Typography variant='h5'>Features:</Typography>
+                                                                </TableCell>
+                                                                <TableCell>
+                                                                    <Typography variant='h6'>{value.features}</Typography>
+                                                                </TableCell>
+                                                            </TableRow>
+                                                            <TableRow>
+                                                                <TableCell>
+                                                                    <Typography variant='h5'>Day:</Typography>
+                                                                </TableCell>
+                                                                <TableCell>
+                                                                    <Date sendDate={pullDate} />
+                                                                </TableCell>
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </TableContainer>
+                                                </Table>
                                             </Grid>
                                         </Grid>
-                                        <Grid item xs={12} sm={12}>
-                                            <div><Button variant='contained' type='submit' size="small"> save this spot</Button></div>
-                                        </Grid>
                                     </Grid>
-                                </form>
+                                    <Grid item xs={12} sm={12}>
+                                        <Button
+                                            onClick={
+                                                () => onClickFunc(value.name, value.location, value.features, value.description, value.price)
+                                            }
+                                            variant='contained' type='submit' size="small">
+                                            save this spot
+                                        </Button>
+                                    </Grid>
+                                </Grid>
                             </Container>;
                         }
                         )
