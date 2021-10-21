@@ -22,6 +22,7 @@ const Assets = {
     busyStreet: require('./busyStreets.png').default,
     savedSpot: require('./savedSpot.svg').default,
     space: require('./space.svg').default,
-    org: require('./org.svg').default
+    org: require('./org.svg').default,
+    repeatingChevrons: require('./repeatingChevrons.svg').default,
 };
 export default Assets;

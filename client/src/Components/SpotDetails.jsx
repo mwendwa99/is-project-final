@@ -5,11 +5,16 @@ import {
 } from '@material-ui/core';
 import Date from './Inputs/Date';
 import TextInput from './Inputs/TextInput';
+import { useHistory } from 'react-router';
+import { useSavedValue } from '../Context/AuthContext';
+import Assets from '../Assets/Index';
 
 const UseStyle = makeStyles((theme) => ({
     root: {
         height: "100%",
-        background: "#EDF5E0",
+        // backgroundImage: Assets.repeatingChevrons,
+        backgroundColor: '#ddffaa',
+        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpolygon fill='%23AE9' points='120 120 60 120 90 90 120 60 120 0 120 0 60 60 0 0 0 60 30 90 60 120 120 120 '/%3E%3C/svg%3E")`,
         boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
         borderRadius: '20px',
         marginTop: theme.spacing(1),
@@ -17,6 +22,8 @@ const UseStyle = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center'
     },
     gridContainer: {
         padding: theme.spacing(0.5),
@@ -28,12 +35,14 @@ const UseStyle = makeStyles((theme) => ({
         alignItems: 'center'
     },
     imageContainer: {
-        height: "20rem",
+        height: "10rem",
+        // position: 'absolute',
     },
     priceCard: {
         border: '1px solid rgba(0, 0, 0, 0.1)',
         boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
         borderRadius: '20px',
+        backgroundColor: '#EDF5E0',
         padding: theme.spacing(3),
     },
     inputForm: {
@@ -49,6 +58,8 @@ const SpotDetails = ({ data }) => {
     const user = localStorage.getItem('email');
     const [initialValue, setInitialValue] = useState();
     const [dateValue, setDateValue] = useState();
+    const history = useHistory();
+    const { selectedSpot } = useSavedValue()
     const [formData, setFormData] = useState({
         user: '',
         name: '',
@@ -58,23 +69,21 @@ const SpotDetails = ({ data }) => {
         features: '',
         day: '',
     })
+    let userSpot = Object.keys(data).map((i) => { return Object.values(data[i]) });
 
-    let userSpot = Object.keys(data).map((i) => {
-        return Object.values(data[i])
+    // push data to Spots.jsx
+    const pushDataFunc = (data) => {
+        if (data) {
+            history.push('/saved')
+        }
     }
-    );
-
     // pull data from TextInput component
-    const pullDataFromChild = (data) => {
-        setInitialValue(data)
-    }
+    const pullDataFromChild = (data) => { setInitialValue(data) }
 
     // pull data from Date component
-    const pullDate = (date) => {
-        setDateValue(date)
-    }
+    const pullDate = (date) => { setDateValue(date) }
 
-    const onClickFunc = async (name, location, price, description, features) => {
+    const onClickFunc = (name, location, features, description, price) => {
         setFormData({
             email: user,
             name: name,
@@ -86,8 +95,8 @@ const SpotDetails = ({ data }) => {
             day: dateValue,
         })
     }
-
-    console.log('form Data', formData)
+    selectedSpot(formData)
+    pushDataFunc(formData.name)
 
     return (
         <Fade in timeout={1500}>
@@ -95,23 +104,16 @@ const SpotDetails = ({ data }) => {
                 {
                     userSpot.map((item) =>
                         item.map((value, index) => {
-                            return <Container maxWidth='md' className={classes.root} key={index}>
-                                <Grid container className={classes.gridContainer}>
-                                    <Grid item sm={12}>
-                                        <div className={classes.imageContainer}>
-                                            <img
-                                                src="https://images.pexels.com/photos/681335/pexels-photo-681335.jpeg"
-                                                style={{ borderRadius: "20px" }}
-                                                height="100%" width="100%" alt="" />
-                                        </div>
-                                    </Grid>
-                                </Grid>
+                            return <Container maxWidth='lg' className={classes.root} key={index}>
+                                <div className={classes.imageContainer}>
+                                    <img src={Assets.driver} height="100%" width="100%" alt="cars" />
+                                </div>
                                 <Grid container className={classes.gridContainer}>
                                     <Grid item sm={12}>
                                         <Grid container className={classes.gridItem}>
                                             <Grid item sm={12}>
-                                                <Typography>
-                                                    {value.name}, {value.location}
+                                                <Typography gutterBottom variant='h3'>
+                                                    <b>{value.name}, {value.location}</b>
                                                 </Typography>
                                             </Grid>
                                             <Grid item sm={12} className={classes.priceCard}>
@@ -173,18 +175,18 @@ const SpotDetails = ({ data }) => {
                                                         </TableBody>
                                                     </TableContainer>
                                                 </Table>
+                                                <Button
+                                                    onClick={
+                                                        () => onClickFunc(value.name, value.location, value.features, value.description, value.price)
+                                                    }
+                                                    variant='contained' type='submit' size="small">
+                                                    save this spot
+                                                </Button>
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <Grid item xs={12} sm={12}>
-                                        <Button
-                                            onClick={
-                                                () => onClickFunc(value.name, value.location, value.features, value.description, value.price)
-                                            }
-                                            variant='contained' type='submit' size="small">
-                                            save this spot
-                                        </Button>
-                                    </Grid>
+                                    {/* <Grid item sm={4}> */}
+                                    {/* </Grid> */}
                                 </Grid>
                             </Container>;
                         }

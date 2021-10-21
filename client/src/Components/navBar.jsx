@@ -40,7 +40,7 @@ export default function ButtonAppBar() {
                         </Link>
                     </Button>
                     <Button className='button-image__spot' >
-                        <Link style={{ textDecoration: 'none' }} to='/my-spot'>
+                        <Link style={{ textDecoration: 'none' }} to='/saved'>
                             <img src={Assets.spots} alt="car-spot" />
                         </Link>
                     </Button>

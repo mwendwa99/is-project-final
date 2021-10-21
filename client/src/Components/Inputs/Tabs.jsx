@@ -121,8 +121,6 @@ export default function SimpleTabs(props) {
 
             // everything went fine
             localStorage.setItem('admin', result.data);
-            // localStorage.setItem('admin', result.admin);
-            // console.log(result)
             adminLogin(result.data);
             history.push('/');
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Assets from '../../Assets/Index'
 import { makeStyles, Typography, Button, Grid, Paper, Divider, Container } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-
+import { useSavedValue } from '../../Context/AuthContext';
 
 const UseStyle = makeStyles((theme) => ({
     root: {
@@ -15,9 +15,6 @@ const UseStyle = makeStyles((theme) => ({
         alignItems: 'center',
         padding: theme.spacing(2),
     },
-    gridItem: {
-        // padding: theme.spacing(2),
-    },
     paper: {
         borderRadius: 10,
         backgroundColor: '#EDF5E0',
@@ -29,22 +26,20 @@ const UseStyle = makeStyles((theme) => ({
         padding: theme.spacing(1),
     },
     paper2: {
-        padding: theme.spacing(1),
-        // backgroundColor: '#EDF5E0',
-
-        // display: 'flex',
-        // flexDirection: 'column',
-        // alignItems: 'flex-start',
-        // justifyContent: 'stretch',
+        padding: theme.spacing(4),
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-evenly',
+        backgroundColor: '#EDF5E0',
     },
-    gridContainer2: {
-        borderRadius: 10,
-        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    gridItem: {
+        backgroundColor: '#EDF5E0',
+        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpolygon fill='%23000' fill-opacity='.1' points='120 0 120 60 90 30 60 0 0 0 0 0 60 60 0 120 60 120 90 90 120 60 120 0'/%3E%3C/svg%3E")`,
+        height: '100%',
     }
 }))
 
 export const SaveError = () => {
-
     const classes = UseStyle();
 
     return (
@@ -76,44 +71,53 @@ export const SaveError = () => {
 }
 
 export const SavedSpot = () => {
+    const classes = UseStyle();
+    const { userSelectedSpot } = useSavedValue();
 
-    const classes = UseStyle()
+    console.log('THIS', userSelectedSpot)
 
-    return (
+    return userSelectedSpot ? (
         <div className='body__section'>
-            <Container maxWidth='lg' className={classes.root}>
-                <Grid container
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="stretch"
-                    className={classes.gridContainer2}
-                >
-                    <Grid item sm={6}>
-                        <Paper className={classes.paper2}>
-                            <img src={Assets.savedSpot} height="100%" width="100%" alt="" />
-                            <Typography align='justify'>Name, locaiton</Typography>
-                            <Typography align='justify'>features: </Typography>
-                            <Typography align='justify'>Booked at price</Typography>
-                            <Typography align='justify'>Book on date</Typography>
-                        </Paper>
+            <Container maxWidth='xl' className={classes.root}>
+                <Grid container style={{ padding: '2rem' }}>
+                    <Grid item className={classes.gridItem} sm={6}>
+                        <img src={Assets.city} height="100%" width="100%" alt="" />
                     </Grid>
                     <Grid item sm={6} >
-                        <Paper className={classes.paper2} style={{ height: "100%", }}>
-                            <Typography variant='body1' gutterBottom='true' >saved spot for: car number plate</Typography>
-                            <Typography gutterBottom='true'>Description: a great place for business etc etc </Typography>
-                            <Typography gutterBottom='true'>opening hours: 07:00</Typography>
-                            <Typography gutterBottom='true'>closing hourse: 17:00</Typography>
-                            <Divider variant='middle' component='hr' />
-                            <Typography gutterBottom='true'>distance: 800m</Typography>
-                            <Typography gutterBottom='true'>Space: 1 space</Typography>
-                            <Typography gutterBottom='true'>vehicle type: car</Typography>
+                        <div className={classes.paper2} style={{ height: "100%", width: '100%' }}>
+                            <img src={Assets.cat} height="20%" width="100%" alt="" />
+                            <Typography variant='h2' align='center'>Your Ticket</Typography>
+                            <Typography variant='h5'>
+                                <b>Name:</b> {userSelectedSpot.name}
+                            </Typography>
+                            <Typography variant='h5'>
+                                <b>Location:</b> {userSelectedSpot.location}
+                            </Typography>
+                            <Typography variant='h5'>
+                                <b>Features:</b> {userSelectedSpot.features}
+                            </Typography>
+                            <Typography variant='h5'>
+                                <b>Booked at price:</b> {userSelectedSpot.price}
+                            </Typography>
+                            <Typography variant='h5'>
+                                <b>Book on date:</b> {userSelectedSpot.day}
+                            </Typography>
+                            <Typography variant='h5'>
+                                <b>Description:</b> {userSelectedSpot.description}
+                            </Typography>
+                            <Typography variant='h5'>
+                                <b>Number of Spaces:</b> {userSelectedSpot.spaces}
+                            </Typography>
+                            <Typography variant='h5'>
+                                <b>Booked by:</b> {userSelectedSpot.email}
+                            </Typography>
                             <Button variant='contained' size='large'>cancel reservation </Button>
-                        </Paper>
+                        </div>
                     </Grid>
                 </Grid>
             </Container>
-
         </div >
     )
+        : <SaveError />
 }
 

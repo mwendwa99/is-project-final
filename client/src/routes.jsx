@@ -9,6 +9,7 @@ import About from './Components/About';
 import { SaveError } from './Components/User/SavedSpot'
 import Admin from './Admin/Admin';
 import { useSavedValue } from './Context/AuthContext';
+import { SavedSpot } from './Components/User/SavedSpot';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -54,6 +55,7 @@ export const AuthenticatedRoutes = () => {
           )} />
           <Route exact path='/about' component={About} />
           <Route exact path='/my-spot' component={SaveError} />
+          <Route exact path='/saved' component={SavedSpot} />
         </div>
       </Switch>
     </Router>
