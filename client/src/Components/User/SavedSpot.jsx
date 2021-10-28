@@ -1,6 +1,7 @@
+// this file handles "my spot section of the app"
 import React from 'react';
 import Assets from '../../Assets/Index'
-import { makeStyles, Typography, Button, Grid, Paper, Divider, Container } from '@material-ui/core';
+import { makeStyles, Typography, Button, Grid, Paper, Container } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { useSavedValue } from '../../Context/AuthContext';
 

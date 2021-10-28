@@ -100,6 +100,7 @@ export default function SimpleTabs(props) {
             localStorage.setItem('user', result.data);
             localStorage.setItem('email', result.email);
             // localStorage.setItem('email', result.email);
+            console.log(result.data)
             login(result.data);
             history.push('/');
         } else {

@@ -59,8 +59,9 @@ const SpotDetails = ({ data }) => {
     const [initialValue, setInitialValue] = useState();
     const [dateValue, setDateValue] = useState();
     const history = useHistory();
-    const { selectedSpot, userSavedSpot } = useSavedValue()
+    const { spotId, userSavedSpot } = useSavedValue()
     const [formData, setFormData] = useState({
+        spotId: '',
         email: '',
         name: '',
         price: '',
@@ -69,7 +70,7 @@ const SpotDetails = ({ data }) => {
         features: '',
         day: '',
     })
-    const { name, location, price, spaces, description, features } = userSavedSpot;
+    const { _id, name, location, price, spaces, description, features } = userSavedSpot;
 
     // push data to Spots.jsx
     const pushDataFunc = (data) => {
@@ -85,6 +86,7 @@ const SpotDetails = ({ data }) => {
 
     const sendTodbonClick = (name, location, features, description, price) => {
         setFormData({
+            spotId: _id,
             email: user,
             name: name,
             location: location,
@@ -94,6 +96,12 @@ const SpotDetails = ({ data }) => {
             features: features,
             day: dateValue,
         })
+        console.log('wefsffa', formData);
+
+        // send formdata object to backend
+        // on my spot page consume this object from backend since its all from one user
+        // backend create algorithm to subtract spaces left
+        // admin page create "activity tab" admin will see user's bookings
     }
     // selectedSpot(formData)
     // pushDataFunc(formData.name)
@@ -165,7 +173,7 @@ const SpotDetails = ({ data }) => {
                                         </TableContainer>
                                     </Table>
                                     <Button
-                                        onClick={() => sendTodbonClick(name, location, features, description, price)}
+                                        onClick={() => sendTodbonClick(_id, name, location, features, description, price)}
                                         variant='contained' type='submit' size="medium">
                                         save this spot
                                     </Button>

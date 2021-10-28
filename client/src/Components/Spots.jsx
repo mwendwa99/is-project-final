@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-    makeStyles, Typography, Button,ListItem, ListItemText
+    makeStyles, Typography, Button, ListItem, ListItemText
 } from '@material-ui/core';
 import { Money, Favorite } from '@material-ui/icons';
 import Grid from '@material-ui/core/Grid';
@@ -46,11 +46,12 @@ export default function FullWidthGrid() {
     }, []);
 
     // function to get org with specific id
-    const saveOnClick = (id) => {
-        axios.get(`/get-org/${id}`)
+    const saveOnClick = (savedSpotId) => {
+        axios.get(`/get-org/${savedSpotId}`)
             .then((response) => setData(response.data))
             .catch((error) => console.log(error))
         // push data to context
+        // attach spot savedSpotId as well
         savedSpot(data);
         // go next screen
         navigateToDetailsPage(data)
