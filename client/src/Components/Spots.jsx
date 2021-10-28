@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-    makeStyles, Typography, Button, ListItemIcon,
-    List, ListItem, ListItemText
+    makeStyles, Typography, Button,ListItem, ListItemText
 } from '@material-ui/core';
 import { Money, Favorite } from '@material-ui/icons';
 import Grid from '@material-ui/core/Grid';
@@ -30,14 +29,11 @@ const useStyles = makeStyles((theme) => ({
 export default function FullWidthGrid() {
     const classes = useStyles();
     const [initialList, setInitialList] = useState([]);
-    const [clickedIndex, setClickedIndex] = useState([]);
 
     // data from mongo
     const [data, setData] = useState();
-
     const { savedSpot } = useSavedValue();
     const history = useHistory();
-
 
     // on page load get organization details
     useEffect(() => {
@@ -65,25 +61,6 @@ export default function FullWidthGrid() {
             history.push('/details')
         }
     }
-
-    // map each value of mapped array to an oject based on their index
-    // const addToSpots = (index, name, location, features, description, spaces, price, id) => () => {
-    //     setClickedIndex(() => ([{
-    //         // ...state, // <-- copy previous state
-    //         [index]: {
-    //             name: name,
-    //             location: location,
-    //             spaces: spaces,
-    //             price: price,
-    //             features: features,
-    //             description: description,
-    //         }// <-- update value by index key
-    //     }]));
-    // };
-    // savedSpot(clickedIndex);
-    // setDataFunc(clickedIndex)
-    // console.log('initialList', initialList)
-
     return (
         <Grid wrap='nowrap'
             container
@@ -113,10 +90,7 @@ export default function FullWidthGrid() {
                             </ListItemText>
                         </ListItem>
                         <Button
-                            onClick={
-                                // addToSpots(index, item.name, item.location, item.description, item.features, item.spaces, item.price)
-                                () => saveOnClick(item._id)
-                            }
+                            onClick={() => saveOnClick(item._id)}
                             variant="contained" size="small" >
                             <Favorite button /> Save Me!
                         </Button>

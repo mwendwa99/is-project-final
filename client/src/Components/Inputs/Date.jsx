@@ -1,38 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import * as React from 'react';
+// date-fns
+import TextField from '@mui/material/TextField';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
 
-const useStyles = makeStyles((theme) => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    textField: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        width: 200,
-    },
-}));
+export default function BasicDatePicker({ sendDate }) {
+    const [value, setValue] = React.useState(null);
 
-export default function Date({ sendDate }) {
-    const classes = useStyles();
-    const [date, setDate] = useState();
+    //   send date value to spotDetails
+    sendDate(value)
 
-    sendDate(date);
 
     return (
-        <form className={classes.container} noValidate>
-            <TextField
-                id="date"
-                label="Date"
-                type="date"
-                className={classes.textField}
-                InputLabelProps={{
-                    shrink: true,
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+                label="book date"
+                value={value}
+                disablePast
+                clearable={true}
+                onChange={(newValue) => {
+                    setValue(newValue);
                 }}
-                InputProps={{ disableUnderline: true }}
-                onChange={(e) => setDate(e.target.value)}
+                renderInput={(params) => <TextField {...params} />}
             />
-        </form>
+        </LocalizationProvider>
     );
 }

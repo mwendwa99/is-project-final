@@ -61,7 +61,7 @@ const SpotDetails = ({ data }) => {
     const history = useHistory();
     const { selectedSpot, userSavedSpot } = useSavedValue()
     const [formData, setFormData] = useState({
-        user: '',
+        email: '',
         name: '',
         price: '',
         spaces: '',
@@ -69,9 +69,8 @@ const SpotDetails = ({ data }) => {
         features: '',
         day: '',
     })
-    let userSpot = Object.keys(data).map((i) => { return Object.values(data[i]) });
+    const { name, location, price, spaces, description, features } = userSavedSpot;
 
-    console.log('from mongo to context', userSavedSpot)
     // push data to Spots.jsx
     const pushDataFunc = (data) => {
         if (data) {
@@ -84,116 +83,97 @@ const SpotDetails = ({ data }) => {
     // pull data from Date component
     const pullDate = (date) => { setDateValue(date) }
 
-    const onClickFunc = (name, location, features, description, price) => {
+    const sendTodbonClick = (name, location, features, description, price) => {
         setFormData({
             email: user,
             name: name,
             location: location,
-            spaces: initialValue,
-            price: price,
+            spaces: parseInt(initialValue),
+            price: initialValue ? price * initialValue : price,
             description: description,
             features: features,
             day: dateValue,
         })
     }
-    selectedSpot(formData)
-    pushDataFunc(formData.name)
+    // selectedSpot(formData)
+    // pushDataFunc(formData.name)
 
     return (
         <Fade in timeout={1500}>
             <div className='body__section'>
-                {
-                    userSpot.map((item) =>
-                        item.map((value, index) => {
-                            return <Container maxWidth='lg' className={classes.root} key={index}>
-                                <div className={classes.imageContainer}>
-                                    <img src={Assets.driver} height="100%" width="100%" alt="cars" />
-                                </div>
-                                <Grid container className={classes.gridContainer}>
-                                    <Grid item sm={12}>
-                                        <Grid container className={classes.gridItem}>
-                                            <Grid item sm={12}>
-                                                <Typography gutterBottom variant='h3'>
-                                                    <b>{value.name}, {value.location}</b>
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item sm={12} className={classes.priceCard}>
-                                                <Table size='large'>
-                                                    <TableContainer>
-                                                        <TableBody>
-                                                            <TableRow
-                                                                key={index}
-
-                                                            >
-                                                                <TableCell>
-                                                                    <Typography variant='h5'>price: </Typography>
-                                                                </TableCell>
-                                                                <TableCell>
-                                                                    <Typography variant='h6'>
-                                                                        {initialValue ?
-                                                                            value.price * initialValue
-                                                                            : value.price}
-                                                                    </Typography>
-                                                                </TableCell>
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell component='th' scope='row'>
-                                                                    <Typography variant='h5'>spaces:</Typography>
-                                                                </TableCell>
-                                                                <TableCell>
-                                                                    <TextInput
-                                                                        spaces={value.spaces}
-                                                                        initialValue={initialValue}
-                                                                        sendDataToParent={pullDataFromChild} />
-                                                                </TableCell>
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell component='th' scope='row'>
-                                                                    <Typography variant='h5'>Description:</Typography>
-                                                                </TableCell>
-                                                                <TableCell>
-                                                                    <Typography variant='h6'>
-                                                                        {value.description}
-                                                                    </Typography>
-                                                                </TableCell>
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell component='th' scope='row'>
-                                                                    <Typography variant='h5'>Features:</Typography>
-                                                                </TableCell>
-                                                                <TableCell>
-                                                                    <Typography variant='h6'>{value.features}</Typography>
-                                                                </TableCell>
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell>
-                                                                    <Typography variant='h5'>Day:</Typography>
-                                                                </TableCell>
-                                                                <TableCell>
-                                                                    <Date sendDate={pullDate} />
-                                                                </TableCell>
-                                                            </TableRow>
-                                                        </TableBody>
-                                                    </TableContainer>
-                                                </Table>
-                                                <Button
-                                                    onClick={
-                                                        () => onClickFunc(value.name, value.location, value.features, value.description, value.price)
-                                                    }
-                                                    variant='contained' type='submit' size="small">
-                                                    save this spot
-                                                </Button>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                    {/* <Grid item sm={4}> */}
-                                    {/* </Grid> */}
+                <Container maxWidth='lg' className={classes.root}>
+                    <div className={classes.imageContainer}>
+                        <img src={Assets.driver} height="100%" width="100%" alt="cars" />
+                    </div>
+                    <Grid container className={classes.gridContainer}>
+                        <Grid item sm={12}>
+                            <Grid container className={classes.gridItem}>
+                                <Grid item sm={12}>
+                                    <Typography gutterBottom variant='h3'>
+                                        <b>{name + ', ' + location}</b>
+                                    </Typography>
                                 </Grid>
-                            </Container>;
-                        }
-                        )
-                    )
-                }
+                                <Grid item sm={12} className={classes.priceCard}>
+                                    <Table size='large'>
+                                        <TableContainer>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell>
+                                                        <Typography variant='h5'>price: </Typography>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <Typography variant='h6'> {initialValue ? price * initialValue : price} </Typography>
+                                                    </TableCell>
+                                                </TableRow>
+                                                <TableRow>
+                                                    <TableCell component='th' scope='row'>
+                                                        <Typography variant='h5'>spaces:</Typography>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <TextInput
+                                                            spaces={spaces}
+                                                            initialValue={initialValue}
+                                                            sendDataToParent={pullDataFromChild}
+                                                        />
+                                                    </TableCell>
+                                                </TableRow>
+                                                <TableRow>
+                                                    <TableCell component='th' scope='row'>
+                                                        <Typography variant='h5'>Description:</Typography>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <Typography variant='h6'>{description}</Typography>
+                                                    </TableCell>
+                                                </TableRow>
+                                                <TableRow>
+                                                    <TableCell component='th' scope='row'>
+                                                        <Typography variant='h5'>Features:</Typography>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <Typography variant='h6'>{features}</Typography>
+                                                    </TableCell>
+                                                </TableRow>
+                                                <TableRow>
+                                                    <TableCell>
+                                                        <Typography variant='h5'>Day:</Typography>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <Date sendDate={pullDate} />
+                                                    </TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </TableContainer>
+                                    </Table>
+                                    <Button
+                                        onClick={() => sendTodbonClick(name, location, features, description, price)}
+                                        variant='contained' type='submit' size="medium">
+                                        save this spot
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Container>
             </div >
         </Fade>
     )
