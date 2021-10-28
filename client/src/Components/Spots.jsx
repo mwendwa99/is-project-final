@@ -31,40 +31,58 @@ export default function FullWidthGrid() {
     const classes = useStyles();
     const [initialList, setInitialList] = useState([]);
     const [clickedIndex, setClickedIndex] = useState([]);
+
+    // data from mongo
+    const [data, setData] = useState();
+
     const { savedSpot } = useSavedValue();
     const history = useHistory();
 
-    // on successful data map push to details page
-    const setDataFunc = (state) => {
-        if (state.length === 1) {
-            history.push('/details')
-        }
-    }
 
     // on page load get organization details
     useEffect(() => {
         axios.get('/get-org')
             .then((response) => {
-                setInitialList(response.data)
+                let res = (response.data)
+                setInitialList(res)
             }).catch((error) => console.log(`error in fetch Spots ${error}`));
+
     }, []);
 
+    // function to get org with specific id
+    const saveOnClick = (id) => {
+        axios.get(`/get-org/${id}`)
+            .then((response) => setData(response.data))
+            .catch((error) => console.log(error))
+        // push data to context
+        savedSpot(data);
+        // go next screen
+        navigateToDetailsPage(data)
+    }
+    // on successful data map push to details page
+    const navigateToDetailsPage = (data) => {
+        if (data) {
+            history.push('/details')
+        }
+    }
+
     // map each value of mapped array to an oject based on their index
-    const addToSpots = (index, name, location, features, description, spaces, price) => () => {
-        setClickedIndex(() => ([{
-            // ...state, // <-- copy previous state
-            [index]: {
-                name: name,
-                location: location,
-                spaces: spaces,
-                price: price,
-                features: features,
-                description: description,
-            }// <-- update value by index key
-        }]));
-    };
-    savedSpot(clickedIndex);
-    setDataFunc(clickedIndex)
+    // const addToSpots = (index, name, location, features, description, spaces, price, id) => () => {
+    //     setClickedIndex(() => ([{
+    //         // ...state, // <-- copy previous state
+    //         [index]: {
+    //             name: name,
+    //             location: location,
+    //             spaces: spaces,
+    //             price: price,
+    //             features: features,
+    //             description: description,
+    //         }// <-- update value by index key
+    //     }]));
+    // };
+    // savedSpot(clickedIndex);
+    // setDataFunc(clickedIndex)
+    // console.log('initialList', initialList)
 
     return (
         <Grid wrap='nowrap'
@@ -74,40 +92,36 @@ export default function FullWidthGrid() {
             alignItems="center"
             justify="center" >
             {
-                initialList.map((item, index) => (
-                    < List key={item._id} >
-                        <Grid className={classes.gridItem} item sm={12}>
-                            <img height="100%" width="100%" src={Assets.parking} alt="parking" />
-                            <ListItem >
-                                <ListItemText disableTypography='true'>
-                                    <Typography variant="body1" >{!item.name ? 'loading...' : item.name} </Typography>
-                                    <Typography variant="subtitle" > {!item.location ? 'loading...' : item.location} </Typography>
-                                    <ul className='user-list' >
-                                        <li>
-                                            <div style={{ display: 'flex', alignItems: "center" }} >
-                                                <Money />
-                                                <Typography variant="caption" >price: KES {!item.price ? 'loading...' : item.price}</Typography>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <Typography variant="caption" >free spots: {!item.spaces ? 'loading...' : item.spaces} </Typography>
-                                        </li>
-                                    </ul>
-                                </ListItemText>
-                            </ListItem>
-                            <ListItemIcon>{
-                                <Button
-                                    onClick={
-                                        addToSpots(index, item.name, item.location, item.description, item.features, item.spaces, item.price)
-                                    }
-                                    variant="contained" size="small" >
-                                    <Favorite button /> Save Me!
-                                </Button>
-                            }</ListItemIcon>
-
-                        </Grid>
-                    </List >
-                ))
+                initialList.map((item, index) =>
+                    <Grid item className={classes.gridItem} key={item._id} >
+                        <img height="100%" width="100%" src={Assets.parking} alt="parking" />
+                        <ListItem >
+                            <ListItemText disableTypography='true'>
+                                <Typography variant="body2" >{!item.name ? 'loading...' : item.name} </Typography>
+                                <Typography variant="subtitle" > {!item.location ? 'loading...' : item.location} </Typography>
+                                <ul className='user-list' >
+                                    <li>
+                                        <div style={{ display: 'flex', alignItems: "center" }} >
+                                            <Money />
+                                            <Typography variant="caption" >price: KES {!item.price ? 'loading...' : item.price}</Typography>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <Typography variant="caption" >free spots: {!item.spaces ? 'loading...' : item.spaces} </Typography>
+                                    </li>
+                                </ul>
+                            </ListItemText>
+                        </ListItem>
+                        <Button
+                            onClick={
+                                // addToSpots(index, item.name, item.location, item.description, item.features, item.spaces, item.price)
+                                () => saveOnClick(item._id)
+                            }
+                            variant="contained" size="small" >
+                            <Favorite button /> Save Me!
+                        </Button>
+                    </Grid >
+                )
             }
         </Grid>
     )

@@ -59,7 +59,7 @@ const SpotDetails = ({ data }) => {
     const [initialValue, setInitialValue] = useState();
     const [dateValue, setDateValue] = useState();
     const history = useHistory();
-    const { selectedSpot } = useSavedValue()
+    const { selectedSpot, userSavedSpot } = useSavedValue()
     const [formData, setFormData] = useState({
         user: '',
         name: '',
@@ -71,6 +71,7 @@ const SpotDetails = ({ data }) => {
     })
     let userSpot = Object.keys(data).map((i) => { return Object.values(data[i]) });
 
+    console.log('from mongo to context', userSavedSpot)
     // push data to Spots.jsx
     const pushDataFunc = (data) => {
         if (data) {

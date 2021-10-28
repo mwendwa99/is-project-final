@@ -63,7 +63,7 @@ const UserProvider = ({ children }) => {
     const [userSelectedSpot, setUserSelectedSpot] = useState();
 
     // function to update user saves to backend
-    const savedSpot = async (data) => {
+    const savedSpot = (data) => {
         // axios post
         setUserSavedSpot(data);
     }

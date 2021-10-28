@@ -32,6 +32,22 @@ route.get('/get-org', async (req, res) => {
         }
     });
 })
+// find by id
+route.get('/get-org/:id', (req, res) => {
+    const id = req.params.id;
+    Org.findById(id).lean()
+        .exec((err, result) => {
+            if (err) return console.error(err)
+            try {
+                res.json(result)
+            } catch (error) {
+                if (error) {
+                    return (res.json({ status: 'error', error: error }))
+                } throw error
+            }
+        })
+})
+
 // delete org details
 route.delete('/delete-org/:id', (req, res) => {
     Org.findByIdAndRemove(req.params.id)
