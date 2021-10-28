@@ -36,7 +36,7 @@ const About = () => {
     const classes = UseStyles();
 
     return (
-        <Fade in timeout={1500}>
+        <Fade in timeout={1000}>
             <div className="body__section">
                 <Container maxWidth='xl' className={classes.root}>
                     <Grid container >
