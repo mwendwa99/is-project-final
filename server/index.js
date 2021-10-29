@@ -1,11 +1,13 @@
 const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoute');
 const orgRoutes = require('./routes/orgRoute');
 const adminRoutes = require('./routes/adminRoute');
-const spotRoutes = require('./routes/spotRoute')
-const cors = require('cors');
-const bodyParser = require('body-parser');
+const spotRoutes = require('./routes/spotRoute');
+const controllerRoute = require('./controller/controllerRoute');
 
 // mongoose promise
 mongoose.Promise = global.Promise
@@ -26,6 +28,8 @@ app.use(orgRoutes);
 app.use(spotRoutes)
 // admin route
 app.use('/admin', adminRoutes);
+// controllers
+app.use(controllerRoute);
 
 // connect to local db with mongoose
 mongoose.connect(uri, {

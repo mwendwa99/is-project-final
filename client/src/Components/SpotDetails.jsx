@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Typography, Grid, Button, Container, makeStyles,
     TableBody, TableRow, TableCell, Table, TableContainer, Fade
@@ -7,6 +7,8 @@ import Date from './Inputs/Date';
 import TextInput from './Inputs/TextInput';
 import { useHistory } from 'react-router';
 import { useSavedValue } from '../Context/AuthContext';
+import axios from 'axios';
+
 import Assets from '../Assets/Index';
 
 const UseStyle = makeStyles((theme) => ({
@@ -46,7 +48,7 @@ const UseStyle = makeStyles((theme) => ({
 }))
 
 
-const SpotDetails = ({ data }) => {
+const SpotDetails = () => {
     const classes = UseStyle();
     const user = localStorage.getItem('email');
     const [initialValue, setInitialValue] = useState();
@@ -65,37 +67,41 @@ const SpotDetails = ({ data }) => {
     })
     const { _id, name, location, price, spaces, description, features } = userSavedSpot;
 
-    // push data to Spots.jsx
-    const pushDataFunc = (data) => {
-        if (data) {
-            history.push('/saved')
-        }
-    }
+    // useEffect(()=>{
+    //     postToDb();
+    // },[])
+
     // pull data from TextInput component
     const pullDataFromChild = (data) => { setInitialValue(data) }
 
     // pull data from Date component
     const pullDate = (date) => { setDateValue(date) }
 
-    const sendTodbonClick = (name, location, features, description, price) => {
+    const sendTodbonClick = (id, name, location, features, description, price) => {
         setFormData({
-            spotId: _id,
+            spotId: id,
             email: user,
             name: name,
             location: location,
-            spaces: parseInt(initialValue),
+            spaces: parseInt(initialValue) || 1,
             price: initialValue ? price * initialValue : price,
             description: description,
             features: features,
             day: dateValue,
-        })
-
+        });
         // send formdata object to backend
+        postToDb(formData);
         // on my spot page consume this object from backend since its all from one user
         // backend create algorithm to subtract spaces left
         // admin page create "activity tab" admin will see user's bookings
     }
-    console.log('wefsffa', formData);
+    const postToDb = async () => {
+        await formData;
+        axios.post('/post-controller', formData)
+            .then(() => history.push('/saved'))
+    }
+
+    // console.log('wefsffa', formData);
     // selectedSpot(formData)
     // pushDataFunc(formData.name)
 

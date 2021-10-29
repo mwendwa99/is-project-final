@@ -61,13 +61,11 @@ const OrgProvider = ({ children }) => {
 const UserProvider = ({ children }) => {
     const [userSavedSpot, setUserSavedSpot] = useState([]);
     const [userSelectedSpot, setUserSelectedSpot] = useState();
-    const [spotId, setSpotId] = useState();
 
     // function to update user saves to backend
     const savedSpot = async (data) => {
         // axios post
         setUserSavedSpot(data);
-        // setSpotId(savedSpotId)
     }
     // function to update specific user saves with email
     // my naming convention is terrible
@@ -79,7 +77,6 @@ const UserProvider = ({ children }) => {
         savedSpot,
         userSavedSpot,
         selectedSpot,
-        spotId,
         userSelectedSpot,
     }
 

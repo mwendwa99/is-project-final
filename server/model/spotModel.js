@@ -9,17 +9,6 @@ const spotSchema = new Schema({
     id: {
         type: String
     },
-    // location: {
-    //     type: {
-    //         type: String,
-    //         enum: ['Point'], //location type
-    //         required: true
-    //     },
-    //     coordintates: {
-    //         type: [Number],
-    //         required: true
-    //     }
-    // },
     location: {
         type: String
     },
