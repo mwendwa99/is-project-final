@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
     Typography, Grid, Button, Container, makeStyles,
-    TableBody, TableRow, TableCell, Table, TableContainer, Fade
+    TableBody, TableRow, TableCell, Table, TableContainer, Fade, Divider
 } from '@material-ui/core';
 import Date from './Inputs/Date';
 import TextInput from './Inputs/TextInput';
@@ -17,34 +17,32 @@ const UseStyle = makeStyles((theme) => ({
         backgroundColor: '#ddffaa',
         backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpolygon fill='%23AE9' points='120 120 60 120 90 90 120 60 120 0 120 0 60 60 0 0 0 60 30 90 60 120 120 120 '/%3E%3C/svg%3E")`,
         boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-        borderRadius: '20px',
-        marginTop: theme.spacing(1),
-        padding: theme.spacing(1),
+        borderRadius: '10px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        textAlign: 'center'
     },
     gridContainer: {
-        padding: theme.spacing(1),
+        padding: theme.spacing(2),
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     priceCard: {
         border: '1px solid rgba(0, 0, 0, 0.1)',
-        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
         borderRadius: '10px',
+        padding: theme.spacing(5),
+        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
         backgroundColor: '#EDF5E0',
-        padding: theme.spacing(3),
     },
-    inputForm: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between"
-    },
+    typography: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '1rem',
+        alignItems: 'center'
+    }
 }))
 
 
@@ -55,16 +53,16 @@ const SpotDetails = () => {
     const [dateValue, setDateValue] = useState();
     const history = useHistory();
     const { userSavedSpot } = useSavedValue()
-    const [formData, setFormData] = useState({
-        spotId: '',
-        email: '',
-        name: '',
-        price: '',
-        spaces: '',
-        description: '',
-        features: '',
-        day: '',
-    })
+    // const [formData, setFormData] = useState({
+    //     spotId: '',
+    //     email: '',
+    //     name: '',
+    //     price: '',
+    //     spaces: '',
+    //     description: '',
+    //     features: '',
+    //     day: '',
+    // })
     const { _id, name, location, price, spaces, description, features } = userSavedSpot;
 
     // useEffect(()=>{
@@ -78,7 +76,7 @@ const SpotDetails = () => {
     const pullDate = (date) => { setDateValue(date) }
 
     const sendTodbonClick = (id, name, location, features, description, price) => {
-        setFormData({
+        const formData = {
             spotId: id,
             email: user,
             name: name,
@@ -88,17 +86,17 @@ const SpotDetails = () => {
             description: description,
             features: features,
             day: dateValue,
-        });
+        };
         // send formdata object to backend
         postToDb(formData);
         // on my spot page consume this object from backend since its all from one user
         // backend create algorithm to subtract spaces left
         // admin page create "activity tab" admin will see user's bookings
     }
-    const postToDb = async () => {
-        await formData;
+    const postToDb = async (formData) => {
         axios.post('/post-controller', formData)
             .then(() => history.push('/saved'))
+            .catch((error) => console.log(error))
     }
 
     // console.log('wefsffa', formData);
@@ -116,60 +114,37 @@ const SpotDetails = () => {
                                 <b>{name + ', ' + location}</b>
                             </Typography>
                         </Grid>
-                        <Grid item sm={8} className={classes.priceCard}>
-                            <Table size='large'>
-                                <TableContainer>
-                                    <TableBody>
-                                        <TableRow>
-                                            <TableCell>
-                                                <Typography variant='h5'>price: </Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Typography variant='h6'> {initialValue ? price * initialValue : price} </Typography>
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell component='th' scope='row'>
-                                                <Typography variant='h5'>spaces:</Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                                <TextInput
-                                                    spaces={spaces}
-                                                    initialValue={initialValue}
-                                                    sendDataToParent={pullDataFromChild}
-                                                />
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell component='th' scope='row'>
-                                                <Typography variant='h5'>Description:</Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Typography variant='h6'>{description}</Typography>
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell component='th' scope='row'>
-                                                <Typography variant='h5'>Features:</Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Typography variant='h6'>{features}</Typography>
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>
-                                                <Typography variant='h5'>Day:</Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Date sendDate={pullDate} />
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </TableContainer>
-                            </Table>
+                        <Grid item sm={10}>
+                            <Grid container className={classes.priceCard}>
+                                <Grid item sm={12}>
+                                    <Typography variant='h1' className={classes.typography}>
+                                        Price: <Typography variant='h5'>{initialValue ? price * initialValue : price}</Typography>
+                                    </Typography>
+                                    <Divider />
+                                    <Typography variant='h1' className={classes.typography}>
+                                        Spaces: <Typography variant='h5'><TextInput
+                                            spaces={spaces}
+                                            initialValue={initialValue}
+                                            sendDataToParent={pullDataFromChild}
+                                        /></Typography>
+                                    </Typography>
+                                    <Divider />
+                                    <Typography variant='h1' className={classes.typography}>
+                                        Description:   <Typography variant='h5'>{description}</Typography>
+                                    </Typography>
+                                    <Divider />
+                                    <Typography variant='h1' className={classes.typography}>
+                                        Features: <Typography variant='h5'>{features}</Typography>
+                                    </Typography>
+                                    <Divider />
+                                    <Typography variant='h1' className={classes.typography}>
+                                        Date: <Typography variant='h5'><Date sendDate={pullDate} /></Typography>
+                                    </Typography>
+                                </Grid>
+                            </Grid>
                             <Button
                                 onClick={() => sendTodbonClick(_id, name, location, features, description, price)}
-                                variant='contained' type='submit' size="medium">
+                                variant='contained' size="large">
                                 save this spot
                             </Button>
                         </Grid>

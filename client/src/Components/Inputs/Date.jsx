@@ -16,6 +16,7 @@ export default function BasicDatePicker({ sendDate }) {
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
                 label="book date"
+                required
                 value={value}
                 disablePast
                 clearable={true}

@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         '& > *': {
-            margin: theme.spacing(1),
             width: '25ch',
         },
     },
@@ -22,17 +21,17 @@ export default function TextInput({ sendDataToParent, spaces, initialValue }) {
     sendDataToParent(value)
 
     return (
-        <form className={classes.root} noValidate autoComplete="off">
-            <TextField
-                id="filled-basic"
-                type="number"
-                inputProps={inputProps}
-                InputProps={{ disableUnderline: true }}
-                placeholder='number of spaces'
-                value={!initialValue ? 1 : initialValue}
-                onChange={(e) => setValue(e.target.value)}
-                size="large"
-                margin="none" />
-        </form>
+        <TextField className={classes.root}
+            id="filled-basic"
+            variant="outlined"
+            required
+            type="number"
+            inputProps={inputProps}
+            InputProps={{ disableUnderline: true }}
+            placeholder='number of spaces'
+            value={!initialValue ? 1 : initialValue}
+            onChange={(e) => setValue(e.target.value)}
+            size="large"
+            margin="normal" />
     );
 }
