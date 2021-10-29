@@ -60,26 +60,13 @@ const OrgProvider = ({ children }) => {
 
 const UserProvider = ({ children }) => {
     const [userSavedSpot, setUserSavedSpot] = useState([]);
-    const [userSelectedSpot, setUserSelectedSpot] = useState();
 
     // function to update user saves to backend
     const savedSpot = async (data) => {
         // axios post
         setUserSavedSpot(data);
-    }
-    // function to update specific user saves with email
-    // my naming convention is terrible
-    // will refactor at the end of all this
-    const selectedSpot = (spot) => {
-        setUserSelectedSpot(spot);
-    }
-    const values = {
-        savedSpot,
-        userSavedSpot,
-        selectedSpot,
-        userSelectedSpot,
-    }
-
+    };
+    const values = { savedSpot, userSavedSpot }
     return (
         <UserContext.Provider value={values}>
             {children}

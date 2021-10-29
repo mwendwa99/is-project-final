@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
     gridItem: {
         display: "flex", flexDirection: "column",
-        backgroundColor: '#F8F0C6',
+        backgroundColor: '#EDF5E0',
         alignItems: 'center',
         justifyContent: 'center',
         padding: theme.spacing(1),
@@ -42,7 +42,6 @@ export default function FullWidthGrid() {
                 let res = (response.data)
                 setInitialList(res)
             }).catch((error) => console.log(`error in fetch Spots ${error}`));
-        // go next screen
         // on successful data map push to details page
         if (data) {
             history.push('/details')

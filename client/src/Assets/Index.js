@@ -24,5 +24,7 @@ const Assets = {
     space: require('./space.svg').default,
     org: require('./org.svg').default,
     repeatingChevrons: require('./repeatingChevrons.svg').default,
+    hollowedBoxes: require('./hollowedBoxes.svg').default,
+    wave: require('./wave.svg').default,
 };
 export default Assets;

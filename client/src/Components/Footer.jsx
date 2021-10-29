@@ -6,7 +6,7 @@ import Assets from '../Assets/Index'
 
 const UseStyle = makeStyles((theme) => ({
     footerRoot: {
-        backgroundColor: "#F8F0C6",
+        backgroundColor: "#EDF5E0",
         height: "100%",
         width: "100%",
         padding: theme.spacing(1),

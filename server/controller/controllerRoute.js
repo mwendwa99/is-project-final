@@ -17,4 +17,15 @@ route.post('/post-controller', async (req, res) => {
     }
 });
 
+route.get('/get-controller/:email', (req, res) => {
+    const email = req.params.email;
+    Controller.find({ email: email }, (error, response) => {
+        if (error) {
+            return res.json({ status: 'error', error: error })
+        } else {
+            res.json(response)
+        }
+    })
+})
+
 module.exports = route;
