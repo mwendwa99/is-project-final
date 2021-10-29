@@ -89,13 +89,13 @@ const SpotDetails = ({ data }) => {
             features: features,
             day: dateValue,
         })
-        console.log('wefsffa', formData);
 
         // send formdata object to backend
         // on my spot page consume this object from backend since its all from one user
         // backend create algorithm to subtract spaces left
         // admin page create "activity tab" admin will see user's bookings
     }
+    console.log('wefsffa', formData);
     // selectedSpot(formData)
     // pushDataFunc(formData.name)
 

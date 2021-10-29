@@ -42,26 +42,28 @@ export default function FullWidthGrid() {
                 let res = (response.data)
                 setInitialList(res)
             }).catch((error) => console.log(`error in fetch Spots ${error}`));
-
-    }, []);
+        // go next screen
+        // on successful data map push to details page
+        if (data) {
+            history.push('/details')
+        }
+    }, [data]);
 
     // function to get org with specific id
     const saveOnClick = (savedSpotId) => {
         axios.get(`/get-org/${savedSpotId}`)
-            .then((response) => setData(response.data))
+            .then((response) => {
+                if (response) {
+                    setData(response.data)
+                }
+            })
             .catch((error) => console.log(error))
-        // push data to context
-        // attach spot savedSpotId as well
-        savedSpot(data);
-        // go next screen
-        navigateToDetailsPage(data)
     }
-    // on successful data map push to details page
-    const navigateToDetailsPage = (data) => {
-        if (data) {
-            history.push('/details')
-        }
-    }
+    // push data to context
+    // attach spot savedSpotId as well
+    savedSpot(data);
+
+
     return (
         <Grid wrap='nowrap'
             container
