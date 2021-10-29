@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import {
-    Typography, Grid, Button, Container, makeStyles,
-    TableBody, TableRow, TableCell, Table, TableContainer, Fade, Divider
-} from '@material-ui/core';
+import React, { useState } from 'react';
+import { Typography, Grid, Button, Container, makeStyles, Fade, Divider } from '@material-ui/core';
 import Date from './Inputs/Date';
 import TextInput from './Inputs/TextInput';
 import { useHistory } from 'react-router';
@@ -43,8 +40,7 @@ const UseStyle = makeStyles((theme) => ({
         padding: '1rem',
         alignItems: 'center'
     }
-}))
-
+}));
 
 const SpotDetails = () => {
     const classes = UseStyle();
@@ -53,21 +49,8 @@ const SpotDetails = () => {
     const [dateValue, setDateValue] = useState();
     const history = useHistory();
     const { userSavedSpot } = useSavedValue()
-    // const [formData, setFormData] = useState({
-    //     spotId: '',
-    //     email: '',
-    //     name: '',
-    //     price: '',
-    //     spaces: '',
-    //     description: '',
-    //     features: '',
-    //     day: '',
-    // })
+    // const [formData, setFormData] = useState()
     const { _id, name, location, price, spaces, description, features } = userSavedSpot;
-
-    // useEffect(()=>{
-    //     postToDb();
-    // },[])
 
     // pull data from TextInput component
     const pullDataFromChild = (data) => { setInitialValue(data) }
@@ -86,22 +69,16 @@ const SpotDetails = () => {
             description: description,
             features: features,
             day: dateValue,
-        };
+        }
         // send formdata object to backend
-        postToDb(formData);
+        axios.post('/post-controller', formData)
+            .then(history.push('/saved'))
+            .catch((error) => console.log(error))
+        // postToDb(formData);
         // on my spot page consume this object from backend since its all from one user
         // backend create algorithm to subtract spaces left
         // admin page create "activity tab" admin will see user's bookings
     }
-    const postToDb = async (formData) => {
-        axios.post('/post-controller', formData)
-            .then(() => history.push('/saved'))
-            .catch((error) => console.log(error))
-    }
-
-    // console.log('wefsffa', formData);
-    // selectedSpot(formData)
-    // pushDataFunc(formData.name)
 
     return (
         <Fade in timeout={1000}>
@@ -155,4 +132,4 @@ const SpotDetails = () => {
     )
 }
 
-export default SpotDetails
+export default SpotDetails;
