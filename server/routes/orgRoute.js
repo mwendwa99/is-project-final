@@ -50,7 +50,7 @@ route.get('/get-org/:id', (req, res) => {
 
 // delete org details
 route.delete('/delete-org/:id', (req, res) => {
-    Org.findByIdAndRemove(req.params.id)
+    Org.findOneAndDelete(req.params.id)
         .exec()
         .then(doc => {
             if (!doc) {

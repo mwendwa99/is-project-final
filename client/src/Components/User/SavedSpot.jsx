@@ -71,12 +71,24 @@ export const SavedSpot = () => {
     const classes = UseStyle();
     const email = localStorage.getItem('email');
     const [userSpot, setUserSpot] = useState();
+    const [status, setStatus] = useState();
 
     useEffect(() => {
         axios.get(`/get-controller/${email}`)
             .then((response) => setUserSpot(response.data))
             .catch((error) => console.log(error))
     }, [email])
+
+    // delete from db
+    const deleteSpot = (id) => {
+        axios.delete(`/delete-controller/${id}`)
+            .then((response) => setStatus(response.data.status))
+            .catch((error) => console.log(error));
+
+        // delete from frontend
+        const newList = userSpot.filter((userSpot) => userSpot.spotId !== id);
+        setUserSpot(newList)
+    }
 
 
     return userSpot ? (
@@ -85,6 +97,7 @@ export const SavedSpot = () => {
                 <Grid className={classes.imageContainer}>
                     <img src={Assets.cat} height="10%" width="50%" alt="" />
                     <Typography variant='h1' align='center'>Your Reservations</Typography>
+                    <Typography variant='h5' color='tomato' align='center'>{status}</Typography>
                 </Grid>
                 <Grid container className={classes.paper}>
                     {
@@ -115,7 +128,7 @@ export const SavedSpot = () => {
                                     <Typography variant='h5'>
                                         <b>Booked by:</b> {item.email}
                                     </Typography>
-                                    <Button variant='contained' size='large'>
+                                    <Button onClick={() => deleteSpot(item.spotId)} variant='contained' size='large'>
                                         <Delete />
                                     </Button>
                                 </Paper>
