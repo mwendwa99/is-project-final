@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Assets from '../Assets/Index';
 import { makeStyles, TextField, Grid, InputAdornment, Button } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import CustomMap from './CustomMap';
-import { useOrg } from '../Context/AuthContext';
 import OrganizationList from './Inputs/OrganizationList';
 
 const UseStyle = makeStyles((theme) => ({
@@ -31,6 +29,7 @@ const SearchBar = ({ organizationList, setOrganizationList }) => {
     const classes = UseStyle();
     const [input, setInput] = useState('');
     const [visible, setVisible] = useState(false);
+    const [searchResponse, setSearchResponse] = useState()
 
     // update search input
     const updateInput = async (input) => {
@@ -42,10 +41,10 @@ const SearchBar = ({ organizationList, setOrganizationList }) => {
     };
 
     console.log('input', input)
-
+    // query db
     const searchOrg = () => {
         axios.get(`/find-org/${input}`)
-            .then((response) => console.log('res', response))
+            .then((response) => setSearchResponse(response.data))
             .catch((error) => console.log(error))
     }
 

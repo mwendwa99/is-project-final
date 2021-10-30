@@ -50,13 +50,15 @@ route.get('/get-org/:id', (req, res) => {
 // find by location
 route.get('/find-org/:location', (req, res) => {
     const location = req.params.location;
-    Org.find({ 'location': new RegExp(location, 'i') }, (error, response) => {
-        if (error) {
-            return res.json({ status: 'error', error: error })
-        } else {
-            res.json(response)
-        }
-    })
+    Org.find({ 'location': new RegExp(location, 'i') })
+        .exec()
+        .then(doc => {
+            if (!doc) {
+                return res.json({ status: 'location not listed!' })
+            } else {
+                return res.json(doc)
+            }
+        }).catch((error) => console.log(error))
 });
 
 // delete org details
@@ -65,7 +67,7 @@ route.delete('/delete-org/:id', (req, res) => {
         .exec()
         .then(doc => {
             if (!doc) {
-                return (res.json({ status: 'error', error: 'item does not exist!' }))
+                return (res.json({ status: 'item does not exist!' }))
             } else {
                 return res.status(204).end();
             }
