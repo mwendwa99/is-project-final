@@ -4,11 +4,6 @@ import { Grid } from '@material-ui/core';
 import axios from 'axios';
 import { useOrg } from '../Context/AuthContext';
 
-const mapStyle = {
-    height: "100%",
-    width: "100%"
-}
-
 // refactor to useRef()
 const locationNames = {};
 
@@ -54,7 +49,6 @@ export function CustomMap({ google, locationDataObject }) {
             <Grid item className="map__section--gmap_canvas" md={12}>
                 <Map
                     google={google}
-                    style={mapStyle}
                     mapTypeId='roadmap'
                     initialCenter={{ lat: -1.283721, lng: 36.822759 }}
                     zoom={17.5}

@@ -6,6 +6,7 @@
   --lightgreencolor: #8de4af;
   --defaultColor: #edf5e0;
 }
+
 *,
 *::before,
 *::after {
@@ -15,16 +16,20 @@
   margin: 0;
   padding: 0;
 }
+
 a {
   text-decoration: none;
   font-size: large;
 }
+
 body {
   background-color: var(--greenColor);
 }
+
 li {
   color: white !important;
 }
+
 button,
 input[type="submit"],
 input[type="reset"] {
@@ -36,11 +41,13 @@ input[type="reset"] {
   cursor: pointer;
   outline: inherit;
 }
+
 .user-list li {
   color: var(--blueColor) !important;
   font-size: x-large !important;
   font-weight: bold !important;
 }
+
 /* .sc-bwzfXH .zNoeh .react-search-box-dropdown {
   color: var(--blueColor) !important;
   font-size: x-large !important;
@@ -55,34 +62,41 @@ input[type="reset"] {
   height: 100vh;
   width: 100%;
 }
+
 .MuiToolbar-regular {
   background-color: var(--greenColor);
   display: flex;
   justify-content: space-between;
 }
+
 .MuiButton-root {
   text-transform: capitalize !important;
 }
+
 .MuiButton-textPrimary {
   color: var(--blueColor) !important;
   font-weight: bold !important;
   font-size: 0.9375rem !important;
 }
+
 .MuiTypography-h1 {
   color: var(--blueColor);
   font-size: 2.125rem !important;
   font-weight: bold !important;
 }
+
 .MuiTypography-body1 {
   color: var(--blueColor);
   font-size: 1.25rem !important;
   font-weight: bold !important;
 }
+
 .MuiTypography-body2 {
   color: var(--blueColor);
   font-size: 1rem !important;
   font-weight: bold !important;
 }
+
 .MuiButton-contained {
   background-color: var(--greenColor) !important;
   border-radius: 20px !important;
@@ -92,45 +106,56 @@ input[type="reset"] {
   font-size: 1rem !important;
   font-weight: bold !important;
 }
+
 .MuiButton-textSecondary {
   color: white !important;
   font-size: 1rem !important;
   font-weight: bold !important;
 }
+
 .MuiTypography-overline {
   color: red !important;
   font-weight: 600 !important;
 }
+
 .MuiTypography-caption {
   color: var(--blueColor);
   font-size: 1rem !important;
 }
+
 .MuiTypography-subtitle2 {
   font-size: large !important;
 }
+
 .MuiInput-root::placeholder {
   font-weight: 700 !important;
 }
+
 .MuiInputBase-root {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   width: 100%;
 }
+
 .MuiInputBase-root::placeholder {
   font-weight: 700 !important;
   font-size: xx-large !important;
 }
+
 .MuiDivider-root {
   background-color: #58dd90 !important;
 }
+
 .MuiListItemText-root {
   color: white !important;
   font-size: 1rem;
   font-weight: 500;
 }
+
 .MuiTextField-root {
   margin: 1rem !important;
 }
+
 .body__section {
   margin-top: 4rem;
   margin-bottom: 1rem;
@@ -139,34 +164,13 @@ input[type="reset"] {
   justify-content: center;
   align-items: center;
 }
-.search__button {
-  width: 16px !important;
-  height: 16px !important;
-  background: transparent !important;
-}
+
 .map__section {
-  height: 100%;
-  width: 100%;
   min-height: 30rem !important;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  border-radius: 20px !important;
   background-color: white;
-  margin-top: 1rem;
 }
-.map__section--gmap_canvas {
-  height: 100% !important;
-  width: 100% !important;
-  border-radius: 20px !important;
-  position: relative;
-  padding-bottom: 45%; /* This is the aspect ratio */
-  min-height: 30rem !important;
-  overflow: hidden;
-}
+
 .map__section--gmap_canvas iframe {
   background: grey;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100% !important;
-  height: 100% !important;
 }
