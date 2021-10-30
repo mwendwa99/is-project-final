@@ -47,6 +47,17 @@ route.get('/get-org/:id', (req, res) => {
             }
         })
 })
+// find by location
+route.get('/find-org/:location', (req, res) => {
+    const location = req.params.location;
+    Org.find({ 'location': new RegExp(location, 'i') }, (error, response) => {
+        if (error) {
+            return res.json({ status: 'error', error: error })
+        } else {
+            res.json(response)
+        }
+    })
+});
 
 // delete org details
 route.delete('/delete-org/:id', (req, res) => {

@@ -1,61 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, Grid, Typography } from '@material-ui/core';
 import Assets from '../Assets/Index';
 import SearchBar from './SearchBar';
 import Spots from './Spots';
-import Footer from './Footer';
+import axios from 'axios';
 
-const UseStyle = makeStyles((theme) => ({
+const UseStyle = makeStyles(() => ({
     root: {
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-around",
-        padding: theme.spacing(2),
-        alignItems: "center",
-        maxWidth: "98vw",
-
-    },
-    searchBar: {
-        paddingBottom: theme.spacing(3),
-    },
-    text: {
-        paddingTop: theme.spacing(2),
-        paddingBottom: theme.spacing(2)
+        maxWidth: "100%",
     },
 }));
 
-export default function SimpleContainer() {
-
+const Home = () => {
     const classes = UseStyle();
+    const [organizations, setOrganizations] = useState([]);
+    const [organizationList, setOrganizationList] = useState([])
+
+    useEffect(() => {
+        axios.get('/get-org')
+            .then((response) => {
+                let res = (response.data)
+                setOrganizations(res)
+                setOrganizationList(res)
+            }).catch((error) => console.log(`error in fetch Spots ${error}`));
+
+    }, []);
 
 
     return (
-        <div>
-            <div className='body__section' >
-                <Grid
-                    container
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={5}
-                    className={classes.root}
-                >
-                    <Grid sm={6} md={6} lg={6} item>
-                        <img height="auto" width="100%" src={Assets.map} alt="map-illustration" />
-                    </Grid>
-                    <Grid className={classes.text} sm={6} md={6} lg={6} item >
-                        <Typography variant='h1' >find a space in Nairobi, CBD</Typography>
-                        <div className={classes.searchBar} >
-                            <SearchBar />
-                        </div>
-                    </Grid>
-                    <Grid className={classes.spots} item sm={12} >
-                        <Typography align="center" variant="h1"> Parking Lots </Typography>
-                        <Spots />
-                    </Grid>
+        <div className='body__section' >
+            <Grid container direction="row" justifyContent="center" alignItems="center" spacing={5} className={classes.root}>
+                <Grid item sm={6} md={6} lg={6}>
+                    <img height="auto" width="100%" src={Assets.map} alt="map-illustration" />
                 </Grid>
-            </div >
-            <Footer />
-        </div>
+                <Grid item className={classes.text} sm={6} md={6} lg={6} >
+                    <Typography variant='h1' align='center'>find a space in Nairobi, CBD</Typography>
+                    <SearchBar organizationList={organizationList} setOrganizationList={setOrganizationList} />
+                </Grid>
+                <Grid item className={classes.spots} sm={12}>
+                    <Typography align="center" variant="h1"> Parking Lots </Typography>
+                    <Spots organizations={organizations} />
+                </Grid>
+            </Grid>
+        </div >
     );
 }
+
+export default Home;

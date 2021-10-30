@@ -48,16 +48,6 @@ input[type="reset"] {
   font-weight: bold !important;
 }
 
-/* .sc-bwzfXH .zNoeh .react-search-box-dropdown {
-  color: var(--blueColor) !important;
-  font-size: x-large !important;
-  font-weight: bold !important;
-}
-.react-search-box-dropdown-list-item {
-  color: black !important;
-  font-size: x-large !important;
-  font-weight: bold !important;
-} */
 .App {
   height: 100vh;
   width: 100%;
@@ -152,10 +142,6 @@ input[type="reset"] {
   font-weight: 500;
 }
 
-.MuiTextField-root {
-  margin: 1rem !important;
-}
-
 .body__section {
   margin-top: 4rem;
   margin-bottom: 1rem;
@@ -166,11 +152,31 @@ input[type="reset"] {
 }
 
 .map__section {
+  height: 100%;
+  width: 100%;
   min-height: 30rem !important;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 20px !important;
   background-color: white;
+  margin-top: 1rem;
+}
+
+.map__section--gmap_canvas {
+  height: 100% !important;
+  width: 100% !important;
+  border-radius: 20px !important;
+  position: relative;
+  padding-bottom: 45%;
+  /* This is the aspect ratio */
+  min-height: 30rem !important;
+  overflow: hidden;
 }
 
 .map__section--gmap_canvas iframe {
   background: grey;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
 }

@@ -7,7 +7,7 @@ import { useOrg } from '../Context/AuthContext';
 // refactor to useRef()
 const locationNames = {};
 
-export function CustomMap({ google, locationDataObject }) {
+export function CustomMap({ google }) {
 
     const { orgDetails, payload, geoData } = useOrg();
 

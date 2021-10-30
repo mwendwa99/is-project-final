@@ -26,9 +26,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function FullWidthGrid() {
+export default function Spots({ organizations }) {
     const classes = useStyles();
-    const [initialList, setInitialList] = useState([]);
 
     // data from mongo
     const [data, setData] = useState();
@@ -37,12 +36,6 @@ export default function FullWidthGrid() {
 
     // on page load get organization details
     useEffect(() => {
-        axios.get('/get-org')
-            .then((response) => {
-                let res = (response.data)
-                setInitialList(res)
-            }).catch((error) => console.log(`error in fetch Spots ${error}`));
-        // on successful data map push to details page
         if (data) {
             history.push('/details')
         }
@@ -56,12 +49,11 @@ export default function FullWidthGrid() {
                     setData(response.data)
                 }
             })
-            .catch((error) => console.log(error))
+            .catch((error) => console.log(error));
+
     }
     // push data to context
-    // attach spot savedSpotId as well
     savedSpot(data);
-
 
     return (
         <Grid wrap='nowrap'
@@ -71,7 +63,7 @@ export default function FullWidthGrid() {
             alignItems="center"
             justifyContent="center" >
             {
-                initialList.map((item, index) =>
+                organizations.map((item, index) =>
                     <Grid item className={classes.gridItem} key={item._id} >
                         <img height="100%" width="100%" src={Assets.parking} alt="parking" />
                         <ListItem >

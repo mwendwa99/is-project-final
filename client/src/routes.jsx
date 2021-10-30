@@ -12,6 +12,7 @@ import { useSavedValue } from './Context/AuthContext';
 import { SavedSpot } from './Components/User/SavedSpot';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Footer from './Components/Footer';
 
 
 export const AdminRoute = () => {
@@ -56,6 +57,7 @@ export const AuthenticatedRoutes = () => {
           <Route exact path='/about' component={About} />
           <Route exact path='/my-spot' component={SaveError} />
           <Route exact path='/saved' component={SavedSpot} />
+          <Footer />
         </div>
       </Switch>
     </Router>
