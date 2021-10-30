@@ -35,7 +35,7 @@ const TextFields = () => {
             <form
                 className={classes.root} >
                 <InputBase
-                    autoFocus='true'
+                    autoFocus
                     type="text"
                     value={place}
                     onChange={(e) => setPlace(e.target.value)}

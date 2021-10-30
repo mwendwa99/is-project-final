@@ -69,15 +69,15 @@ export default function FullWidthGrid() {
             spacing={2}
             className={classes.grid}
             alignItems="center"
-            justify="center" >
+            justifyContent="center" >
             {
                 initialList.map((item, index) =>
                     <Grid item className={classes.gridItem} key={item._id} >
                         <img height="100%" width="100%" src={Assets.parking} alt="parking" />
                         <ListItem >
-                            <ListItemText disableTypography='true'>
+                            <ListItemText disableTypography>
                                 <Typography variant="body2" >{!item.name ? 'loading...' : item.name} </Typography>
-                                <Typography variant="subtitle" > {!item.location ? 'loading...' : item.location} </Typography>
+                                <Typography variant="subtitle1" > {!item.location ? 'loading...' : item.location} </Typography>
                                 <ul className='user-list' >
                                     <li>
                                         <div style={{ display: 'flex', alignItems: "center" }} >
@@ -94,7 +94,7 @@ export default function FullWidthGrid() {
                         <Button
                             onClick={() => saveOnClick(item._id)}
                             variant="contained" size="small" >
-                            <Favorite button /> Save Me!
+                            <Favorite /> Save Me!
                         </Button>
                     </Grid >
                 )

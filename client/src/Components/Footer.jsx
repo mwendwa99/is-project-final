@@ -26,7 +26,7 @@ const Footer = () => {
 
     return (
         <Grid container className={classes.footerRoot}>
-            <Grid container md='6' style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <Grid container style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Grid item sm={3}>
                     <Link to='/' className={classes.footerLinks}>
                         <Typography variant="body2">Home</Typography>
@@ -54,7 +54,7 @@ const Footer = () => {
                     <img width="100%" src={Assets.city} alt="city" />
                 </Grid>
                 <Grid item sm={12}>
-                    <Typography variant="subtitle">&copy;2021. All Rights reserved by Brian Mwendwa</Typography>
+                    <Typography variant="subtitle1">&copy;2021. All Rights reserved by Brian Mwendwa</Typography>
                 </Grid>
             </Grid>
         </Grid>

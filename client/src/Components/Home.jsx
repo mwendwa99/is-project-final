@@ -35,7 +35,7 @@ export default function SimpleContainer() {
                 <Grid
                     container
                     direction="row"
-                    justify="center"
+                    justifyContent="center"
                     alignItems="center"
                     spacing={5}
                     className={classes.root}
@@ -43,7 +43,7 @@ export default function SimpleContainer() {
                     <Grid sm={6} md={6} lg={6} item>
                         <img height="auto" width="100%" src={Assets.map} alt="map-illustration" />
                     </Grid>
-                    <Grid className={classes.text} sm={6} md={6} lg={6}  >
+                    <Grid className={classes.text} sm={6} md={6} lg={6} item >
                         <Typography variant='h1' >find a space in Nairobi, CBD</Typography>
                         <div className={classes.searchBar} >
                             <SearchBar />

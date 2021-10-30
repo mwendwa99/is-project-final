@@ -180,7 +180,7 @@ export const ParkingPage = ({ data }) => {
                     {itemList.map((item) => (
                         <List key={item._id}>
                             <ListItem >
-                                <ListItemText disableTypography='true'>
+                                <ListItemText disableTypography>
                                     {item.name}
                                     <ul>
                                         <li> description: {item.description} </li>
@@ -191,7 +191,7 @@ export const ParkingPage = ({ data }) => {
                                     </ul>
                                 </ListItemText>
                                 <ListItemIcon>{
-                                    <IconButton onClick={() => deleteItem(item._id)} ><Delete button style={{ fill: 'white' }} /></IconButton>
+                                    <IconButton onClick={() => deleteItem(item._id)} ><Delete style={{ fill: 'white' }} /></IconButton>
                                 }</ListItemIcon>
                             </ListItem>
                         </List>
@@ -282,35 +282,35 @@ export default function MiniDrawer() {
                 <Divider />
                 <List>
                     {['Organization'].map((text, index) => (
-                        <ListItem button key={text} onClick={() => setComponent('Organization')} >
+                        <ListItem key={text} onClick={() => setComponent('Organization')} >
                             <ListItemIcon>{
                                 index % 2 === 0 ? <img src={Assets.org} alt="org" />
                                     : <img src={Assets.space} alt="space" />
                             }</ListItemIcon>
-                            <ListItemText disableTypography='true' primary={text} />
+                            <ListItemText disableTypography primary={text} />
                         </ListItem>
                     ))}
                 </List>
                 <Divider />
                 <List>
                     {['Parking Spaces'].map((text, index) => (
-                        <ListItem button key={text} onClick={() => setComponent('Your Parking Spaces')}>
+                        <ListItem key={text} onClick={() => setComponent('Your Parking Spaces')}>
                             <ListItemIcon>{
                                 index % 2 === 0 ? <img src={Assets.space} alt="space" />
                                     : <img src={Assets.org} alt="org" />
                             }</ListItemIcon>
-                            <ListItemText disableTypography='true' primary={text} />
+                            <ListItemText disableTypography primary={text} />
                         </ListItem>
                     ))}
                 </List>
                 <div className={classes.Btn} >
                     <List onClick={handleLogout} >
                         {['Logout'].map((text, index) => (
-                            <ListItem button key={text}>
+                            <ListItem key={text}>
                                 <ListItemIcon>{
                                     <ExitToApp style={{ fill: 'white' }} />
                                 }</ListItemIcon>
-                                <ListItemText disableTypography='true' primary={text} />
+                                <ListItemText disableTypography primary={text} />
                             </ListItem>
                         ))}
                     </List>
