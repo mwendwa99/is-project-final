@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { makeStyles, TextField, Grid, InputAdornment, Button } from '@material-ui/core';
-import { Search } from '@material-ui/icons';
+import { makeStyles, TextField, Grid, InputAdornment, Button, Typography, Divider, List, ListItem, ListItemText, ListItemAvatar, Avatar, Fab, ListItemIcon, IconButton } from '@material-ui/core';
+import { DirectionsCar, Search } from '@material-ui/icons';
 import CustomMap from './CustomMap';
-import OrganizationList from './Inputs/OrganizationList';
 
 const UseStyle = makeStyles((theme) => ({
     gridContainer: {
@@ -23,31 +22,21 @@ const UseStyle = makeStyles((theme) => ({
     labelRoot: {
         fontSize: '1.2rem',
     },
+    locations: {
+        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+        // borderRadius: '0 0 150px 150px',
+        borderRadius: '5rem',
+        margin: '1rem',
+        // height: '5px',
+        // borderTopLeftRadius: '2rem',
+        background: "#edf5e0",
+    }
 }));
 
-const SearchBar = ({ organizationList, setOrganizationList }) => {
+const SearchBar = ({ organizationList }) => {
     const classes = UseStyle();
     const [input, setInput] = useState('');
-    const [visible, setVisible] = useState(false);
-    const [searchResponse, setSearchResponse] = useState()
-
-    // update search input
-    const updateInput = async (input) => {
-        const filterList = organizationList.filter((org) => {
-            return org.location.toLowerCase().includes(input.toLowerCase())
-        })
-        setInput(input);
-        setOrganizationList(filterList);
-    };
-
-    console.log('input', input)
-    // query db
-    const searchOrg = () => {
-        axios.get(`/find-org/${input}`)
-            .then((response) => setSearchResponse(response.data))
-            .catch((error) => console.log(error))
-    }
-
+    console.log(organizationList)
     return (
         <Grid container className={classes.gridContainer}>
             <Grid item sm={12} >
@@ -57,7 +46,7 @@ const SearchBar = ({ organizationList, setOrganizationList }) => {
                     variant='filled'
                     type="text"
                     value={input}
-                    onChange={(e) => updateInput(e.target.value)}
+                    onChange={(e) => setInput(e.target.value)}
                     label="Search location"
                     InputLabelProps={{
                         classes: { root: classes.labelRoot }
@@ -65,15 +54,38 @@ const SearchBar = ({ organizationList, setOrganizationList }) => {
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
-                                <Button onClick={searchOrg} variant='text' >
-                                    <Search />
-                                </Button>
+                                <Search />
                             </InputAdornment>
                         ),
                         disableUnderline: true
                     }}
                 />
-                {/* <OrganizationList visible={visible} setVisible={setVisible} organizationList={organizationList} /> */}
+                {
+                    input ? organizationList.filter((val) => {
+                        if (input == "") {
+                            return val
+                        } else if (val.name.toLowerCase().includes(input.toLowerCase())) {
+                            return val
+                        }
+                    }).map((item, index) => {
+                        return (
+                            <List item className={classes.locations} key={index} >
+                                <ListItem>
+                                    <ListItemAvatar>
+                                        <Avatar>
+                                            <Fab><DirectionsCar /></Fab>
+                                        </Avatar>
+                                    </ListItemAvatar>
+                                    <ListItemText primary={item.location} secondary={item.name} />
+                                    <ListItemText primary={`@${item.price} Kes`} secondary={`spaces: ${item.spaces}`} />
+                                    <ListItemIcon>
+                                        <IconButton size='medium' ><Search /></IconButton>
+                                    </ListItemIcon>
+                                </ListItem>
+                            </List>
+                        )
+                    }) : null
+                }
                 <Grid item sm={12}>
                     <CustomMap />
                 </Grid>
