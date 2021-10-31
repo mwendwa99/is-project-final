@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { makeStyles, TextField, Grid, InputAdornment, List, ListItem, ListItemText, ListItemAvatar, Avatar, Fab, ListItemIcon, IconButton } from '@material-ui/core';
 import { DirectionsCar, KeyboardArrowRight, Search } from '@material-ui/icons';
 import CustomMap from './CustomMap';
+import { useSavedValue } from '../Context/AuthContext';
+import { useHistory } from 'react-router-dom';
 
 const UseStyle = makeStyles((theme) => ({
     gridContainer: {
@@ -36,7 +38,33 @@ const UseStyle = makeStyles((theme) => ({
 const SearchBar = ({ organizationList }) => {
     const classes = UseStyle();
     const [input, setInput] = useState('');
-    console.log(organizationList)
+
+    // data from mongo
+    const [data, setData] = useState();
+    const { savedSpot } = useSavedValue();
+    const history = useHistory();
+
+    // listener to go to next page
+    useEffect(() => {
+        if (data) {
+            history.push('/details')
+        }
+    }, [data]);
+
+    // function to get org with specific id
+    const saveOnClick = (savedSpotId) => {
+        axios.get(`/get-org/${savedSpotId}`)
+            .then((response) => {
+                if (response) {
+                    setData(response.data)
+                }
+            })
+            .catch((error) => console.log(error));
+
+    }
+    // push data to context
+    savedSpot(data);
+
     return (
         <Grid container className={classes.gridContainer}>
             <Grid item sm={12} >
@@ -64,7 +92,7 @@ const SearchBar = ({ organizationList }) => {
                     input ? organizationList.filter((val) => {
                         if (input == "") {
                             return val
-                        } else if (val.name.toLowerCase().includes(input.toLowerCase())) {
+                        } else if (val.location.toLowerCase().includes(input.toLowerCase())) {
                             return val
                         }
                     }).map((item, index) => {
@@ -78,7 +106,7 @@ const SearchBar = ({ organizationList }) => {
                                     </ListItemAvatar>
                                     <ListItemText primary={item.location} secondary={item.name} />
                                     <ListItemText primary={`@${item.price} Kes`} secondary={`spaces: ${item.spaces}`} />
-                                    <ListItemIcon>
+                                    <ListItemIcon onClick={() => saveOnClick(item._id)}>
                                         <IconButton size='large' ><KeyboardArrowRight /></IconButton>
                                     </ListItemIcon>
                                 </ListItem>

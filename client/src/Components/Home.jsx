@@ -37,7 +37,7 @@ const Home = () => {
                 </Grid>
                 <Grid item className={classes.text} sm={6} md={6} lg={6} >
                     <Typography variant='h1' align='center'>find a space in Nairobi, CBD</Typography>
-                    <SearchBar organizationList={organizationList} setOrganizationList={setOrganizationList} />
+                    <SearchBar organizationList={organizationList} />
                 </Grid>
                 <Grid item className={classes.spots} sm={12}>
                     <Typography align="center" variant="h1"> Parking Lots </Typography>

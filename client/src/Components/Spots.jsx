@@ -34,7 +34,7 @@ export default function Spots({ organizations }) {
     const { savedSpot } = useSavedValue();
     const history = useHistory();
 
-    // on page load get organization details
+    // listener to go to next page
     useEffect(() => {
         if (data) {
             history.push('/details')
