@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { makeStyles, TextField, Grid, InputAdornment, Button, Typography, Divider, List, ListItem, ListItemText, ListItemAvatar, Avatar, Fab, ListItemIcon, IconButton } from '@material-ui/core';
-import { DirectionsCar, Search } from '@material-ui/icons';
+import { makeStyles, TextField, Grid, InputAdornment, List, ListItem, ListItemText, ListItemAvatar, Avatar, Fab, ListItemIcon, IconButton } from '@material-ui/core';
+import { DirectionsCar, KeyboardArrowRight, Search } from '@material-ui/icons';
 import CustomMap from './CustomMap';
 
 const UseStyle = makeStyles((theme) => ({
@@ -24,13 +24,13 @@ const UseStyle = makeStyles((theme) => ({
     },
     locations: {
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-        // borderRadius: '0 0 150px 150px',
         borderRadius: '5rem',
-        margin: '1rem',
-        // height: '5px',
-        // borderTopLeftRadius: '2rem',
+        marginTop: '1rem',
         background: "#edf5e0",
-    }
+    },
+    listItem: {
+        borderRadius: '5rem',
+    },
 }));
 
 const SearchBar = ({ organizationList }) => {
@@ -70,16 +70,16 @@ const SearchBar = ({ organizationList }) => {
                     }).map((item, index) => {
                         return (
                             <List item className={classes.locations} key={index} >
-                                <ListItem>
+                                <ListItem className={classes.listItem}>
                                     <ListItemAvatar>
                                         <Avatar>
-                                            <Fab><DirectionsCar /></Fab>
+                                            <DirectionsCar />
                                         </Avatar>
                                     </ListItemAvatar>
                                     <ListItemText primary={item.location} secondary={item.name} />
                                     <ListItemText primary={`@${item.price} Kes`} secondary={`spaces: ${item.spaces}`} />
                                     <ListItemIcon>
-                                        <IconButton size='medium' ><Search /></IconButton>
+                                        <IconButton size='large' ><KeyboardArrowRight /></IconButton>
                                     </ListItemIcon>
                                 </ListItem>
                             </List>
