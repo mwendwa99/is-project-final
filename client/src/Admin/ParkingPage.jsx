@@ -3,6 +3,8 @@ import { Delete, Edit } from '@material-ui/icons';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
+import { useUpdate } from './AdminContext';
+
 const useStyles = makeStyles((theme) => ({
     gridContainer: {
         height: '100%',
@@ -30,9 +32,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const ParkingPage = ({ data }) => {
+const ParkingPage = ({ data, Component }) => {
     const classes = useStyles();
     const [itemList, setItemList] = useState(data);
+
+    // send send selected org to context store
+    const { updateOrg } = useUpdate()
 
     useEffect(() => {
         axios.get('get-org')
@@ -47,6 +52,11 @@ const ParkingPage = ({ data }) => {
         setItemList(newList);
         axios.delete(`/delete-org/${id}`)
     }
+    // update
+    const updateItem = (item) => {
+        updateOrg(item)
+        Component('Organization')
+    }
 
     return (
         <Fade in timeout={1000}>
@@ -58,14 +68,14 @@ const ParkingPage = ({ data }) => {
                                 <ListItem item className={classes.listItem} >
                                     <ListItemText inset className={classes.listItemText}>
                                         <Typography variant='h5' className={classes.typography}>{item.name}</Typography>
-                                        <Typography variant='h6' className={classes.typography}> @ {item.location}</Typography>
+                                        <Typography variant='h6' className={classes.typography}> At {item.location}</Typography>
                                     </ListItemText>
                                     <ListItemText primary={item.description} disableTypography />
                                     <ListItemText primary='features: ' secondary={item.features} disableTypography />
                                     <ListItemText primary='price: ' secondary={item.price} disableTypography />
                                     <ListItemText primary='spaces: ' secondary={item.spaces} disableTypography />
                                     <ListItemIcon style={{ marginRight: '1rem' }}>
-                                        <IconButton onClick={() => deleteItem(item._id)} >
+                                        <IconButton onClick={() => updateItem(item)} >
                                             <Edit fontSize='large' style={{ fill: 'whitesmoke' }} />
                                         </IconButton>
                                     </ListItemIcon>

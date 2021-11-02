@@ -44,5 +44,5 @@ mongoose.connect(uri, {
 
 // 404 page
 app.use((res) => {
-    res.send("page does not exist bro!");
+    res.json({ status: "page does not exist bro!" });
 });

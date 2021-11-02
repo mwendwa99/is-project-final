@@ -1,8 +1,10 @@
 import { Button, Container, Fade, Grid, InputAdornment, TextField, Typography, makeStyles } from '@material-ui/core';
 import { Description, DirectionsCar, Domain, Notes, Payment, Room } from '@material-ui/icons';
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+
 import Assets from '../Assets/Index';
+import { useUpdate } from './AdminContext'
 
 const useStyles = makeStyles((theme) => ({
     orgGridItem: {
@@ -43,25 +45,45 @@ const OrgPage = ({ Component }) => {
     const [features, setFeatures] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
+    const [status, setStatus] = useState('');
+    const [id, setId] = useState();
+
+    // get context value
+    const { payload } = useUpdate();
+    useEffect(() => {
+        if (payload) {
+            setId(payload._id)
+        }
+    }, [payload])
 
     // post details to db
     const formSubmit = (e) => {
         e.preventDefault();
         const data = { name: name, location: location, spaces: spaces, features: features, description: description, price: price }
-        axios.post('register-org', data)
-            .then()
-            .catch(error => alert(error))
-        Component('Your Parking Spaces')
+        if (!payload) {
+            axios.post('register-org', data)
+                .then()
+                .catch(error => alert(error))
+            Component('Your Parking Spaces')
+        } else {
+            axios.put(`update-org/${id}`, data)
+                .then(() => setStatus('Successful update!'))
+                .then(() => Component('Your Parking Spaces'))
+                .catch((err) => setStatus(err))
+        }
     }
     return (
         <Fade in timeout={1000}>
             <Container maxWidth='lg' style={{ height: '80vh' }}>
                 <form onSubmit={formSubmit} className={classes.formField} noValidate autoComplete="off">
                     <Grid item sm={6}>
-                        <Typography align='center' variant='h1'>Enter details about your organization</Typography>
+                        <Typography align='center' variant='h1'>
+                            {!payload ? "Enter details about your organization" : `Update ${payload.name}`}
+                        </Typography>
                         <img src={Assets.CoffeeDoddle} alt="" />
                     </Grid>
                     <Grid item sm={6} className={classes.orgGridItem}>
+                        <Typography variant='h1' align='center' color='secondary'>{status}</Typography>
                         <TextField value={name} onChange={(e) => setName(e.target.value)} fullWidth className={classes.textField} variant='filled' type="text" placeholder='E.g. Place xyz' label="organization name"
                             InputLabelProps={{
                                 classes: { root: classes.labelRoot }
@@ -152,7 +174,9 @@ const OrgPage = ({ Component }) => {
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                         />
-                        <Button type='submit' variant='contained'>Submit</Button>
+                        <Button type='submit' variant='contained'>
+                            {!payload ? 'Submit' : 'Update'}
+                        </Button>
                     </Grid>
                 </form>
             </Container>

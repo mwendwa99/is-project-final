@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {
     Drawer, AppBar, Toolbar, List, CssBaseline, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText,
-    ListItemAvatar, Avatar, Fab
+    ListItemAvatar,
 } from '@material-ui/core';
 import { Menu, ChevronLeft, ChevronRight, ExitToApp } from '@material-ui/icons';
 import { useAuth } from '../Context/AuthContext';
@@ -13,6 +13,7 @@ import axios from 'axios';
 import OrgPage from './OrgPage';
 import ParkingPage from './ParkingPage';
 import Assets from '../Assets/Index';
+import { DataProvider } from './AdminContext';
 
 const drawerWidth = 240;
 
@@ -118,101 +119,103 @@ export default function MiniDrawer() {
     };
 
     return adminLoggedIn ? (
-        <div className={classes.root}>
-            <CssBaseline />
-            <AppBar
-                position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: open,
-                })}
-            >
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        className={clsx(classes.menuButton, {
-                            [classes.hide]: open,
-                        })}
-                    >
-                        <Menu />
-                    </IconButton>
-                    <Typography variant="h6" noWrap>
-                        Register Your Parking Space
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <Drawer
-                variant="permanent"
-                className={clsx(classes.drawer, {
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
-                })}
-                classes={{
-                    paper: clsx({
+        <DataProvider>
+            <div className={classes.root}>
+                <CssBaseline />
+                <AppBar
+                    position="fixed"
+                    className={clsx(classes.appBar, {
+                        [classes.appBarShift]: open,
+                    })}
+                >
+                    <Toolbar>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            className={clsx(classes.menuButton, {
+                                [classes.hide]: open,
+                            })}
+                        >
+                            <Menu />
+                        </IconButton>
+                        <Typography variant="h6" noWrap>
+                            Register Your Parking Space
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                <Drawer
+                    variant="permanent"
+                    className={clsx(classes.drawer, {
                         [classes.drawerOpen]: open,
                         [classes.drawerClose]: !open,
-                    }),
-                }}
-            >
-                <div className={classes.toolbar}>
-                    <IconButton onClick={handleDrawerClose}>
-                        {
-                            theme.direction === 'rtl' ? <ChevronRight style={{ fill: 'white' }} />
-                                : <ChevronLeft style={{ fill: 'white' }} />
-                        }
-                    </IconButton>
-                </div>
-                <Divider />
-                <List style={{ cursor: 'pointer' }}>
-                    {['Organization'].map((text, index) => (
-                        <ListItem key={text} onClick={() => setComponent('Organization')}>
-                            <ListItemAvatar>
-                                {
-                                    index % 2 === 0 ? <img src={Assets.org} alt="org" />
-                                        : <img src={Assets.space} alt="space" />
-                                }
-                            </ListItemAvatar>
-                            <ListItemText disableTypography primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
-                <Divider />
-                <List style={{ cursor: 'pointer' }}>
-                    {['Parking Spaces'].map((text, index) => (
-                        <ListItem key={text} onClick={() => setComponent('Your Parking Spaces')}>
-                            <ListItemIcon>{
-                                index % 2 === 0 ? <img src={Assets.space} alt="space" />
-                                    : <img src={Assets.org} alt="org" />
-                            }</ListItemIcon>
-                            <ListItemText disableTypography primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
-                <div className={classes.Btn} >
-                    <List onClick={handleLogout} >
-                        {['Logout'].map((text, index) => (
-                            <ListItem key={text}>
+                    })}
+                    classes={{
+                        paper: clsx({
+                            [classes.drawerOpen]: open,
+                            [classes.drawerClose]: !open,
+                        }),
+                    }}
+                >
+                    <div className={classes.toolbar}>
+                        <IconButton onClick={handleDrawerClose}>
+                            {
+                                theme.direction === 'rtl' ? <ChevronRight style={{ fill: 'white' }} />
+                                    : <ChevronLeft style={{ fill: 'white' }} />
+                            }
+                        </IconButton>
+                    </div>
+                    <Divider />
+                    <List style={{ cursor: 'pointer' }}>
+                        {['Organization'].map((text, index) => (
+                            <ListItem key={text} onClick={() => setComponent('Organization')}>
+                                <ListItemAvatar>
+                                    {
+                                        index % 2 === 0 ? <img src={Assets.org} alt="org" />
+                                            : <img src={Assets.space} alt="space" />
+                                    }
+                                </ListItemAvatar>
+                                <ListItemText disableTypography primary={text} />
+                            </ListItem>
+                        ))}
+                    </List>
+                    <Divider />
+                    <List style={{ cursor: 'pointer' }}>
+                        {['Parking Spaces'].map((text, index) => (
+                            <ListItem key={text} onClick={() => setComponent('Your Parking Spaces')}>
                                 <ListItemIcon>{
-                                    <ExitToApp style={{ fill: 'white' }} />
+                                    index % 2 === 0 ? <img src={Assets.space} alt="space" />
+                                        : <img src={Assets.org} alt="org" />
                                 }</ListItemIcon>
                                 <ListItemText disableTypography primary={text} />
                             </ListItem>
                         ))}
                     </List>
-                </div>
-            </Drawer>
-            <main className={classes.content}>
-                <div className={classes.toolbar} />
-                <Typography style={{ paddingBottom: '1rem' }} variant='h1'>{component}</Typography>
-                {
-                    component === 'Organization' ? <OrgPage Component={setComponent} />
-                        : component === 'Your Parking Spaces' ? <ParkingPage Component={setComponent} data={details} />
-                            : <h1>Loading ...</h1>
-                }
-            </main>
-        </div>
+                    <div className={classes.Btn} >
+                        <List onClick={handleLogout} >
+                            {['Logout'].map((text) => (
+                                <ListItem key={text}>
+                                    <ListItemIcon>{
+                                        <ExitToApp style={{ fill: 'white' }} />
+                                    }</ListItemIcon>
+                                    <ListItemText disableTypography primary={text} />
+                                </ListItem>
+                            ))}
+                        </List>
+                    </div>
+                </Drawer>
+                <main className={classes.content}>
+                    <div className={classes.toolbar} />
+                    <Typography style={{ paddingBottom: '1rem' }} variant='h1'>{component}</Typography>
+                    {
+                        component === 'Organization' ? <OrgPage Component={setComponent} />
+                            : component === 'Your Parking Spaces' ? <ParkingPage Component={setComponent} data={details} />
+                                : <h1>Loading ...</h1>
+                    }
+                </main>
+            </div>
+        </DataProvider>
     ) : (
         history.push('/')
     )
