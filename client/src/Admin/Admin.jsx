@@ -2,17 +2,17 @@ import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {
-    Drawer, AppBar, Toolbar, List, CssBaseline, TextField, Grid, Button,
-    Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText, Fade
+    Drawer, AppBar, Toolbar, List, CssBaseline, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText,
+    ListItemAvatar, Avatar, Fab
 } from '@material-ui/core';
-import {
-    Menu, ChevronLeft, ChevronRight, ExitToApp,
-    Delete
-} from '@material-ui/icons';
-import Assets from '../Assets/Index';
+import { Menu, ChevronLeft, ChevronRight, ExitToApp } from '@material-ui/icons';
 import { useAuth } from '../Context/AuthContext';
 import { useHistory } from 'react-router';
 import axios from 'axios';
+
+import OrgPage from './OrgPage';
+import ParkingPage from './ParkingPage';
+import Assets from '../Assets/Index';
 
 const drawerWidth = 240;
 
@@ -78,129 +78,14 @@ const useStyles = makeStyles((theme) => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing(3),
+        backgroundImage: Assets.contour,
     },
     Btn: {
         position: 'absolute',
         bottom: 0,
         width: '100%',
     },
-    textField: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-        borderRadius: '5px',
-        backgroundColor: '#EDF5E0',
-        '& > *': {
-            margin: theme.spacing(1),
-            width: '25ch',
-        },
-    },
-    itemDetails: {
-        // backgroundColor: '#EDF5E0',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'stretch',
-        alignItems: 'stretch',
-        backgroundColor: '#05396B',
-        borderRadius: '5px'
-    }
 }));
-
-export const OrgPage = ({ Component }) => {
-    const classes = useStyles();
-    const [name, setName] = useState('');
-    const [location, setLocation] = useState('');
-    const [spaces, setSpaces] = useState(0);
-    const [features, setFeatures] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState(0);
-
-    // post details to db
-    const formSubmit = (e) => {
-        e.preventDefault();
-        const data = { name: name, location: location, spaces: spaces, features: features, description: description, price: price }
-        axios.post('register-org', data)
-            .then()
-            .catch(error => alert(error))
-        Component('Your Parking Spaces')
-    }
-    return (
-        <Fade in timeout={1000}>
-            <form onSubmit={formSubmit} className={classes.textField} noValidate autoComplete="off">
-                <Grid item sm={8}>
-                    <Typography align='center' variant='h6'>Enter details about your organization</Typography>
-                    <TextField id="outlined-primary" value={name} label="Name of organization" variant="outlined" color="primary" fullWidth
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                    <TextField id="outlined-primary" value={location} label="location" variant="outlined" color="primary"
-                        onChange={(e) => setLocation(e.target.value)}
-                    />
-                    <TextField id="outlined-primary" value={spaces} label="parking spaces available" type="number" variant="outlined" color="primary"
-                        onChange={(e) => setSpaces(e.target.value)}
-                    />
-                    <TextField id="outlined-primary" value={features} label="features" variant="outlined" color="primary"
-                        onChange={(e) => setFeatures(e.target.value)}
-                    />
-                    <TextField id="outlined-primary" value={description} label="description" variant="outlined" color="primary"
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                    <TextField id="outlined-primary" value={price} label="price per lot" type='number' variant="outlined" color="primary"
-                        onChange={(e) => setPrice(e.target.value)}
-                    />
-                    <Button type='submit' variant='contained'>Submit</Button>
-                </Grid>
-            </form>
-        </Fade>
-    )
-};
-
-export const ParkingPage = ({ data }) => {
-    const classes = useStyles();
-    const [itemList, setItemList] = useState(data);
-
-    useEffect(() => {
-        axios.get('get-org')
-            .then((response) => {
-                setItemList(response.data);
-            }).catch((error) => console.log(`error in fetching organization: ${error}`))
-    }, [itemList])
-
-    // axios delete from db
-    const deleteItem = (id) => {
-        const newList = itemList.filter((itemList) => itemList._id !== id);
-        setItemList(newList);
-        axios.delete(`/delete-org/${id}`)
-    }
-
-    return (
-        <Fade in timeout={1000}>
-            <Grid container>
-                <Grid className={classes.itemDetails} item sm={12}>
-                    {itemList.map((item) => (
-                        <List key={item._id}>
-                            <ListItem >
-                                <ListItemText disableTypography>
-                                    {item.name}
-                                    <ul>
-                                        <li> description: {item.description} </li>
-                                        <li> features: {item.features} </li>
-                                        <li> location: {item.location} </li>
-                                        <li> price:  {item.price} </li>
-                                        <li> spaces available: {item.spaces} </li>
-                                    </ul>
-                                </ListItemText>
-                                <ListItemIcon>{
-                                    <IconButton onClick={() => deleteItem(item._id)} ><Delete style={{ fill: 'white' }} /></IconButton>
-                                }</ListItemIcon>
-                            </ListItem>
-                        </List>
-                    ))}
-                </Grid>
-            </Grid>
-        </Fade>
-    )
-}
 
 export default function MiniDrawer() {
     const classes = useStyles();
@@ -280,19 +165,21 @@ export default function MiniDrawer() {
                     </IconButton>
                 </div>
                 <Divider />
-                <List>
+                <List style={{ cursor: 'pointer' }}>
                     {['Organization'].map((text, index) => (
-                        <ListItem key={text} onClick={() => setComponent('Organization')} >
-                            <ListItemIcon>{
-                                index % 2 === 0 ? <img src={Assets.org} alt="org" />
-                                    : <img src={Assets.space} alt="space" />
-                            }</ListItemIcon>
+                        <ListItem key={text} onClick={() => setComponent('Organization')}>
+                            <ListItemAvatar>
+                                {
+                                    index % 2 === 0 ? <img src={Assets.org} alt="org" />
+                                        : <img src={Assets.space} alt="space" />
+                                }
+                            </ListItemAvatar>
                             <ListItemText disableTypography primary={text} />
                         </ListItem>
                     ))}
                 </List>
                 <Divider />
-                <List>
+                <List style={{ cursor: 'pointer' }}>
                     {['Parking Spaces'].map((text, index) => (
                         <ListItem key={text} onClick={() => setComponent('Your Parking Spaces')}>
                             <ListItemIcon>{

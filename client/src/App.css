@@ -12,7 +12,7 @@
 *::after {
   box-sizing: border-box !important;
   font-family: "Work Sans", sans-serif !important;
-  color: var(--blueColor) !important;
+  color: var(--blueColor);
   margin: 0;
   padding: 0;
 }

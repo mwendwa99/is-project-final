@@ -74,10 +74,6 @@ const SpotDetails = () => {
         axios.post('/post-controller', formData)
             .then(history.push('/saved'))
             .catch((error) => console.log(error))
-        // postToDb(formData);
-        // on my spot page consume this object from backend since its all from one user
-        // backend create algorithm to subtract spaces left
-        // admin page create "activity tab" admin will see user's bookings
     }
 
     return (
