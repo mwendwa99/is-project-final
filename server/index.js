@@ -35,13 +35,14 @@ app.use(controllerRoute);
 mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
-}).then((result) => app.listen(PORT, () => {
+    useCreateIndex: true,
+    useFindAndModify: false
+}).then(() => app.listen(PORT, () => {
     console.log(`connected to ${uri} via port: ${PORT}`)
 })).catch((err) => console.log(err))
 
 
 // 404 page
-app.use((req, res) => {
+app.use((res) => {
     res.send("page does not exist bro!");
 });

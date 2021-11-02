@@ -72,6 +72,15 @@ route.delete('/delete-org/:id', (req, res) => {
                 return res.status(204).end();
             }
         }).catch((error) => console.log(error))
+});
+// update organization
+route.put('/update-org/:id', (req, res) => {
+    const id = req.params.id;
+    const update = req.body;
+    Org.findOneAndUpdate(id, update, {
+        new: true,
+    }).then(result => res.json(result))
+        .catch((error) => console.log('ERROR', error))
 })
 
 module.exports = route;
