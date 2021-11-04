@@ -77,7 +77,9 @@ export const SavedSpot = () => {
         axios.get(`/get-controller/${email}`)
             .then((response) => setUserSpot(response.data))
             .catch((error) => console.log(error))
-    }, [email])
+    }, [email]);
+
+    console.log(userSpot)
 
     // delete from db
     const deleteSpot = (id) => {

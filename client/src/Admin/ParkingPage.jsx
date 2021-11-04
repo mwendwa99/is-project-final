@@ -60,7 +60,7 @@ const ParkingPage = ({ data, Component }) => {
 
     return (
         <Fade in timeout={1000}>
-            <Container maxWidth='lg'>
+            <Container maxWidth='lg' style={{ height: '80vh' }}>
                 <Grid container >
                     <Grid className={classes.itemDetails} item sm={12}>
                         {itemList.map((item) => (

@@ -17,7 +17,14 @@ route.post('/post-controller', async (req, res) => {
         } throw error
     }
 });
-// get all controllers
+// get all controller
+route.get('/get-controller', (req, res) => {
+    Controller.find().lean()
+        .then(doc => res.json(doc))
+        .catch(err => console.log(err))
+})
+
+// get all controllers for specific user
 route.get('/get-controller/:email', (req, res) => {
     const email = req.params.email;
     Controller.find({ email: email }, (error, response) => {
@@ -40,6 +47,21 @@ route.delete('/delete-controller/:id', (req, res) => {
                 return res.json({ status: 'item successfully removed!' })
             }
         }).catch((error) => console.log(error))
-})
+});
+
+// approve controller
+route.put('/approve-controller/:id', (req, res) => {
+    const id = req.params.id;
+    Controller.findOneAndUpdate(id, { $set: { approved: true } }, { new: true })
+        .exec()
+        .then((doc) => {
+            if (!doc) {
+                return res.json({ status: 'item does not exist!' })
+            } else {
+                return res.json(doc)
+            }
+        }).catch((error) => console.log(error))
+});
+
 
 module.exports = route;

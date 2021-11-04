@@ -58,9 +58,9 @@ const SpotDetails = () => {
     // pull data from Date component
     const pullDate = (date) => { setDateValue(date) }
 
-    const sendTodbonClick = (id, name, location, features, description, price) => {
+    const sendTodbonClick = (_id, name, location, features, description, price) => {
         const formData = {
-            spotId: id,
+            spotId: _id,
             email: user,
             name: name,
             location: location,
@@ -69,6 +69,7 @@ const SpotDetails = () => {
             description: description,
             features: features,
             day: dateValue,
+            approved: false,
         }
         // send formdata object to backend
         axios.post('/post-controller', formData)

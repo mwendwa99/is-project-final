@@ -6,6 +6,8 @@ import CustomMap from './CustomMap';
 import { useSavedValue } from '../Context/AuthContext';
 import { useHistory } from 'react-router-dom';
 
+import { useOrgContext } from '../Context/OrgContext';
+
 const UseStyle = makeStyles((theme) => ({
     gridContainer: {
         display: "flex",
@@ -35,9 +37,10 @@ const UseStyle = makeStyles((theme) => ({
     },
 }));
 
-const SearchBar = ({ organizationList }) => {
+const SearchBar = () => {
     const classes = UseStyle();
     const [input, setInput] = useState('');
+    const { spots } = useOrgContext();
 
     // data from mongo
     const [data, setData] = useState();
@@ -89,7 +92,7 @@ const SearchBar = ({ organizationList }) => {
                     }}
                 />
                 {
-                    input ? organizationList.filter((val) => {
+                    input ? spots.filter((val) => {
                         if (input == "") {
                             return val
                         } else if (val.location.toLowerCase().includes(input.toLowerCase())) {

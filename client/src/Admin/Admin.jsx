@@ -3,9 +3,8 @@ import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {
     Drawer, AppBar, Toolbar, List, CssBaseline, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText,
-    ListItemAvatar,
 } from '@material-ui/core';
-import { Menu, ChevronLeft, ChevronRight, ExitToApp } from '@material-ui/icons';
+import { Menu, ChevronLeft, ChevronRight, ExitToApp, Bookmark, Domain, DirectionsCar } from '@material-ui/icons';
 import { useAuth } from '../Context/AuthContext';
 import { useHistory } from 'react-router';
 import axios from 'axios';
@@ -14,6 +13,7 @@ import OrgPage from './OrgPage';
 import ParkingPage from './ParkingPage';
 import Assets from '../Assets/Index';
 import { DataProvider } from './AdminContext';
+import Bookings from './Bookings';
 
 const drawerWidth = 240;
 
@@ -168,40 +168,37 @@ export default function MiniDrawer() {
                     </div>
                     <Divider />
                     <List style={{ cursor: 'pointer' }}>
-                        {['Organization'].map((text, index) => (
-                            <ListItem key={text} onClick={() => setComponent('Organization')}>
-                                <ListItemAvatar>
-                                    {
-                                        index % 2 === 0 ? <img src={Assets.org} alt="org" />
-                                            : <img src={Assets.space} alt="space" />
-                                    }
-                                </ListItemAvatar>
-                                <ListItemText disableTypography primary={text} />
-                            </ListItem>
-                        ))}
+                        <ListItem onClick={() => setComponent('Organization')}>
+                            <ListItemIcon>
+                                <Domain fontSize='large' style={{ fill: '#58dd90' }} />
+                            </ListItemIcon>
+                            <ListItemText disableTypography primary='Organization' />
+                        </ListItem>
                     </List>
                     <Divider />
                     <List style={{ cursor: 'pointer' }}>
-                        {['Parking Spaces'].map((text, index) => (
-                            <ListItem key={text} onClick={() => setComponent('Your Parking Spaces')}>
-                                <ListItemIcon>{
-                                    index % 2 === 0 ? <img src={Assets.space} alt="space" />
-                                        : <img src={Assets.org} alt="org" />
-                                }</ListItemIcon>
-                                <ListItemText disableTypography primary={text} />
-                            </ListItem>
-                        ))}
+                        <ListItem onClick={() => setComponent('Your Parking Spaces')}>
+                            <ListItemIcon>
+                                <DirectionsCar fontSize='large' style={{ fill: '#58dd90' }} />
+                            </ListItemIcon>
+                            <ListItemText disableTypography primary='Parkng Spaces' />
+                        </ListItem>
+                    </List>
+                    <Divider />
+                    <List style={{ cursor: 'pointer' }}>
+                        <ListItem onClick={() => setComponent('Bookings')}>
+                            <ListItemIcon>
+                                <Bookmark fontSize='large' style={{ fill: '#58dd90' }} />
+                            </ListItemIcon>
+                            <ListItemText disableTypography primary='Bookings' />
+                        </ListItem>
                     </List>
                     <div className={classes.Btn} >
                         <List onClick={handleLogout} >
-                            {['Logout'].map((text) => (
-                                <ListItem key={text}>
-                                    <ListItemIcon>{
-                                        <ExitToApp style={{ fill: 'white' }} />
-                                    }</ListItemIcon>
-                                    <ListItemText disableTypography primary={text} />
-                                </ListItem>
-                            ))}
+                            <ListItem>
+                                <ListItemIcon><ExitToApp fontSize='large' style={{ fill: '#ff6347' }} /></ListItemIcon>
+                                <ListItemText disableTypography primary='Logout' />
+                            </ListItem>
                         </List>
                     </div>
                 </Drawer>
@@ -211,7 +208,8 @@ export default function MiniDrawer() {
                     {
                         component === 'Organization' ? <OrgPage Component={setComponent} />
                             : component === 'Your Parking Spaces' ? <ParkingPage Component={setComponent} data={details} />
-                                : <h1>Loading ...</h1>
+                                : component === 'Bookings' ? <Bookings />
+                                    : <h1>Loading ...</h1>
                     }
                 </main>
             </div>

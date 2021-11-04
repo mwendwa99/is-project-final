@@ -30,6 +30,9 @@ const controllerSchema = new Schema({
     day: {
         type: String,
     },
+    approved: {
+        type: Boolean,
+    }
 }, { timestamps: true });
 
 const Controller = mongoose.model('Controller', controllerSchema);

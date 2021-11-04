@@ -9,6 +9,8 @@ import Assets from '../Assets/Index'
 import { useSavedValue } from '../Context/AuthContext';
 import { useHistory } from 'react-router-dom';
 
+import { useOrgContext } from '../Context/OrgContext';
+
 const useStyles = makeStyles((theme) => ({
     grid: {
         display: "flex",
@@ -29,8 +31,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Spots({ organizations }) {
+export default function Spots() {
     const classes = useStyles();
+    const { spots } = useOrgContext();
 
     // data from mongo
     const [data, setData] = useState();
@@ -68,8 +71,8 @@ export default function Spots({ organizations }) {
                 alignItems="center"
                 justifyContent="center" >
                 {
-                    organizations.map((item) =>
-                        <Grid item sm={2} className={classes.gridItem} key={item._id} >
+                    spots.map((item, index) =>
+                        <Grid item sm={2} className={classes.gridItem} key={index} >
                             <img height="100%" width="100%" src={Assets.parking} alt="parking" />
                             <ListItem >
                                 <ListItemText disableTypography>

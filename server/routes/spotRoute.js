@@ -18,4 +18,16 @@ route.post('/user-spot', async (req, res) => {
     }
 })
 
+// get all spots
+route.get('/spots', async (req, res) => {
+    try {
+        const response = await Spot.find()
+        console.log('spots found', response)
+        res.json(response)
+    } catch (error) {
+        return (res.json({ status: 'error', error: error }))
+    }
+})
+
+
 module.exports = route
