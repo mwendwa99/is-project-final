@@ -1,10 +1,10 @@
 import React from 'react';
 import { makeStyles, Grid, Typography } from '@material-ui/core';
-import Assets from '../Assets/Index';
-import SearchBar from './SearchBar';
-import Spots from './Spots';
 
 import { OrgProvider } from '../Context/OrgContext';
+import Spots from './Spots';
+import SearchBar from './SearchBar';
+import Assets from '../Assets/Index';
 
 const UseStyle = makeStyles(() => ({
     root: {

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { makeStyles, TextField, Grid, InputAdornment, List, ListItem, ListItemText, ListItemAvatar, Avatar, Fab, ListItemIcon, IconButton } from '@material-ui/core';
+import { makeStyles, TextField, Grid, InputAdornment, List, ListItem, ListItemText, ListItemAvatar, Avatar, ListItemIcon, IconButton } from '@material-ui/core';
 import { DirectionsCar, KeyboardArrowRight, Search } from '@material-ui/icons';
-import CustomMap from './CustomMap';
-import { useSavedValue } from '../Context/AuthContext';
 import { useHistory } from 'react-router-dom';
 
 import { useOrgContext } from '../Context/OrgContext';
+import CustomMap from './CustomMap';
+import { useSavedValue } from '../Context/AuthContext';
 
 const UseStyle = makeStyles((theme) => ({
     gridContainer: {
@@ -40,33 +40,43 @@ const UseStyle = makeStyles((theme) => ({
 const SearchBar = () => {
     const classes = UseStyle();
     const [input, setInput] = useState('');
-    const { spots } = useOrgContext();
+    const { spots, getOrgById, orgById, userSpot, userSpotData } = useOrgContext();
 
     // data from mongo
     const [data, setData] = useState();
-    const { savedSpot } = useSavedValue();
+    // const { savedSpot } = useSavedValue();
     const history = useHistory();
 
     // listener to go to next page
-    useEffect(() => {
-        if (data) {
-            history.push('/details')
-        }
-    }, [data]);
+    // useEffect(() => {
+    //     if (userOrg) {
+    //         history.push('/details')
+    //     }
+    // }, [orgById]);
 
     // function to get org with specific id
-    const saveOnClick = (savedSpotId) => {
-        axios.get(`/get-org/${savedSpotId}`)
-            .then((response) => {
-                if (response) {
-                    setData(response.data)
-                }
-            })
-            .catch((error) => console.log(error));
+    const saveOnClick = async (id, data) => {
+        getOrgById(id);
+        if (await orgById) {
+            userSpotData(data)
+            if (userSpot) {
+                console.log('qa', userSpot)
+                history.push('/details');
+            }
+        }
+        // setData(val);
+        // console.log(val);
+        // axios.get(`/get-org/${savedSpotId}`)
+        //     .then((response) => {
+        //         if (response) {
+        //             setData(response.data)
+        //         }
+        //     })
+        //     .catch((error) => console.log(error));
 
     }
     // push data to context
-    savedSpot(data);
+    // savedSpot(data);
 
     return (
         <Grid container className={classes.gridContainer}>
@@ -109,7 +119,7 @@ const SearchBar = () => {
                                     </ListItemAvatar>
                                     <ListItemText primary={item.location} secondary={item.name} />
                                     <ListItemText primary={`@${item.price} Kes`} secondary={`spaces: ${item.spaces}`} />
-                                    <ListItemIcon onClick={() => saveOnClick(item._id)}>
+                                    <ListItemIcon onClick={() => saveOnClick(item._id, item)}>
                                         <IconButton size='large' ><KeyboardArrowRight /></IconButton>
                                     </ListItemIcon>
                                 </ListItem>
