@@ -19,21 +19,21 @@ const Home = () => {
 
     return (
         <div className='body__section' >
-            <OrgProvider>
-                <Grid container direction="row" justifyContent="center" alignItems="center" spacing={5} className={classes.root}>
-                    <Grid item sm={6} md={6} lg={6}>
-                        <img height="auto" width="100%" src={Assets.map} alt="map-illustration" />
-                    </Grid>
-                    <Grid item className={classes.text} sm={6} md={6} lg={6} >
-                        <Typography variant='h1' align='center'>find a space in Nairobi, CBD</Typography>
-                        <SearchBar />
-                    </Grid>
-                    <Grid item sm={12}>
-                        <Typography align="center" variant="h1"> Parking Lots </Typography>
-                        <Spots />
-                    </Grid>
+            {/* <OrgProvider> */}
+            <Grid container direction="row" justifyContent="center" alignItems="center" spacing={5} className={classes.root}>
+                <Grid item sm={6} md={6} lg={6}>
+                    <img height="auto" width="100%" src={Assets.map} alt="map-illustration" />
                 </Grid>
-            </OrgProvider>
+                <Grid item className={classes.text} sm={6} md={6} lg={6} >
+                    <Typography variant='h1' align='center'>find a space in Nairobi, CBD</Typography>
+                    <SearchBar />
+                </Grid>
+                <Grid item sm={12}>
+                    <Typography align="center" variant="h1"> Parking Lots </Typography>
+                    <Spots />
+                </Grid>
+            </Grid>
+            {/* </OrgProvider> */}
         </div >
     );
 }

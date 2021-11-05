@@ -13,6 +13,7 @@ import { SavedSpot } from './Components/User/SavedSpot';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Footer from './Components/Footer';
+import { OrgProvider } from './Context/OrgContext';
 
 
 export const AdminRoute = () => {
@@ -46,21 +47,23 @@ export const AuthenticatedRoutes = () => {
   }, [login, userLoggedIn]);
 
   return (
-    <Router >
-      <Switch>
-        <div className="App">
-          <NavBar />
-          <Route exact path='/' component={Home} />
-          <Route exact path='/details' render={(props) => (
-            <SpotDetails {...props} data={userSavedSpot} />
-          )} />
-          <Route exact path='/about' component={About} />
-          <Route exact path='/my-spot' component={SaveError} />
-          <Route exact path='/saved' component={SavedSpot} />
-          <Footer />
-        </div>
-      </Switch>
-    </Router>
+    <OrgProvider>
+      <Router >
+        <Switch>
+          <div className="App">
+            <NavBar />
+            <Route exact path='/' component={Home} />
+            <Route exact path='/details' render={(props) => (
+              <SpotDetails {...props} data={userSavedSpot} />
+            )} />
+            <Route exact path='/about' component={About} />
+            <Route exact path='/my-spot' component={SaveError} />
+            <Route exact path='/saved' component={SavedSpot} />
+            <Footer />
+          </div>
+        </Switch>
+      </Router>
+    </OrgProvider>
   );
 };
 

@@ -57,13 +57,13 @@ const SearchBar = () => {
     // function to get org with specific id
     const saveOnClick = async (id, data) => {
         getOrgById(id);
-        if (await orgById) {
-            userSpotData(data)
-            if (userSpot) {
-                console.log('qa', userSpot)
-                history.push('/details');
-            }
-        }
+        // if (await orgById) {
+        //     userSpotData(data)
+        //     if (userSpot) {
+        //         console.log('qa', userSpot)
+        //         history.push('/details');
+        //     }
+        // }
         // setData(val);
         // console.log(val);
         // axios.get(`/get-org/${savedSpotId}`)

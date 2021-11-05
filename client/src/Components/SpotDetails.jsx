@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Typography, Grid, Button, Container, makeStyles, Fade, Divider } from '@material-ui/core';
-import Date from './Inputs/Date';
-import TextInput from './Inputs/TextInput';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 
 import Assets from '../Assets/Index';
-import { useSavedValue } from '../Context/AuthContext';
-import { useOrgContext, OrgContext } from '../Context/OrgContext';
+import { useOrgContext } from '../Context/OrgContext';
+import Date from './Inputs/Date';
+import TextInput from './Inputs/TextInput';
 
 
 const UseStyle = makeStyles((theme) => ({
@@ -50,14 +49,9 @@ const SpotDetails = () => {
     const [initialValue, setInitialValue] = useState();
     const [dateValue, setDateValue] = useState();
     const history = useHistory();
-    const { userSavedSpot } = useSavedValue()
-    // const [formData, setFormData] = useState()
-    // const { _id, name, location, price, spaces, description, features } = userSavedSpot;
 
-    const data = useOrgContext();
-    // const [data, setData] = useState(userSpot);
-    console.log('det', data);
-    // const { _id, name, location, price, spaces, description, features } = userSpot;
+    const { orgById } = useOrgContext();
+    const { _id, name, location, price, spaces, description, features } = orgById;
 
     // pull data from TextInput component
     const pullDataFromChild = (data) => { setInitialValue(data) }
@@ -65,7 +59,7 @@ const SpotDetails = () => {
     // pull data from Date component
     const pullDate = (date) => { setDateValue(date) }
 
-    const sendTodbonClick = (_id, name, location, features, description, price) => {
+    const sendTodbonClick = () => {
         const formData = {
             spotId: _id,
             email: user,
@@ -92,7 +86,7 @@ const SpotDetails = () => {
                     <Grid container className={classes.gridContainer}>
                         <Grid item sm={12}>
                             <Typography gutterBottom variant='h3'>
-                                {/* <b>{userSpot.name + ', ' + userSpot.location}</b> */}
+                                <b>{name + ', ' + location}</b>
                             </Typography>
                         </Grid>
                         <Grid item sm={10}>
@@ -100,35 +94,33 @@ const SpotDetails = () => {
                                 <Grid item sm={12}>
                                     <Typography variant='h1' className={classes.typography}>
                                         Price: <Typography variant='h5'>
-                                            {/* {initialValue ? userSpot.price * initialValue : userSpot.price} */}
+                                            {initialValue ? price * initialValue : price}
                                         </Typography>
                                     </Typography>
                                     <Divider />
                                     <Typography variant='h1' className={classes.typography}>
                                         Spaces: <Typography variant='h5'><TextInput
-                                            // spaces={userSpot.spaces}
+                                            spaces={spaces}
                                             initialValue={initialValue}
                                             sendDataToParent={pullDataFromChild}
                                         /></Typography>
                                     </Typography>
                                     <Divider />
                                     <Typography variant='h1' className={classes.typography}>
-                                        {/* Description:   <Typography variant='h5'>{userSpot.description}</Typography> */}
+                                        Description:   <Typography variant='h5'>{description}</Typography>
                                     </Typography>
                                     <Divider />
                                     <Typography variant='h1' className={classes.typography}>
-                                        {/* Features: <Typography variant='h5'>{userSpot.features}</Typography> */}
+                                        Features: <Typography variant='h5'>{features}</Typography>
                                     </Typography>
                                     <Divider />
                                     <Typography variant='h1' className={classes.typography}>
-                                        {/* Date: <Typography variant='h5'><Date sendDate={pullDate} /></Typography> */}
+                                        Date: <Typography variant='h5'><Date sendDate={pullDate} /></Typography>
                                     </Typography>
                                 </Grid>
                             </Grid>
                             <Button
-                                // onClick={() => sendTodbonClick(
-                                //     userSpot._id, userSpot.name, userSpot.location, userSpot.features, userSpot.description, userSpot.price
-                                // )}
+                                onClick={() => sendTodbonClick()}
                                 variant='contained' size="large">
                                 save this spot
                             </Button>
