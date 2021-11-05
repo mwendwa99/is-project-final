@@ -10,10 +10,16 @@ route.post('/post-controller', async (req, res) => {
         const response = await Controller.create({
             spotId, email, name, location, spaces, price, description, features, day
         })
-        console.log('controller document added successfully', response)
+        return res.status(200).json({
+            message: 'user spot added successfully',
+            response
+        })
     } catch (error) {
         if (error.code === 11000) {
-            return (res.json({ status: 'error', error: 'organization already exist!' }))
+            return (res.json({
+                message: 'user spot already exists',
+                error
+            }))
         } throw error
     }
 });

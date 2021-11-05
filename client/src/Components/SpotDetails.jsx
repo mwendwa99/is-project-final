@@ -48,6 +48,7 @@ const SpotDetails = () => {
     const user = localStorage.getItem('email');
     const [initialValue, setInitialValue] = useState();
     const [dateValue, setDateValue] = useState();
+    const [message, setMessage] = useState();
     const history = useHistory();
 
     const { orgById } = useOrgContext();
@@ -74,7 +75,11 @@ const SpotDetails = () => {
         }
         // send formdata object to backend
         axios.post('/post-controller', formData)
-            .then(history.push('/saved'))
+            .then((res) => {
+                setMessage(res.data.message);
+                console.log('detais', res.data.message)
+            }
+            )
             .catch((error) => console.log(error))
     }
 
@@ -90,6 +95,7 @@ const SpotDetails = () => {
                             </Typography>
                         </Grid>
                         <Grid item sm={10}>
+                            <Typography gutterBottom align='center' style={{ color: '#ff6347' }} variant='body1'> {message} </Typography>
                             <Grid container className={classes.priceCard}>
                                 <Grid item sm={12}>
                                     <Typography variant='h1' className={classes.typography}>

@@ -79,7 +79,7 @@ export const SavedSpot = () => {
             .catch((error) => console.log(error))
     }, [email]);
 
-    console.log(userSpot)
+    console.log('USER', userSpot)
 
     // delete from db
     const deleteSpot = (id) => {
