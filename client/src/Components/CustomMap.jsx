@@ -2,17 +2,18 @@ import React, { useEffect } from 'react';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { Grid } from '@material-ui/core';
 import axios from 'axios';
-import { useOrg } from '../Context/AuthContext';
+// import { useOrg } from '../Context/AuthContext';
+import { useOrgContext } from '../Context/OrgContext';
 
 // refactor to useRef()
 const locationNames = {};
 
 export function CustomMap({ google }) {
 
-    const { orgDetails, payload, geoData } = useOrg();
+    const { spots, payload, geoData } = useOrgContext();
 
     // map details from mongo to array object
-    let data = orgDetails.map((item, id) =>
+    let data = spots.map((item, id) =>
         locationNames['query'] = item.location
     );
     useEffect(() => {

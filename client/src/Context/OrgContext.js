@@ -33,7 +33,17 @@ export const OrgProvider = ({ children }) => {
     console.log('setup', data);
   }
 
-  const values = { spots, error, orgById, userSpot, getOrgById, userSpotData }
+  // api response from positionstack
+  // position stack
+  const [payload, setPayload] = useState([]);
+
+  const geoData = async (data) => {
+    Object.keys(data).map((i) =>
+      setPayload(data[i])
+    );
+  }
+
+  const values = { spots, error, orgById, userSpot, payload, geoData, getOrgById, userSpotData }
 
   return (
     <OrgContext.Provider value={values}>

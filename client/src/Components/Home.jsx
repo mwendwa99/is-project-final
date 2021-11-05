@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles, Grid, Typography } from '@material-ui/core';
 
-import { OrgProvider } from '../Context/OrgContext';
 import Spots from './Spots';
 import SearchBar from './SearchBar';
 import Assets from '../Assets/Index';
@@ -19,7 +18,6 @@ const Home = () => {
 
     return (
         <div className='body__section' >
-            {/* <OrgProvider> */}
             <Grid container direction="row" justifyContent="center" alignItems="center" spacing={5} className={classes.root}>
                 <Grid item sm={6} md={6} lg={6}>
                     <img height="auto" width="100%" src={Assets.map} alt="map-illustration" />
@@ -33,7 +31,6 @@ const Home = () => {
                     <Spots />
                 </Grid>
             </Grid>
-            {/* </OrgProvider> */}
         </div >
     );
 }
