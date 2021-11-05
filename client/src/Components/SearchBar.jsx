@@ -43,7 +43,7 @@ const SearchBar = () => {
 
 
     // function to get org with specific id
-    const saveOnClick = async (id) => {
+    const saveOnClick = (id) => {
         getOrgById(id);
         history.push('/details');
     }

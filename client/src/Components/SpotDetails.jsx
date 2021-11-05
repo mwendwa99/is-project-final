@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import Assets from '../Assets/Index';
 import { useOrgContext } from '../Context/OrgContext';
+import { useController } from '../Context/ControllerContext';
 import Date from './Inputs/Date';
 import TextInput from './Inputs/TextInput';
 
@@ -53,6 +54,7 @@ const SpotDetails = () => {
 
     const { orgById } = useOrgContext();
     const { _id, name, location, price, spaces, description, features } = orgById;
+    const { update, updateBooking } = useController();
 
     // pull data from TextInput component
     const pullDataFromChild = (data) => { setInitialValue(data) }
@@ -73,16 +75,25 @@ const SpotDetails = () => {
             day: dateValue,
             approved: false,
         }
+        // if it is not an update
         // send formdata object to backend
-        axios.post('/post-controller', formData)
-            .then((res) => {
-                setMessage(res.data.message);
-                if (res.data.response) {
-                    history.push('/saved');
+        if (!update) {
+            axios.post('/post-controller', formData)
+                .then((res) => {
+                    setMessage(res.data.message);
+                    if (res.data.response) {
+                        history.push('/saved');
+                    }
                 }
-            }
-            )
-            .catch((error) => console.log(error))
+                )
+                .catch((error) => console.log(error))
+        } else {
+            // if it is an update
+            // send formdata object to backend
+            updateBooking(formData);
+            history.push('/saved');
+        }
+
     }
 
     return (

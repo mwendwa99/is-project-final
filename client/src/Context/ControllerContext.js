@@ -7,15 +7,37 @@ const ControllerContext = createContext();
 export const ControllerProvider = ({ children }) => {
     const [bookings, setBookings] = useState([]);
     const [message, setMessage] = useState(null);
+    const [update, setUpdate] = useState(false);
     const email = localStorage.getItem('email');
 
-    const getBookings = () => {
-        axios.get(`/get-controller/${email}`)
-            .then((response) => setBookings(response.data))
-            .catch((message) => setMessage(message));
+    // grab id of the spot to be edited from SavedSpot.jsx
+    const [bookingId, setBookingId] = useState(null);
+
+    // get all bookings
+    const getBookings = async () => {
+        try {
+            const res = await axios.get(`/get-controller/${email}`);
+            setBookings(res.data);
+        } catch (err) {
+            setMessage(err);
+        }
     };
 
-    const deleteBooking = async (id) => {
+    // update a spot
+    const updateBooking = (booking) => {
+        // console.log(bookingId);
+        // console.log(update)
+        axios.put(`/update-controller/${bookingId}`, booking)
+            .then((response) => {
+                // setMessage(response.data);
+                getBookings();
+            })
+            .catch((message) => setMessage(message));
+        setUpdate(false);
+    };  // end updateBooking
+
+    // delete booking
+    const deleteBooking = (id) => {
         axios.delete(`/delete-controller/${id}`)
             .then((response) => getBookings())
             .catch((error) => setMessage('failed to delete!'));
@@ -25,6 +47,10 @@ export const ControllerProvider = ({ children }) => {
     const values = {
         bookings,
         message,
+        update,
+        setBookingId,
+        setUpdate,
+        updateBooking,
         deleteBooking,
         getBookings
     };

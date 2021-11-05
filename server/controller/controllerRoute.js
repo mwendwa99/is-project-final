@@ -56,10 +56,25 @@ route.delete('/delete-controller/:id', (req, res) => {
         }).catch((error) => console.log(error))
 });
 
+// update controller
+route.put('/update-controller/:id', (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+    Controller.findByIdAndUpdate(id, body, { new: true })
+        .exec()
+        .then((doc) => {
+            if (!doc) {
+                return res.json({ status: 'item does not exist!' })
+            } else {
+                return res.json({ status: 'item successfully updated!' })
+            }
+        }).catch((error) => console.log(error))
+})
+
 // approve controller
 route.put('/approve-controller/:id', (req, res) => {
     const id = req.params.id;
-    Controller.findOneAndUpdate(id, { $set: { approved: true } }, { new: true })
+    Controller.findByIdAndUpdate(id, { $set: { approved: true } }, { new: true })
         .exec()
         .then((doc) => {
             if (!doc) {

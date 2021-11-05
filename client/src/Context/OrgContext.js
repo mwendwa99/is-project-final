@@ -34,7 +34,6 @@ export const OrgProvider = ({ children }) => {
   }
 
   // api response from positionstack
-  // position stack
   const [payload, setPayload] = useState([]);
 
   const geoData = async (data) => {
