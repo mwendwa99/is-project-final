@@ -1,7 +1,7 @@
 // this file handles "my spot section of the app"
 import React, { useEffect } from 'react';
 import Assets from '../../Assets/Index'
-import { makeStyles, Typography, Button, Grid, Paper, Container, Fade, Fab } from '@material-ui/core';
+import { makeStyles, Typography, Button, Grid, Paper, Container, Fade } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons'
 import { Link, useHistory } from 'react-router-dom';
 
@@ -82,7 +82,6 @@ export const SavedSpot = () => {
 
     // edit selection
     const editSpot = (spotId, bookingId) => {
-        // console.log(bookingId)
         getOrgById(spotId);
         setUpdate(true);
         setBookingId(bookingId);
@@ -131,16 +130,20 @@ export const SavedSpot = () => {
                                         <Typography variant='h5'>
                                             <b>Number of Spaces:</b> {item.spaces}
                                         </Typography>
-                                        <Typography variant='h5'>
+                                        <Typography gutterBottom variant='h5'>
                                             <b>Booked by:</b> {item.email}
                                         </Typography>
-                                        <Grid item sm={12} style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                                            <Button variant='contained' onClick={() => deleteSpot(item._id)}>
-                                                <Delete />delete
-                                            </Button>
-                                            <Button variant='contained' onClick={() => editSpot(item.spotId, item._id)}>
-                                                <Edit /> edit
-                                            </Button>
+                                        <Grid item sm={12} style={{ display: 'flex', justifyContent: 'space-around' }}>
+                                            <div>
+                                                <Button variant='contained' onClick={() => deleteSpot(item._id)}>
+                                                    <Delete />delete
+                                                </Button>
+                                            </div>
+                                            <div>
+                                                <Button variant='contained' onClick={() => editSpot(item.spotId, item._id)}>
+                                                    <Edit /> edit
+                                                </Button>
+                                            </div>
                                         </Grid>
                                     </Paper>
                                 </Grid>

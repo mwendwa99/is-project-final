@@ -25,8 +25,6 @@ export const ControllerProvider = ({ children }) => {
 
     // update a spot
     const updateBooking = (booking) => {
-        // console.log(bookingId);
-        // console.log(update)
         axios.put(`/update-controller/${bookingId}`, booking)
             .then((response) => {
                 // setMessage(response.data);
