@@ -79,7 +79,7 @@ export const SavedSpot = () => {
     }
 
 
-    return test ? (
+    return bookings ? (
         <Fade in timeout={1000}>
             <div className='body__section'>
                 <Container maxWidth='xl' className={classes.root}>
@@ -90,7 +90,7 @@ export const SavedSpot = () => {
                     </Grid>
                     <Grid container className={classes.paper}>
                         {
-                            test.map((item, index) =>
+                            bookings.map((item, index) =>
                                 <Grid className={classes.cards} item sm={6} xs={6} md={6} lg={6}>
                                     <Paper style={{ padding: '2.5rem', backgroundColor: '#EDF5E0' }} key={index}>
                                         <Typography variant='body1' align='center'>

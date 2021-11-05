@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
     makeStyles, Typography, Button, ListItem, ListItemText, Container
 } from '@material-ui/core';
 import { Money, Favorite } from '@material-ui/icons';
 import Grid from '@material-ui/core/Grid';
-import axios from 'axios';
 import Assets from '../Assets/Index'
-import { useSavedValue } from '../Context/AuthContext';
 import { useHistory } from 'react-router-dom';
 
 import { useOrgContext } from '../Context/OrgContext';
@@ -33,40 +31,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Spots() {
     const classes = useStyles();
-    const { spots } = useOrgContext();
+    const { spots, getOrgById } = useOrgContext();
 
     // data from mongo
-    const [data, setData] = useState();
-    const { savedSpot } = useSavedValue();
     const history = useHistory();
 
-    // listener to go to next page
-    useEffect(() => {
-        if (data) {
-            history.push('/details')
-        }
-    }, [data]);
 
     // function to get org with specific id
-    const saveOnClick = (savedSpotId) => {
-        axios.get(`/get-org/${savedSpotId}`)
-            .then((response) => {
-                if (response) {
-                    setData(response.data)
-                }
-            })
-            .catch((error) => console.log(error));
-
+    const saveOnClick = async (id) => {
+        getOrgById(id);
+        history.push('/details');
     }
-    // push data to context
-    savedSpot(data);
 
     return (
         <Container maxWidth='xl'>
             <Grid
-                // wrap='nowrap'
                 container
-                // spacing={1}
                 className={classes.grid}
                 alignItems="center"
                 justifyContent="center" >
