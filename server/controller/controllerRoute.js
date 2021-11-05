@@ -4,11 +4,11 @@ const route = express.Router();
 
 // post controller
 route.post('/post-controller', async (req, res) => {
-    const { spotId, email, name, location, spaces, price, description, features, day } = req.body;
+    const { spotId, email, name, location, spaces, price, description, features, day, approved } = req.body;
 
     try {
         const response = await Controller.create({
-            spotId, email, name, location, spaces, price, description, features, day
+            spotId, email, name, location, spaces, price, description, features, day, approved
         })
         return res.status(200).json({
             message: 'user spot added successfully',
@@ -44,13 +44,14 @@ route.get('/get-controller/:email', (req, res) => {
 // delete controller
 route.delete('/delete-controller/:id', (req, res) => {
     const id = req.params.id;
-    Controller.findOneAndDelete(id)
+    Controller.findByIdAndDelete(id)
         .exec()
         .then((doc) => {
             if (!doc) {
                 return res.json({ status: 'item does not exist!' })
             } else {
-                return res.json({ status: 'item successfully removed!' })
+                // return res.json({ status: 'item successfully removed!' })
+                console.log('removed this', doc)
             }
         }).catch((error) => console.log(error))
 });

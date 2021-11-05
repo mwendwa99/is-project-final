@@ -77,7 +77,9 @@ const SpotDetails = () => {
         axios.post('/post-controller', formData)
             .then((res) => {
                 setMessage(res.data.message);
-                console.log('detais', res.data.message)
+                if (res.data.response) {
+                    history.push('/saved');
+                }
             }
             )
             .catch((error) => console.log(error))

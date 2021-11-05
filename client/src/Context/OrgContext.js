@@ -13,7 +13,7 @@ export const OrgProvider = ({ children }) => {
 
   // get all organizations
   useEffect(() => {
-    axios.get('/get-org')
+    return axios.get('/get-org')
       .then(response => {
         let res = (response.data)
         setSpots(res)

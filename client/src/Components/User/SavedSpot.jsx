@@ -1,10 +1,11 @@
 // this file handles "my spot section of the app"
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Assets from '../../Assets/Index'
-import { makeStyles, Typography, Button, Grid, Paper, Container } from '@material-ui/core';
+import { makeStyles, Typography, Button, Grid, Paper, Container, Fade } from '@material-ui/core';
 import { Delete } from '@material-ui/icons'
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+
+import { useController } from '../../Context/ControllerContext';
 
 const UseStyle = makeStyles((theme) => ({
     root: {
@@ -69,77 +70,73 @@ export const SaveError = () => {
 
 export const SavedSpot = () => {
     const classes = UseStyle();
-    const email = localStorage.getItem('email');
-    const [userSpot, setUserSpot] = useState();
-    const [status, setStatus] = useState();
+    const { bookings, getBookings, message, deleteBooking } = useController();
 
     useEffect(() => {
-        axios.get(`/get-controller/${email}`)
-            .then((response) => setUserSpot(response.data))
-            .catch((error) => console.log(error))
-    }, [email]);
-
-    console.log('USER', userSpot)
+        return getBookings();
+    }, [bookings])
 
     // delete from db
     const deleteSpot = (id) => {
-        axios.delete(`/delete-controller/${id}`)
-            .then((response) => setStatus(response.data.status))
-            .catch((error) => console.log(error));
-
-        // delete from frontend
-        const newList = userSpot.filter((userSpot) => userSpot.spotId !== id);
-        setUserSpot(newList)
+        deleteBooking(id);
     }
 
 
-    return userSpot ? (
-        <div className='body__section'>
-            <Container maxWidth='xl' className={classes.root}>
-                <Grid className={classes.imageContainer}>
-                    <img src={Assets.cat} height="10%" width="50%" alt="" />
-                    <Typography variant='h1' align='center'>Your Reservations</Typography>
-                    <Typography variant='h5' color='tomato' align='center'>{status}</Typography>
-                </Grid>
-                <Grid container className={classes.paper}>
-                    {
-                        userSpot.map((item, index) =>
-                            <Grid className={classes.cards} item sm={6} xs={6} md={6} lg={6}>
-                                <Paper style={{ padding: '2.5rem', backgroundColor: '#EDF5E0' }} key={index}>
-                                    <Typography variant='h5'>
-                                        <b>Name:</b> {item.name}
-                                    </Typography>
-                                    <Typography variant='h5'>
-                                        <b>Location:</b> {item.location}
-                                    </Typography>
-                                    <Typography variant='h5'>
-                                        <b>Features:</b> {item.features}
-                                    </Typography>
-                                    <Typography variant='h5'>
-                                        <b>Booked at price:</b> {item.price}
-                                    </Typography>
-                                    <Typography variant='h5'>
-                                        <b>Booked on date:</b> {item.day}
-                                    </Typography>
-                                    <Typography variant='h5'>
-                                        <b>Description:</b> {item.description}
-                                    </Typography>
-                                    <Typography variant='h5'>
-                                        <b>Number of Spaces:</b> {item.spaces}
-                                    </Typography>
-                                    <Typography variant='h5'>
-                                        <b>Booked by:</b> {item.email}
-                                    </Typography>
-                                    <Button onClick={() => deleteSpot(item.spotId)} variant='contained' size='large'>
-                                        <Delete />
-                                    </Button>
-                                </Paper>
-                            </Grid>
-                        )
-                    }
-                </Grid>
-            </Container>
-        </div >
+    return bookings ? (
+        <Fade in timeout={1000}>
+            <div className='body__section'>
+                <Container maxWidth='xl' className={classes.root}>
+                    <Grid className={classes.imageContainer}>
+                        <img src={Assets.cat} height="10%" width="50%" alt="" />
+                        <Typography variant='h1' align='center'>Your Reservations</Typography>
+                        <Typography variant='body1' style={{ color: '#ff6347' }} align='center'>{message}</Typography>
+                    </Grid>
+                    <Grid container className={classes.paper}>
+                        {
+                            bookings.map((item, index) =>
+                                <Grid className={classes.cards} item sm={6} xs={6} md={6} lg={6}>
+                                    <Paper style={{ padding: '2.5rem', backgroundColor: '#EDF5E0' }} key={index}>
+                                        <Typography variant='body1' align='center'>
+                                            approval status:
+                                            {
+                                                item.approved ? 'approved' : 'pending'
+                                            }
+                                        </Typography>
+                                        <Typography variant='h5'>
+                                            <b>Name:</b> {item.name}
+                                        </Typography>
+                                        <Typography variant='h5'>
+                                            <b>Location:</b> {item.location}
+                                        </Typography>
+                                        <Typography variant='h5'>
+                                            <b>Features:</b> {item.features}
+                                        </Typography>
+                                        <Typography variant='h5'>
+                                            <b>Booked at price:</b> {item.price}
+                                        </Typography>
+                                        <Typography variant='h5'>
+                                            <b>Booked on date:</b> {item.day}
+                                        </Typography>
+                                        <Typography variant='h5'>
+                                            <b>Description:</b> {item.description}
+                                        </Typography>
+                                        <Typography variant='h5'>
+                                            <b>Number of Spaces:</b> {item.spaces}
+                                        </Typography>
+                                        <Typography variant='h5'>
+                                            <b>Booked by:</b> {item.email}
+                                        </Typography>
+                                        <Button onClick={() => deleteSpot(item._id)} variant='contained' size='large'>
+                                            <Delete />
+                                        </Button>
+                                    </Paper>
+                                </Grid>
+                            )
+                        }
+                    </Grid>
+                </Container>
+            </div >
+        </Fade>
     )
         : <SaveError />
 }
