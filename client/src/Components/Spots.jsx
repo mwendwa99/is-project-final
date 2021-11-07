@@ -52,7 +52,7 @@ export default function Spots() {
                 justifyContent="center" >
                 {
                     spots.map((item, index) =>
-                        <Grid item sm={2} className={classes.gridItem} key={index} >
+                        <Grid item sm={3} className={classes.gridItem} key={index} >
                             <img height="100%" width="100%" src={Assets.parking} alt="parking" />
                             <ListItem >
                                 <ListItemText disableTypography>
