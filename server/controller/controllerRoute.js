@@ -5,15 +5,45 @@ const route = express.Router();
 // post controller
 route.post('/post-controller', async (req, res) => {
     const { spotId, email, name, location, spaces, price, description, features, day, approved } = req.body;
+    const controller = {
+        spotId: spotId,
+        email: email,
+        name: name,
+        location: location,
+        spaces: spaces,
+        price: price,
+        description: description,
+        features: features,
+        day: day,
+        approved: approved
+    };
+
 
     try {
-        const response = await Controller.create({
-            spotId, email, name, location, spaces, price, description, features, day, approved
-        })
-        return res.status(200).json({
-            message: 'user spot added successfully',
-            response
-        })
+        Controller.findOne({ email: email }, (err, controller) => {
+            if (err) {
+                res.status(500).json({
+                    message: 'Internal Server Error'
+                });
+            } else if (controller) {
+                res.status(400).json({
+                    message: 'Controller already exists'
+                });
+            } else {
+                Controller.create(controller, (err, controller) => {
+                    if (err) {
+                        res.status(500).json({
+                            message: 'Internal Server Error'
+                        });
+                    } else {
+                        res.status(201).json({
+                            message: 'Controller created successfully',
+                            controller: controller
+                        });
+                    }
+                });
+            }
+        });
     } catch (error) {
         if (error.code === 11000) {
             return (res.json({
@@ -23,6 +53,25 @@ route.post('/post-controller', async (req, res) => {
         } throw error
     }
 });
+
+//         const response = await Controller.create({
+//             spotId, email, name, location, spaces, price, description, features, day, approved
+//         })
+//         return res.status(200).json({
+//             message: 'user spot added successfully',
+//             response
+//         })
+//     } catch (error) {
+//         if (error.code === 11000) {
+//             return (res.json({
+//                 message: 'user spot already exists',
+//                 error
+//             }))
+//         } throw error
+//     }
+// });
+
+
 // get all controller
 route.get('/get-controller', (req, res) => {
     Controller.find().lean()
