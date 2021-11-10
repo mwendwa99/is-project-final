@@ -78,6 +78,7 @@ const SpotDetails = () => {
         // if it is not an update
         // send formdata object to backend
         if (!update) {
+            // console.log('data', formData);
             axios.post('/post-controller', formData)
                 .then((res) => {
                     setMessage(res.data.message);
