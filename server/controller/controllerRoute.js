@@ -5,57 +5,32 @@ const route = express.Router();
 // post controller
 route.post('/post-controller', async (req, res) => {
     const { spotId, email, name, location, spaces, price, description, features, day, approved } = req.body;
-    // const controller = {
-    //     spotId: spotId,
-    //     email: email,
-    //     name: name,
-    //     location: location,
-    //     spaces: spaces,
-    //     price: price,
-    //     description: description,
-    //     features: features,
-    //     day: day,
-    //     approved: approved
-    // };
-
 
     try {
-        const response = await Controller.create({
-            spotId, email, name, location, spaces, price, description, features, day, approved
-        })
-        return res.status(200).json({
-            message: 'user spot added successfully',
-            response
-        })
+        const match = await Controller.findOne({ spotId: spotId, email: email });
+        if (match) {
+            res.json({ message: 'You have already booked this spot' });
+        }
+        else {
+            const response = await Controller.create({
+                spotId, email, name, location, spaces, price, description, features, day, approved
+            })
+            return res.json({
+                message: 'saved successfully',
+                response
+            })
+        }
+
     } catch (error) {
         console.log(error);
         if (error.code === 11000) {
             return (res.json({
-                message: 'user spot already exists',
+                message: 'Duplicate key error',
                 error
             }))
         } throw error
     }
 });
-
-
-//         const response = await Controller.create({
-//             spotId, email, name, location, spaces, price, description, features, day, approved
-//         })
-//         return res.status(200).json({
-//             message: 'user spot added successfully',
-//             response
-//         })
-//     } catch (error) {
-//         if (error.code === 11000) {
-//             return (res.json({
-//                 message: 'user spot already exists',
-//                 error
-//             }))
-//         } throw error
-//     }
-// });
-
 
 // get all controller
 route.get('/get-controller', (req, res) => {

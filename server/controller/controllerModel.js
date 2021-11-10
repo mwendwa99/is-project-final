@@ -4,7 +4,6 @@ const Schema = mongoose.Schema
 const controllerSchema = new Schema({
     spotId: {
         type: String,
-        unique: true,
     },
     email: {
         type: String,
