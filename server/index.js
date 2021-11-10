@@ -39,7 +39,7 @@ mongoose.connect(uri, {
     useFindAndModify: false
 }).then(() => app.listen(PORT, () => {
     console.log(`connected to ${uri} via port: ${PORT}`)
-})).catch((err) => console.log(err))
+})).catch((err) => console.log(err));
 
 
 // 404 page

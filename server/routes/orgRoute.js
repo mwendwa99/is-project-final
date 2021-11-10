@@ -1,6 +1,7 @@
 const Org = require('../model/orgModel');
 const express = require('express');
 const route = express.Router();
+const Controller = require('../controller/controllerRoute');
 
 // add new user post requests
 // add ++ or -- logic on client side then send update request to org db
@@ -27,7 +28,10 @@ route.post('/register-org', async (req, res) => {
 });
 // get org details
 route.get('/get-org', async (req, res) => {
-    let details = Org.find({}, function (err, details) {
+    // do the calculations from frontend
+    // add a route to update the org details
+
+    Org.find({}, function (err, details) {
         if (err) {
             console.log(err);
         }
