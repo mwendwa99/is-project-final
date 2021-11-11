@@ -2,9 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema
 
 const controllerSchema = new Schema({
-    spotId: {
-        type: String,
-    },
+    spotId: Schema.Types.ObjectId,
     email: {
         type: String,
     },
