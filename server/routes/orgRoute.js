@@ -30,45 +30,62 @@ route.post('/register-org', async (req, res) => {
 route.get('/get-org', async (req, res) => {
     // do the calculations from frontend
     // add a route to update the org details
+    try {
+        await Org.aggregate([
+            {
+                '$lookup': {
+                    'from': 'controllers',
+                    'localField': '_id',
+                    'foreignField': 'spotId',
+                    'as': 'controllers'
+                }
+            }
+        ]);
+        await Org.aggregate([
+            {
+                '$addFields': {
+                    'spaces': {
+                        '$let': {
+                            'vars': {
+                                'ctrl': '$controllers.spaces'
+                            },
+                            'in': {
+                                '$subtract': [
+                                    '$spaces', {
+                                        '$sum': '$$ctrl'
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+        ]);
+        await Org.aggregate([
+            {
+                '$project': {
+                    'name': 1,
+                    'features': 1,
+                    'description': 1,
+                    'location': 1,
+                    'price': 1,
+                    'spaces': 1
+                }
+            }
+        ])
+        // Org.find({}, function (err, details) {
+        //     if (err) {
+        //         console.log(err);
+        //     }
+        //     else {
+        //         res.json(details);
+        //         // res.json(details);
+        //     }
+        // });
+    } catch (error) {
+        console.log(error)
+    }
 
-    // try {
-    //     let userSpaces = await Controller.aggregate([
-    //         {
-    //             '$project': {
-    //                 'spaces': '$spaces'
-    //             }
-    //         }
-    //     ]);
-    //     console.log(userSpaces);
-
-    //     let orgSpaces = await Org.aggregate([
-    //         {
-    //             '$addFields': {
-    //                 'spaces': {
-    //                     '$subtract': [
-    //                         '$spaces', '$$userSpaces'
-    //                     ]
-    //                 }
-    //             }
-    //         }
-    //     ]);
-
-    //     console.log(orgSpaces);
-
-
-    // } catch (error) {
-    //     console.log(error)
-    // }
-
-
-    Org.find({}, function (err, details) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.json(details);
-        }
-    });
 })
 // find by id
 route.get('/get-org/:id', (req, res) => {

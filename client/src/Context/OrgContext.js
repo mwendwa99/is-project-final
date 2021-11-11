@@ -16,7 +16,8 @@ export const OrgProvider = ({ children }) => {
     return axios.get('/get-org')
       .then(response => {
         let res = (response.data)
-        setSpots(res)
+        console.log('RES', res)
+        // setSpots(res)
       }).catch(error => setError(error));
   }, []);
 

@@ -33,6 +33,8 @@ export default function Spots() {
     const classes = useStyles();
     const { spots, getOrgById } = useOrgContext();
 
+    console.log(spots)
+
     // data from mongo
     const history = useHistory();
 
@@ -50,7 +52,7 @@ export default function Spots() {
                 className={classes.grid}
                 alignItems="center"
                 justifyContent="center" >
-                {
+                {/* {
                     spots.map((item, index) =>
                         <Grid item sm={3} className={classes.gridItem} key={index} >
                             <img height="100%" width="100%" src={Assets.parking} alt="parking" />
@@ -78,7 +80,7 @@ export default function Spots() {
                             </Button>
                         </Grid >
                     )
-                }
+                } */}
             </Grid>
         </Container>
     )
