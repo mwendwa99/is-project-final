@@ -72,7 +72,7 @@ route.get('/get-org', async (req, res) => {
                     'spaces': 1
                 }
             }
-        ])
+        ]);
         // Org.find({}, function (err, details) {
         //     if (err) {
         //         console.log(err);
