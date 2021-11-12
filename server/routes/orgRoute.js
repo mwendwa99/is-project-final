@@ -28,8 +28,6 @@ route.post('/register-org', async (req, res) => {
 });
 // get org details
 route.get('/get-org', async (req, res) => {
-    // do the calculations from frontend
-    // add a route to update the org details
     try {
         await Org.aggregate([
             {
@@ -39,10 +37,7 @@ route.get('/get-org', async (req, res) => {
                     'foreignField': 'spotId',
                     'as': 'controllers'
                 }
-            }
-        ]);
-        await Org.aggregate([
-            {
+            }, {
                 '$addFields': {
                     'spaces': {
                         '$let': {
@@ -59,11 +54,9 @@ route.get('/get-org', async (req, res) => {
                         }
                     }
                 }
-            },
-        ]);
-        await Org.aggregate([
-            {
+            }, {
                 '$project': {
+                    '_id': 1,
                     'name': 1,
                     'features': 1,
                     'description': 1,
@@ -72,7 +65,16 @@ route.get('/get-org', async (req, res) => {
                     'spaces': 1
                 }
             }
-        ]);
+        ],
+            function (err, results) {
+                // console.log("this is the result: ", results);
+                if (err) {
+                    return res.json({ status: 'error', error: err })
+                } else {
+                    return res.json({ status: 'success', data: results })
+                }
+            }
+        );
         // Org.find({}, function (err, details) {
         //     if (err) {
         //         console.log(err);

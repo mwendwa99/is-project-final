@@ -15,9 +15,6 @@ const userSchema = new Schema({
     userPassword: {
         type: String
     },
-    // token: {
-    //     type: String
-    // }
 }, { timestamps: true });
 
 // pluralize the User and find 'users' collection in the database

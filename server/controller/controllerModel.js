@@ -14,9 +14,11 @@ const controllerSchema = new Schema({
     },
     spaces: {
         type: Number,
+        min: 0,
     },
     price: {
         type: Number,
+        min: 0,
     },
     description: {
         type: String,

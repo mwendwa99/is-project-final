@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     makeStyles, Typography, Button, ListItem, ListItemText, Container
 } from '@material-ui/core';
@@ -33,10 +33,11 @@ export default function Spots() {
     const classes = useStyles();
     const { spots, getOrgById } = useOrgContext();
 
-    console.log(spots)
-
     // data from mongo
     const history = useHistory();
+
+    useEffect(() => {
+    }, [spots])
 
 
     // function to get org with specific id
@@ -52,7 +53,7 @@ export default function Spots() {
                 className={classes.grid}
                 alignItems="center"
                 justifyContent="center" >
-                {/* {
+                {
                     spots.map((item, index) =>
                         <Grid item sm={3} className={classes.gridItem} key={index} >
                             <img height="100%" width="100%" src={Assets.parking} alt="parking" />
@@ -68,7 +69,7 @@ export default function Spots() {
                                             </div>
                                         </li>
                                         <li>
-                                            <Typography variant="caption" >free spots: {!item.spaces ? 'loading...' : item.spaces} </Typography>
+                                            <Typography variant="caption" >free spots: {item.spaces} </Typography>
                                         </li>
                                     </ul>
                                 </ListItemText>
@@ -80,7 +81,7 @@ export default function Spots() {
                             </Button>
                         </Grid >
                     )
-                } */}
+                }
             </Grid>
         </Container>
     )

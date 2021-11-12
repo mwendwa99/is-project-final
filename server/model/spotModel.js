@@ -20,10 +20,12 @@ const spotSchema = new Schema({
     },
     spaces: {
         type: Number,
+        min: 0,
     },
     price: {
         type: Number,
-        required: true
+        required: true,
+        min: 0
     }
 });
 
