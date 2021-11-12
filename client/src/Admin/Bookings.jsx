@@ -41,7 +41,7 @@ const Bookings = () => {
     }
 
     return (
-        <Container maxWidth='lg' style={{ minHeight: '80vh' }}>
+        <Container maxWidth='lg' style={{ minHeight: '100vh' }}>
             <Grid container >
                 {
                     list.map((item, index) =>

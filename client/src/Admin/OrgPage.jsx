@@ -76,7 +76,7 @@ const OrgPage = ({ Component }) => {
     }
     return (
         <Fade in timeout={1000}>
-            <Container maxWidth='lg' style={{ height: '80vh' }}>
+            <Container maxWidth='lg' style={{ height: '100vh' }}>
                 <form onSubmit={formSubmit} className={classes.formField} noValidate autoComplete="off">
                     <Grid item sm={6}>
                         <Typography align='center' variant='h1'>

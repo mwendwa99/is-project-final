@@ -54,7 +54,7 @@ const ParkingPage = ({ Component }) => {
 
     return (
         <Fade in timeout={1000}>
-            <Container maxWidth='lg' style={{ height: '80vh' }}>
+            <Container maxWidth='lg' style={{ height: '100vh' }}>
                 <Grid container >
                     <Grid className={classes.itemDetails} item sm={12}>
                         {organizations.map((item) => (
