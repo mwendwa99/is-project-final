@@ -49,7 +49,7 @@ const OrgPage = ({ Component }) => {
     const [id, setId] = useState();
 
     // get context value
-    const { payload } = useUpdate();
+    const { payload, setPayload } = useUpdate();
     useEffect(() => {
         if (payload) {
             setId(payload._id)
@@ -69,7 +69,9 @@ const OrgPage = ({ Component }) => {
             axios.put(`update-org/${id}`, data)
                 .then(() => setStatus('Successful update!'))
                 .then(() => Component('Your Parking Spaces'))
-                .catch((err) => setStatus(err))
+                .catch((err) => setStatus(err));
+            setPayload(null);
+            Component('Your Parking Spaces')
         }
     }
     return (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {
@@ -7,7 +7,6 @@ import {
 import { Menu, ChevronLeft, ChevronRight, ExitToApp, Bookmark, Domain, DirectionsCar } from '@material-ui/icons';
 import { useAuth } from '../Context/AuthContext';
 import { useHistory } from 'react-router';
-import axios from 'axios';
 
 import OrgPage from './OrgPage';
 import ParkingPage from './ParkingPage';
@@ -93,16 +92,8 @@ export default function MiniDrawer() {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
     const [component, setComponent] = useState('Organization');
-    const [details, setDetails] = useState();
     const { adminLogout, adminLoggedIn } = useAuth();
     const history = useHistory();
-
-    useEffect(() => {
-        axios.get('get-org')
-            .then((response) => {
-                setDetails(response.data);
-            }).catch((error) => console.log(`error in fetching organization: ${error}`))
-    }, [details])
 
     const handleLogout = () => {
         localStorage.clear();
@@ -207,7 +198,7 @@ export default function MiniDrawer() {
                     <Typography style={{ paddingBottom: '1rem' }} variant='h1'>{component}</Typography>
                     {
                         component === 'Organization' ? <OrgPage Component={setComponent} />
-                            : component === 'Your Parking Spaces' ? <ParkingPage Component={setComponent} data={details} />
+                            : component === 'Your Parking Spaces' ? <ParkingPage Component={setComponent} />
                                 : component === 'Bookings' ? <Bookings />
                                     : <h1>Loading ...</h1>
                     }

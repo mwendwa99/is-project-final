@@ -28,7 +28,7 @@ const Bookings = () => {
         axios.get('/get-controller')
             .then(res => setList(res.data))
             .catch(err => console.log(err))
-    }, []);
+    }, [list]);
 
     // function to approve booking
     const approveBooking = (id) => {

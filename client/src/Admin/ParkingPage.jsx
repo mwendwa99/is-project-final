@@ -1,7 +1,7 @@
 import { Container, Fab, Fade, Grid, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { useUpdate } from './AdminContext';
 
@@ -32,24 +32,18 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const ParkingPage = ({ data, Component }) => {
+const ParkingPage = ({ Component }) => {
     const classes = useStyles();
-    const [itemList, setItemList] = useState(data);
 
     // send send selected org to context store
-    const { updateOrg } = useUpdate()
+    const { updateOrg, getOrg, organizations } = useUpdate()
 
     useEffect(() => {
-        axios.get('get-org')
-            .then((response) => {
-                setItemList(response.data);
-            }).catch((error) => console.log(`error in fetching organization: ${error}`))
-    }, [itemList])
+        getOrg()
+    }, [organizations])
 
     // axios delete from db
     const deleteItem = (id) => {
-        const newList = itemList.filter((itemList) => itemList._id !== id);
-        setItemList(newList);
         axios.delete(`/delete-org/${id}`)
     }
     // update
@@ -63,7 +57,7 @@ const ParkingPage = ({ data, Component }) => {
             <Container maxWidth='lg' style={{ height: '80vh' }}>
                 <Grid container >
                     <Grid className={classes.itemDetails} item sm={12}>
-                        {itemList.map((item) => (
+                        {organizations.map((item) => (
                             <List key={item._id} className={classes.list}>
                                 <ListItem item className={classes.listItem} >
                                     <ListItemText inset className={classes.listItemText}>
