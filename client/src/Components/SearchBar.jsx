@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import { useOrgContext } from '../Context/OrgContext';
 import CustomMap from './CustomMap';
+import Map from './Map/Map';
 
 const UseStyle = makeStyles((theme) => ({
     gridContainer: {
@@ -39,8 +40,8 @@ const SearchBar = () => {
     const classes = UseStyle();
     const [input, setInput] = useState('');
     const { spots, getOrgById } = useOrgContext();
+    const [search, setSearch] = useState('');
     const history = useHistory();
-
 
     // function to get org with specific id
     const saveOnClick = (id) => {
@@ -66,7 +67,9 @@ const SearchBar = () => {
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
-                                <Search />
+                                <IconButton onClick={(e) => setSearch(input)}>
+                                    <Search />
+                                </IconButton>
                             </InputAdornment>
                         ),
                         disableUnderline: true
@@ -99,7 +102,8 @@ const SearchBar = () => {
                     }) : null
                 }
                 <Grid item sm={12}>
-                    <CustomMap />
+                    {/* <CustomMap /> */}
+                    <Map search={search} />
                 </Grid>
             </Grid>
         </Grid>

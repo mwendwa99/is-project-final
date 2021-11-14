@@ -14,6 +14,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Footer from './Components/Footer';
 import { OrgProvider } from './Context/OrgContext';
 import { ControllerProvider } from './Context/ControllerContext';
+import { MapContextProvider } from './Components/Map/MapContext';
 
 
 export const AdminRoute = () => {
@@ -48,19 +49,21 @@ export const AuthenticatedRoutes = () => {
   return (
     <OrgProvider>
       <ControllerProvider>
-        <Router >
-          <Switch>
-            <div className="App">
-              <NavBar />
-              <Route exact path='/' component={Home} />
-              <Route exact path='/details' component={SpotDetails} />
-              <Route exact path='/about' component={About} />
-              <Route exact path='/my-spot' component={SaveError} />
-              <Route exact path='/saved' component={SavedSpot} />
-              <Footer />
-            </div>
-          </Switch>
-        </Router>
+        <MapContextProvider>
+          <Router >
+            <Switch>
+              <div className="App">
+                <NavBar />
+                <Route exact path='/' component={Home} />
+                <Route exact path='/details' component={SpotDetails} />
+                <Route exact path='/about' component={About} />
+                <Route exact path='/my-spot' component={SaveError} />
+                <Route exact path='/saved' component={SavedSpot} />
+                <Footer />
+              </div>
+            </Switch>
+          </Router>
+        </MapContextProvider>
       </ControllerProvider>
     </OrgProvider>
   );
