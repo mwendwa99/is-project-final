@@ -1,27 +1,42 @@
 import axios from 'axios';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useOrgContext } from '../../Context/OrgContext';
+import Geocode from "react-geocode";
 
 const MapContext = createContext();
+Geocode.setApiKey(process.env.REACT_APP_GMAP_KEY);
 
 const MapContextProvider = ({ children }) => {
     const [locations, setLocations] = useState(null);
-    const [coords, setCoords] = useState(null);
+    const [error, setError] = useState(null);
+    const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
 
     // request organization locations
     const { spots } = useOrgContext();
-    console.log('spots', spots);
+
+    // function to convert address to geocode
+    const geoCode = async (location) => {
+        Geocode.fromAddress(location).then(
+            (response) => {
+                const { lat, lng } = response.results[0].geometry.location;
+                setCoordinates({ lat, lng });
+            },
+            (error) => {
+                setError({ message: 'location does not exist', error: error });
+            }
+        )
+    };
+
+    console.log('coords', coordinates)
 
     useEffect(() => {
         // map spots to locations
-        const locations = spots.map(spot => {
-            return {
-                name: spot.name,
-                location: spot.location,
-                id: spot._id
-            }
+        spots.map(spot => {
+            // map spots to name and address
+            const { location } = spot;
+            // return object with name and address
+            geoCode(location);
         });
-        console.log('locations', locations);
     }, [])
 
 
@@ -29,9 +44,9 @@ const MapContextProvider = ({ children }) => {
     const values = {
         locations,
         setLocations,
-        coords,
-        setCoords
-
+        coordinates,
+        setCoordinates,
+        error,
     }
 
     return (
