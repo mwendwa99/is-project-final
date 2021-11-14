@@ -7,7 +7,7 @@ const MapContext = createContext();
 Geocode.setApiKey(process.env.REACT_APP_GMAP_KEY);
 
 const MapContextProvider = ({ children }) => {
-    const [locations, setLocations] = useState(null);
+    const [locations, setLocations] = useState([]);
     const [error, setError] = useState(null);
     const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
 
@@ -20,6 +20,8 @@ const MapContextProvider = ({ children }) => {
             (response) => {
                 const { lat, lng } = response.results[0].geometry.location;
                 setCoordinates({ lat, lng });
+                // push to coodinates array
+                setLocations([...locations, { location, lat, lng }]);
             },
             (error) => {
                 setError({ message: 'location does not exist', error: error });
@@ -27,25 +29,26 @@ const MapContextProvider = ({ children }) => {
         )
     };
 
-    console.log('coords', coordinates)
-
     useEffect(() => {
         // map spots to locations
         spots.map(spot => {
             // map spots to name and address
             const { location } = spot;
+            setLocations(spot);
             // return object with name and address
             geoCode(location);
         });
-    }, [])
+    }, [spots]);
+
+    // geoCode(location);
+
+    console.log(locations);
+
 
 
 
     const values = {
-        locations,
-        setLocations,
         coordinates,
-        setCoordinates,
         error,
     }
 
