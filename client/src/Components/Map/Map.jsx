@@ -9,6 +9,9 @@ const libraries = ['places'];
 const mapContainerStyle = {
     width: '100%',
     height: '30rem',
+    borderRadius: '10px',
+    marginTop: '1rem',
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
 };
 const center = {
     lat: -1.2850,
