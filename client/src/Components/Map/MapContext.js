@@ -38,7 +38,6 @@ const MapContextProvider = ({ children }) => {
         geoCode(spots);
     }, [spots]);
 
-    console.log('spotsWithCoordinates', spotsWithCoordinates)
 
     const values = {
         spotsWithCoordinates,

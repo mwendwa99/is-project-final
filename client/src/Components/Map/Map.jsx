@@ -28,13 +28,8 @@ const Map = ({ search }) => {
         libraries,
     });
 
-    // const { coordinates } = useMapContext();
-    // const [markers, setMarkers] = useState([]);
-    // const pos = coordinates.toAr
-    // // put coordinates into an array
-    // const pos = [coordinates.lat, coordinates.lng];
+    const { spotsWithCoordinates } = useMapContext();
 
-    // console.log(pos);
 
     if (loadError) return 'Error loading maps';
     if (!isLoaded) return 'Loading Maps';
@@ -42,17 +37,20 @@ const Map = ({ search }) => {
     return (
         <GoogleMap
             mapContainerStyle={mapContainerStyle}
-            zoom={16}
+            zoom={15.5}
             options={options}
             center={center}
-        // setMarkers={coordinates}
         >
-            {/* <Marker
-                position={{ lat: coordinates.lat, lng: coordinates.lng }}
-                onClick={() => {
-                    console.log('You clicked me!');
-                }}
-            /> */}
+            {
+                spotsWithCoordinates ? spotsWithCoordinates.map(spot => (
+                    <Marker
+                        position={{ lat: spot.lat, lng: spot.lng }}
+                        onClick={() => {
+                            console.log('You clicked me!');
+                        }}
+                    />
+                )) : null
+            }
         </GoogleMap>
     )
 }
