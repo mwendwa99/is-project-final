@@ -40,7 +40,7 @@ const ParkingPage = ({ Component }) => {
 
     useEffect(() => {
         getOrg()
-    }, [organizations])
+    }, [getOrg, organizations])
 
     // axios delete from db
     const deleteItem = (id) => {
