@@ -4,8 +4,6 @@ const route = express.Router();
 const Controller = require('../controller/controllerModel');
 
 // add new user post requests
-// add ++ or -- logic on client side then send update request to org db
-
 route.post('/register-org', async (req, res) => {
     const { name, features, description, location, price, spaces } = req.body;
     if (!name || typeof name !== 'string') {
@@ -67,7 +65,6 @@ route.get('/get-org', async (req, res) => {
             }
         ],
             function (err, results) {
-                // console.log("this is the result: ", results);
                 if (err) {
                     return res.json({ status: 'error', error: err })
                 } else {
@@ -75,15 +72,6 @@ route.get('/get-org', async (req, res) => {
                 }
             }
         );
-        // Org.find({}, function (err, details) {
-        //     if (err) {
-        //         console.log(err);
-        //     }
-        //     else {
-        //         res.json(details);
-        //         // res.json(details);
-        //     }
-        // });
     } catch (error) {
         console.log(error)
     }
@@ -120,7 +108,7 @@ route.get('/find-org/:location', (req, res) => {
 
 // delete org details
 route.delete('/delete-org/:id', (req, res) => {
-    Org.findOneAndDelete(req.params.id)
+    Org.findByIdAndDelete(req.params.id)
         .exec()
         .then(doc => {
             if (!doc) {

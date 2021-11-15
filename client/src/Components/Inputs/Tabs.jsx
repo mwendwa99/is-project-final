@@ -141,6 +141,7 @@ export default function SimpleTabs(props) {
             <TabPanel value={value} index={0}>
                 <form id="register-form"
                     onSubmit={formSubmitUser}
+                    autoComplete='on'
                 >
                     <Grid container >
                         <Grid item sm={12} xs={12} className={classes.inputSection}>
