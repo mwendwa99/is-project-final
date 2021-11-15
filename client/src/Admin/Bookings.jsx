@@ -32,7 +32,7 @@ const Bookings = () => {
 
     // function to approve booking
     const approveBooking = (id) => {
-        axios.put(`/approve-booking/${id}`)
+        axios.put(`/approve-controller/${id}`)
             .then(response => {
                 console.log(response.data)
                 setList(list.filter(item => item._id !== id))
@@ -67,11 +67,19 @@ const Bookings = () => {
                                 </Typography>
                                 <div className={classes.button}>
                                     <Fab
-                                        onClick={() => approveBooking(item.spotId)}
+                                        onClick={() => approveBooking(item._id)}
                                         style={{ backgroundColor: '#58dd90', margin: '1rem' }}
                                         variant='extended' size='large'>
-                                        approve
-                                        <CheckCircle style={{ marginLeft: '1rem' }} />
+                                        {
+                                            item.approved ?
+                                                <>
+                                                    <span>Approved</span>
+                                                    <CheckCircle />
+                                                </> :
+                                                <span>Approve</span>
+
+                                        }
+                                        {/* <CheckCircle style={{ marginLeft: '1rem' }} /> */}
                                     </Fab>
                                 </div>
                             </Paper>
