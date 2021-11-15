@@ -23,7 +23,7 @@ const UseStyle = makeStyles((theme) => ({
         }
     },
     labelRoot: {
-        fontSize: '1.2rem',
+        fontSize: '1rem',
     },
     locations: {
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",

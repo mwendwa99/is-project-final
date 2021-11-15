@@ -28,8 +28,8 @@ const Map = ({ search }) => {
         libraries,
     });
 
-    const { coordinates } = useMapContext();
-    const [markers, setMarkers] = useState([]);
+    // const { coordinates } = useMapContext();
+    // const [markers, setMarkers] = useState([]);
     // const pos = coordinates.toAr
     // // put coordinates into an array
     // const pos = [coordinates.lat, coordinates.lng];
@@ -47,12 +47,12 @@ const Map = ({ search }) => {
             center={center}
         // setMarkers={coordinates}
         >
-            <Marker
+            {/* <Marker
                 position={{ lat: coordinates.lat, lng: coordinates.lng }}
                 onClick={() => {
                     console.log('You clicked me!');
                 }}
-            />
+            /> */}
         </GoogleMap>
     )
 }
