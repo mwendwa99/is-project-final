@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 
 import mapStyles from './mapStyles';
 import { useMapContext } from './MapContext';
+import Assets from '../../Assets/Index';
 
 const libraries = ['places'];
 const mapContainerStyle = {
@@ -44,6 +45,7 @@ const Map = ({ search }) => {
             {
                 spotsWithCoordinates ? spotsWithCoordinates.map(spot => (
                     <Marker
+                        icon={Assets.logoPng}
                         position={{ lat: spot.lat, lng: spot.lng }}
                         onClick={() => {
                             console.log('You clicked me!');

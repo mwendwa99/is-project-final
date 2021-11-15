@@ -1,5 +1,6 @@
 const Assets = {
     logo: require('./logo.svg').default,
+    logoPng: require('./logo.png').default,
     spots: require('./spots.svg').default,
     map: require('./map.svg').default,
     search: require('./search.svg').default,
