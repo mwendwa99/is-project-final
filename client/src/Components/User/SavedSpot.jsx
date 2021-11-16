@@ -73,7 +73,7 @@ export const SavedSpot = () => {
 
     useEffect(() => {
         return getBookings();
-    }, [bookings])
+    }, [getBookings])
 
     // delete from db
     const deleteSpot = (id) => {

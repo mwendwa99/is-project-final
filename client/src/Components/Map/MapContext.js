@@ -36,6 +36,7 @@ const MapContextProvider = ({ children }) => {
 
     useEffect(() => {
         geoCode(spots);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [spots]);
 
 

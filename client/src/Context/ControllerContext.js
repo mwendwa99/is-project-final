@@ -13,7 +13,7 @@ export const ControllerProvider = ({ children }) => {
     // grab id of the spot to be edited from SavedSpot.jsx
     const [bookingId, setBookingId] = useState(null);
 
-    // get all bookings
+    // get all bookings for emails
     const getBookings = async () => {
         try {
             const res = await axios.get(`/get-controller/${email}`);

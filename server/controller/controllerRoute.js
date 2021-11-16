@@ -94,5 +94,19 @@ route.put('/approve-controller/:id', (req, res) => {
         }).catch((error) => console.log(error))
 });
 
+// reject controller
+route.put('/reject-controller/:id', (req, res) => {
+    const id = req.params.id;
+    Controller.findByIdAndUpdate(id, { $set: { approved: false } }, { new: true })
+        .exec()
+        .then((doc) => {
+            if (!doc) {
+                return res.json({ status: 'item does not exist!' })
+            } else {
+                return res.json(doc)
+            }
+        }).catch((error) => console.log(error))
+});
+
 
 module.exports = route;

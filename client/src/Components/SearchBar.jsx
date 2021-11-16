@@ -4,7 +4,6 @@ import { DirectionsCar, KeyboardArrowRight, Search } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom';
 
 import { useOrgContext } from '../Context/OrgContext';
-import CustomMap from './CustomMap';
 import Map from './Map/Map';
 
 const UseStyle = makeStyles((theme) => ({
@@ -76,6 +75,7 @@ const SearchBar = () => {
                     }}
                 />
                 {
+                    // eslint-disable-next-line array-callback-return
                     input ? spots.filter((val) => {
                         if (input === "") {
                             return val
@@ -102,7 +102,6 @@ const SearchBar = () => {
                     }) : null
                 }
                 <Grid item sm={12}>
-                    {/* <CustomMap /> */}
                     <Map search={search} />
                 </Grid>
             </Grid>
