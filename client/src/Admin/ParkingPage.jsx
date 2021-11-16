@@ -59,7 +59,7 @@ const ParkingPage = ({ Component }) => {
                     <Grid className={classes.itemDetails} item sm={12}>
                         {organizations.map((item) => (
                             <List key={item._id} className={classes.list}>
-                                <ListItem item className={classes.listItem} >
+                                <ListItem className={classes.listItem} >
                                     <ListItemText inset className={classes.listItemText}>
                                         <Typography variant='h5' className={classes.typography}>{item.name}</Typography>
                                         <Typography variant='h6' className={classes.typography}> At {item.location}</Typography>
