@@ -8,6 +8,7 @@ import Assets from '../Assets/Index'
 import { useHistory } from 'react-router-dom';
 
 import { useOrgContext } from '../Context/OrgContext';
+import { getRandomImage } from '../image/RandomImage';
 
 const useStyles = makeStyles((theme) => ({
     grid: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundImage: Assets.pattern,
     },
     gridItem: {
+        // maxHeight: "5rem",
         backgroundColor: '#EDF5E0',
         padding: theme.spacing(1),
         margin: theme.spacing(0.5),
@@ -32,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Spots() {
     const classes = useStyles();
     const { spots, getOrgById } = useOrgContext();
+
+    console.log("random", getRandomImage());
 
     // data from mongo
     const history = useHistory();
@@ -56,7 +60,8 @@ export default function Spots() {
                 {
                     spots.map((item, index) =>
                         <Grid item sm={3} className={classes.gridItem} key={index} >
-                            <img height="100%" width="100%" src={Assets.parking} alt="parking" />
+                            {/* <img height="100%" width="100%" src={Assets.parking} alt="parking" /> */}
+                            <img height={200} width="100%" src={getRandomImage()} alt="parking" />
                             <ListItem >
                                 <ListItemText disableTypography>
                                     <Typography variant="body2" >{!item.name ? 'loading...' : item.name} </Typography>
