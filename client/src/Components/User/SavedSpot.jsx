@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import Assets from '../../Assets/Index'
 import { makeStyles, Typography, Button, Grid, Paper, Container, Fade } from '@material-ui/core';
-import { Delete, Edit } from '@material-ui/icons'
+import { Delete, Edit, Block } from '@material-ui/icons'
 import { Link, useHistory } from 'react-router-dom';
 
 import { useController } from '../../Context/ControllerContext';
@@ -137,13 +137,20 @@ export const SavedSpot = () => {
                                         <Grid item sm={12} style={{ display: 'flex', justifyContent: 'space-around' }}>
                                             <div>
                                                 <Button variant='contained' onClick={() => deleteSpot(item._id)}>
-                                                    <Delete />delete
+                                                    <Delete style={{ marginRight: 5 }} />delete
                                                 </Button>
                                             </div>
                                             <div>
-                                                <Button variant='contained' onClick={() => editSpot(item.spotId, item._id)}>
-                                                    <Edit /> edit
-                                                </Button>
+                                                {
+                                                    item.approved === false ?
+                                                        <Button variant='contained' onClick={() => editSpot(item._id, item.bookingId)}>
+                                                            <Edit style={{ marginRight: 5 }} />edit
+                                                        </Button>
+                                                        :
+                                                        <Button variant='contained' disabled>
+                                                            <Block style={{ marginRight: 5 }} />already approved
+                                                        </Button>
+                                                }
                                             </div>
                                         </Grid>
                                     </Paper>
