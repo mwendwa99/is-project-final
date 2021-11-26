@@ -13,10 +13,9 @@ export const OrgProvider = ({ children }) => {
 
   // get all organizations
   useEffect(() => {
-    return axios.get('/get-org')
+    axios.get('/get-org')
       .then(response => {
         let res = (response.data.data)
-        // console.log('RES', res)
         setSpots(res)
       }).catch(error => setError(error));
   }, []);

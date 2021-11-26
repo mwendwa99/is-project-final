@@ -67,13 +67,14 @@ export const SaveError = () => {
 
 export const SavedSpot = () => {
     const classes = UseStyle();
-    const { bookings, getBookings, message, deleteBooking, setUpdate, setBookingId } = useController();
+    const { bookings, getBookings, setMessage, message, deleteBooking, setUpdate, setBookingId } = useController();
     const { getOrgById } = useOrgContext();
     const history = useHistory();
 
     useEffect(() => {
-        return getBookings();
-    }, [getBookings])
+        getBookings();
+        setMessage(null);
+    }, [getBookings, setMessage])
 
     // delete from db
     const deleteSpot = (id) => {

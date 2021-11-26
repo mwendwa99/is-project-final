@@ -46,6 +46,7 @@ export const ControllerProvider = ({ children }) => {
         bookings,
         message,
         update,
+        setMessage,
         setBookingId,
         setUpdate,
         updateBooking,

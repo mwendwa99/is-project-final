@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     makeStyles, Typography, Button, ListItem, ListItemText, Container
 } from '@material-ui/core';
@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
         backgroundImage: Assets.pattern,
     },
     gridItem: {
-        // maxHeight: "5rem",
         backgroundColor: '#EDF5E0',
         padding: theme.spacing(1),
         margin: theme.spacing(0.5),
@@ -34,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Spots() {
     const classes = useStyles();
     const { spots, getOrgById } = useOrgContext();
+    const [spotList, setSpotList] = useState([]);
 
     console.log("random", getRandomImage());
 
@@ -41,8 +41,8 @@ export default function Spots() {
     const history = useHistory();
 
     useEffect(() => {
+        setSpotList(spots);
     }, [spots])
-
 
     // function to get org with specific id
     const saveOnClick = (id) => {
@@ -50,7 +50,7 @@ export default function Spots() {
         history.push('/details');
     }
 
-    return (
+    return spotList ? (
         <Container maxWidth='xl'>
             <Grid
                 container
@@ -58,9 +58,8 @@ export default function Spots() {
                 alignItems="center"
                 justifyContent="center" >
                 {
-                    spots.map((item, index) =>
+                    spotList.map((item, index) =>
                         <Grid item sm={3} className={classes.gridItem} key={index} >
-                            {/* <img height="100%" width="100%" src={Assets.parking} alt="parking" /> */}
                             <img height={200} width="100%" src={getRandomImage()} alt="parking" />
                             <ListItem >
                                 <ListItemText disableTypography>
@@ -89,5 +88,9 @@ export default function Spots() {
                 }
             </Grid>
         </Container>
+    ) : (
+        <div>
+            <Typography variant="h5" >loading...</Typography>
+        </div>
     )
 }
