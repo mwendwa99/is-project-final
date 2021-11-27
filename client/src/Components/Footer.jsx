@@ -29,6 +29,11 @@ const Footer = () => {
 
     return (
         <Grid container className={classes.footerRoot}>
+            <Grid item xs={12} sm={12} md={12} lg={12} xl={12} className={classes.gridItem}>
+                <Typography variant='h6'>
+                    Copyright © 2021 Brian Mwendwa
+                </Typography>
+            </Grid>
             <Grid item sm={4} className={classes.gridItem}>
                 <Typography variant="h1">
                     <Link to='/' className={classes.footerLinks}>
