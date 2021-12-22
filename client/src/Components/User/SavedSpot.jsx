@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import Assets from '../../Assets/Index'
 import { makeStyles, Typography, Button, Grid, Paper, Container, Fade } from '@material-ui/core';
-import { Delete, Edit, Block } from '@material-ui/icons'
+import { Delete, Edit, Block, CheckOutlined } from '@material-ui/icons'
 import { Link, useHistory } from 'react-router-dom';
 
 import { useController } from '../../Context/ControllerContext';
@@ -67,7 +67,7 @@ export const SaveError = () => {
 
 export const SavedSpot = () => {
     const classes = UseStyle();
-    const { bookings, getBookings, setMessage, message, deleteBooking, setUpdate, setBookingId } = useController();
+    const { bookings, getBookings, checkout, setMessage, message, deleteBooking, setUpdate, setBookingId } = useController();
     const { getOrgById } = useOrgContext();
     const history = useHistory();
 
@@ -89,6 +89,11 @@ export const SavedSpot = () => {
         history.push('/details');
     }
 
+    // checkout
+    const checkoutSpot = (id) => {
+        console.log(id);
+        checkout(id);
+    }
 
     return bookings ? (
         <Fade in timeout={1000}>
@@ -136,9 +141,17 @@ export const SavedSpot = () => {
                                         </Typography>
                                         <Grid item sm={12} style={{ display: 'flex', justifyContent: 'space-around' }}>
                                             <div>
-                                                <Button variant='contained' onClick={() => deleteSpot(item._id)}>
-                                                    <Delete style={{ marginRight: 5 }} />delete
-                                                </Button>
+                                                {
+                                                    item.approved === false ?
+                                                        <Button variant='contained' onClick={() => deleteSpot(item._id)}>
+                                                            <Delete style={{ marginRight: 5 }} />delete
+                                                        </Button>
+                                                        :
+                                                        // button to checkout
+                                                        <Button variant='contained' onClick={() => checkoutSpot(item._id)}>
+                                                            <CheckOutlined style={{ marginRight: 5 }} />checkout
+                                                        </Button>
+                                                }
                                             </div>
                                             <div>
                                                 {

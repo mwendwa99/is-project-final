@@ -42,10 +42,19 @@ export const ControllerProvider = ({ children }) => {
         setMessage('deleted successfully!');
     };
 
+    // checkout a spot
+    const checkout = (id) => {
+        axios.put(`/checkout-controller/${id}`)
+            .then((response) => getBookings())
+            .catch((error) => setMessage('failed to checkout!'));
+        setMessage('checkout successfully!');
+    };
+
     const values = {
         bookings,
         message,
         update,
+        checkout,
         setMessage,
         setBookingId,
         setUpdate,

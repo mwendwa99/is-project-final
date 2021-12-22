@@ -108,5 +108,19 @@ route.put('/reject-controller/:id', (req, res) => {
         }).catch((error) => console.log(error))
 });
 
+// checkout controller
+route.put('/checkout-controller/:id', (req, res) => {
+    const id = req.params.id;
+    Controller.findByIdAndRemove(id)
+        .exec()
+        .then((doc) => {
+            if (!doc) {
+                return res.json({ status: 'item does not exist!' })
+            } else {
+                return res.json(doc)
+            }
+        }).catch((error) => console.log(error))
+});
+
 
 module.exports = route;

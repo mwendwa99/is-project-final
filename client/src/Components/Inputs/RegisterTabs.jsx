@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Grid, Tabs, Tab, Typography, Box, InputBase, Button } from '@material-ui/core';
 import { Business, Mail, Lock, Commute } from '@material-ui/icons';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -80,6 +81,8 @@ export default function SimpleTabs() {
     const [adminEmail, setAdminEmail] = useState('');
     const [adminPassword, setAdminPassword] = useState('');
 
+    const history = useHistory();
+
     // map user values to backend
     const formSubmitUser = (e) => {
         e.preventDefault();
@@ -91,6 +94,7 @@ export default function SimpleTabs() {
         console.log(data);
         axios.post('/api/register-user', data)
             // .then(res => console.log(res))
+            .then(() => history.push('/'))
             .catch(error => alert(error))
     }
     // map admin values to backend
@@ -104,6 +108,7 @@ export default function SimpleTabs() {
         console.log(data);
         axios.post('/admin/register-admin', data)
             .then(res => console.log(res))
+            .then(() => history.push('/'))
             .catch(error => alert(error))
     }
 
