@@ -21,8 +21,8 @@ export const OrgProvider = ({ children }) => {
   }, []);
 
   // get organization by id
-  const getOrgById = (id) => {
-    axios.get(`/get-org/${id}`)
+  const getOrgById = async (id) => {
+    await axios.get(`/get-org/${id}`)
       .then(res => setOrgById(res.data))
       .catch(error => console.log(error));
   };

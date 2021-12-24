@@ -80,18 +80,32 @@ route.get('/get-org', async (req, res) => {
 // find by id
 route.get('/get-org/:id', (req, res) => {
     const id = req.params.id;
-    Org.findById(id).lean()
-        .exec((err, result) => {
-            if (err) return console.error(err)
-            try {
-                res.json(result)
-            } catch (error) {
-                if (error) {
-                    return (res.json({ status: 'error', error: error }))
-                } throw error
-            }
-        })
+    console.log('id', id)
+    Org.findById(id, (err, org) => {
+        if (err) {
+            return res.json({ status: 'error', error: err })
+        } else {
+            return res.json(org)
+        }
+    })
 })
+// update org details
+// route.put('/update-org/:id', (req, res) => {
+//     const id = req.params.id;
+
+//     // Org.findById(id).lean()
+//     //     .exec((err, result) => {
+//     //         if (err) return console.error(err)
+//     //         try {
+//     //             res.json(result)
+//     //             console.log('RESULT', result)
+//     //         } catch (error) {
+//     //             if (error) {
+//     //                 return (res.json({ status: 'error', error: error }))
+//     //             } throw error
+//     //         }
+//     //     })
+// })
 // find by location
 route.get('/find-org/:location', (req, res) => {
     const location = req.params.location;

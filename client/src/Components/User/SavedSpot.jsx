@@ -156,7 +156,7 @@ export const SavedSpot = () => {
                                             <div>
                                                 {
                                                     item.approved === false ?
-                                                        <Button variant='contained' onClick={() => editSpot(item._id, item.bookingId)}>
+                                                        <Button variant='contained' onClick={() => editSpot(item.spotId, item.bookingId)}>
                                                             <Edit style={{ marginRight: 5 }} />edit
                                                         </Button>
                                                         :
