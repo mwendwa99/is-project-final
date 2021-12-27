@@ -3,6 +3,7 @@ import { Grid, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
 
+import Button from './components/common/Button';
 import Spots from './Spots';
 import SearchBar from './components/common/SearchBar';
 import Assets from '../Assets/Index';
@@ -29,11 +30,17 @@ const Home = () => {
         }
     }, []);
 
+    const logout = () => {
+        sessionStorage.removeItem('Auth Token');
+        navigate('/login');
+    };
+
     return (
         <div className='body__section' >
             <Typography variant='h1' align='center' >
                 HOME
             </Typography>
+            <Button handleAction={logout} title='Logout' />
             {/* <Grid container direction="row" justifyContent="center" alignItems="center" spacing={5} className={classes.root}>
                 <Grid item sm={6} md={6} lg={6}>
                     <img height="auto" width="100%" src={Assets.map} alt="map-illustration" />

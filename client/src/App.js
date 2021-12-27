@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from "react-router-dom";
 
+import { CircularProgress } from '@mui/material';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,6 +16,7 @@ import Home from './pages/Home';
 function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,6 +29,7 @@ function App() {
   const handleAction = (id) => {
     const authentication = getAuth();
     if (id === 'signIn') {
+      setLoading(true);
       signInWithEmailAndPassword(authentication, email, password)
         .then(response => {
           sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken);
@@ -39,8 +43,10 @@ function App() {
             toast.error(error.message);
           }
         })
+      setLoading(false);
     }
     if (id === 'signUp') {
+      setLoading(true);
       createUserWithEmailAndPassword(authentication, email, password)
         .then(response => {
           sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken);
@@ -52,6 +58,7 @@ function App() {
             toast.error(error.message);
           }
         })
+      setLoading(false);
     }
   };
 
@@ -60,20 +67,24 @@ function App() {
   return (
     <div className="App">
       <>
-        {/* <div style={{ width: '50%', height: '50%' }}> */}
         <ToastContainer />
-        {/* </div> */}
         <Routes>
           <Route path='/login'
             element={
-              <Form title="Login" setEmail={setEmail} setPassword={setPassword}
-                handleAction={() => handleAction('signIn')} />
+              <>
+                {loading ? <CircularProgress size={20} /> : null}
+                <Form title="Login" setEmail={setEmail} setPassword={setPassword}
+                  handleAction={() => handleAction('signIn')} />
+              </>
             }
           />
           <Route path='/register'
             element={
-              <Form title="Register" setEmail={setEmail} setPassword={setPassword}
-                handleAction={() => handleAction('signUp')} />
+              <>
+                {loading ? <CircularProgress size={20} /> : null}
+                <Form title="Register" setEmail={setEmail} setPassword={setPassword}
+                  handleAction={() => handleAction('signUp')} />
+              </>
             }
           />
           <Route path='/home' element={
