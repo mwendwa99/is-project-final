@@ -2,8 +2,8 @@ import React from 'react';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 
 import mapStyles from './mapStyles';
-// import { useMapContext } from './MapContext';
-// import Assets from '../../../Assets';
+import { useMapContext } from './MapContext';
+import Assets from '../../../Assets/Index';
 
 const libraries = ['places'];
 const mapContainerStyle = {
@@ -32,7 +32,7 @@ const Map = ({ search }) => {
         libraries,
     });
 
-    // const { spotsWithCoordinates: null } = useMapContext();
+    const { spotsWithCoordinates } = useMapContext();
 
 
     if (loadError) return 'Error loading maps';
@@ -45,7 +45,7 @@ const Map = ({ search }) => {
             options={options}
             center={center}
         >
-            {/* {
+            {
                 spotsWithCoordinates ? spotsWithCoordinates.map(spot => (
                     <Marker
                         icon={Assets.logoPng}
@@ -55,7 +55,7 @@ const Map = ({ search }) => {
                         }}
                     />
                 )) : null
-            } */}
+            }
         </GoogleMap>
     )
 }

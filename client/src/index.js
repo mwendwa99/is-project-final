@@ -5,6 +5,7 @@ import App from './App';
 import { AuthProvider } from './Context/AuthContext';
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios';
+import { BrowserRouter } from "react-router-dom";
 
 // default axios configs
 axios.defaults.headers.common = {
@@ -12,9 +13,11 @@ axios.defaults.headers.common = {
 }
 
 ReactDOM.render(
-  <AuthProvider>
-    <App />
-  </AuthProvider>,
+  <BrowserRouter>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
