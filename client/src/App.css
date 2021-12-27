@@ -23,8 +23,14 @@ a {
   font-size: large;
 }
 
-body {
-  background-color: var(--greenColor);
+.App {
+  /* center body */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--defaultColor);
 }
 
 li {
