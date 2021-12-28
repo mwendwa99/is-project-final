@@ -26,13 +26,13 @@ const Home = () => {
             navigate('/home');
         }
         if (!authToken) {
-            navigate('/login');
+            navigate('/');
         }
     }, []);
 
     const logout = () => {
         sessionStorage.removeItem('Auth Token');
-        navigate('/login');
+        navigate('/');
     };
 
     return (

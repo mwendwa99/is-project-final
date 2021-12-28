@@ -8,7 +8,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.9",
     "mongoose": "^5.13.2",
-    "nodemon": "^2.0.14"
+    "nodemon": "^2.0.15"
   },
   "name": "server",
   "version": "1.0.0",

@@ -69,7 +69,7 @@ function App() {
       <>
         <ToastContainer />
         <Routes>
-          <Route path='/login'
+          <Route path='/'
             element={
               <>
                 {loading ? <CircularProgress size={20} /> : null}
